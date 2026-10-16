@@ -1,0 +1,2824 @@
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+분석 API 호출: EXCN_IDNTF=8
+전체 분석 시작: EXCN_IDNTF=8
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=8, 20건
+LLM 분석 시작: EXCN_IDNTF=8, 데이터=20건
+LLM 입력 데이터 생성 완료: 19443자
+LLM 호출 시작
+LLM 응답 수신: 1636자
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=8
+분석 실행 오류: 1146 (42S02): Table 'SELTO.ANLS_RSLT' doesn't exist
+121.138.152.97 - - [09/Sep/2026 17:28:15] "POST /api/analysis/run HTTP/1.1" 500 -
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+59.20.180.195 - - [10/Sep/2026 08:15:13] "GET / HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:15:13] "GET /favicon.ico HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:15:17] "GET /docks HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:15:20] "GET /docs HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:21:52] "GET /api/analysis/run HTTP/1.1" 405 -
+59.20.180.195 - - [10/Sep/2026 08:27:31] "GET /openapi.json HTTP/1.1" 404 -
+분석 API 호출: EXCN_IDNTF=79
+전체 분석 시작: EXCN_IDNTF=79
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=79, 1972건
+LLM 분석 시작: EXCN_IDNTF=79, 데이터=1972건
+LLM 입력 데이터 생성 완료: 3122459자
+LLM 호출 시작
+LLM 응답 수신: 1295자
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+```json
+{
+    "overall_analysis": {
+        "summary": "이번 자료는 인공지능, 기계 학습, 및 관련 기술의 발전에 관한 다양한 연구 결과를 포함하고 있습니다. 특히, 다중 에이전트 시스템, 강화 학습, 자연어 처리 등의 분야에서 주목할 만한 성과들이 보고되었습니다.",
+        "trend": "다양한 연구에서 인공지능 모델의 성능 향상과 새로운 응용 분야에 대한 탐색이 진행 중이며, 특히 대규모 언어 모델과 전문가 시스템의 발전이 두드러집니다."
+    },
+    "key_topics": [
+        {
+            "topic": "인공지능 및 기계 학습",
+            "description": "다양한 인공지능 모델과 알고리즘의 발전이 보고되었으며, 특히 자연어 처리 및 컴퓨터 비전 분야에서의 성과가 두드러집니다."
+        },
+        {
+            "topic": "다중 에이전트 시스템",
+            "description": "다중 에이전트 시스템의 연구가 활발히 진행 중이며, 특히 강화 학습 및 최적화 기법에 대한 연구 결과가 포함되어 있습니다."
+        },
+        {
+            "topic": "자연어 처리",
+            "description": "자연어 처리 기술의 발전이 보고되었으며, 특히 언어 모델의 성능 향상과 새로운 응용 분야에 대한 탐색이 진행 중입니다."
+        }
+    ]
+}
+```
+
+```json
+{
+    "overall_analysis": {
+        "summary": "자료는 인공지능 기술의 발전과 관련된 다양한 연구 결과를 담고 있으며, 특히 다중 에이전트 시스템과 자연어 처리 분야에서의 성과를 강조합니다.",
+        "trend": "인공지능 및 기계 학습 기술의 지속적인 발전과 함께 새로운 응용 분야에 대한 탐색이 진행 중입니다."
+    },
+    "key_topics": [
+        {
+            "topic": "다중 에이전트 시스템",
+            "description": "다중 에이전트 시스템에서의 강화 학습 및 최적화 기법에 대한 연구가 활발히 진행 중입니다."
+        },
+        {
+            "topic": "자연어 처리",
+            "description": "자연어 처리 분야에서의 언어 모델 성능 향상과 새로운 응용 분야 탐색이 보고되었습니다."
+        }
+    ]
+}
+```
+============================
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=79
+분석 결과 저장 완료: EXCN_IDNTF=79
+59.20.180.195 - - [10/Sep/2026 08:27:53] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 08:28:01] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 08:28:03] "POST /api/analysis/results HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:03] "POST /api/analysis/get HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:03] "POST /api/analysis/view HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:03] "POST /api/analysis/detail HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:03] "GET /api/analysis/result/79 HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:11] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 08:28:55] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [10/Sep/2026 08:28:55] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [10/Sep/2026 08:28:55] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:55] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:28:55] "POST /api/analysis/run HTTP/1.1" 400 -
+분석 API 호출: EXCN_IDNTF=999999
+전체 분석 시작: EXCN_IDNTF=999999
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=999999, 0건
+LLM 분석 대상 데이터 없음: EXCN_IDNTF=999999
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=999999
+분석 실행 오류: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`SELTO`.`ANLS_RSLT`, CONSTRAINT `FK_ANLS_RSLT_EXCN_IDNTF` FOREIGN KEY (`EXCN_IDNTF`) REFERENCES `CLCT_EXCN` (`EXCN_IDNTF`))
+59.20.180.195 - - [10/Sep/2026 08:28:56] "POST /api/analysis/run HTTP/1.1" 500 -
+59.20.180.195 - - [10/Sep/2026 08:31:43] "GET /api HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:31:43] "GET /favicon.ico HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:31:45] "GET / HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:31:56] "GET /docs HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 08:37:43] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:09:14] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:32:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:33:16] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:33:22] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:33:32] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:38:51] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:38:55] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:39:04] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:39:13] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:41:41] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:44:03] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:45:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:47:52] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: EXCN_IDNTF=68
+전체 분석 시작: EXCN_IDNTF=68
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=68, 9341건
+LLM 분석 시작: EXCN_IDNTF=68, 데이터=9341건
+LLM 입력 데이터 생성 완료: 20424743자
+LLM 호출 시작
+LLM 응답 수신: 826자
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=68
+분석 결과 저장 완료: EXCN_IDNTF=68
+59.20.180.195 - - [10/Sep/2026 09:49:17] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:49:18] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:49:21] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:49:23] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:49:23] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:49:31] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:49:48] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:50:03] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:51:39] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:54:06] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:54:16] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:54:19] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:54:21] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: EXCN_IDNTF=84
+전체 분석 시작: EXCN_IDNTF=84
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=84, 0건
+LLM 분석 대상 데이터 없음: EXCN_IDNTF=84
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=84
+분석 결과 저장 완료: EXCN_IDNTF=84
+59.20.180.195 - - [10/Sep/2026 09:54:22] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:54:22] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: EXCN_IDNTF=8
+전체 분석 시작: EXCN_IDNTF=8
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=8, 622건
+LLM 분석 시작: EXCN_IDNTF=8, 데이터=622건
+LLM 입력 데이터 생성 완료: 704690자
+LLM 호출 시작
+LLM 응답 수신: 1057자
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+ိ적용 가능성을 보여주었다. 
+
+```json
+{
+    "overall_analysis": {
+        "summary": "기계공학 및 척추 관련 연구 동향과 주요 발견 사항 요약"
+    },
+    "key_topics": [
+        {
+            "topic": "척추 및 기계 구조 안정성",
+            "description": "다양한 기계 및 척추 구조의 안정성에 대한 연구가 수행되었으며, 이를 통해 구조적 취약성과 개선 방안을 도출하였다."
+        },
+        {
+            "topic": "산업 및 기계 학습 응용",
+            "description": "기계 학습 및 인공지능 기술을 산업 현장에 적용하여 생산성 및 안전성을 향상시키는 연구가 진행되었다."
+        },
+        {
+            "topic": "에너지 및 환경 영향",
+            "description": "다양한 기계 및 구조물이 환경에 미치는 영향을 분석하고, 이를 최소화하기 위한 방안을 모색하였다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "기계 구조의 안정성 및 내구성 향상",
+            "description": "연구를 통해 기계 구조의 설계 및 재료 개선을 통해 안정성과 내구성을 높일 수 있는 방안을 제시하였다."
+        },
+        {
+            "title": "스마트 기술의 산업 적용",
+            "description": "스마트 기술 및 기계 학습을 산업 현장에 적용함으로써 효율성과 생산성을 극대화할 수 있는 방법을 제안하였다."
+        },
+        {
+            "title": "환경 영향 평가 및 저감 방안",
+            "description": "기계 및 구조물이 환경에 미치는 영향을 평가하고, 이를 줄이기 위한 다양한 전략을 제시하였다."
+        }
+    ]
+}
+```
+============================
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=8
+분석 결과 저장 완료: EXCN_IDNTF=8
+121.138.152.97 - - [10/Sep/2026 09:55:01] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:55:01] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:55:01] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:55:05] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:55:22] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 09:55:33] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:55:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 09:55:55] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:02:36] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: EXCN_IDNTF=82
+전체 분석 시작: EXCN_IDNTF=82
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=82, 8532건
+LLM 분석 시작: EXCN_IDNTF=82, 데이터=8532건
+LLM 입력 데이터 생성 완료: 19294400자
+LLM 호출 시작
+LLM 응답 수신: 683자
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=82
+분석 결과 저장 완료: EXCN_IDNTF=82
+59.20.180.195 - - [10/Sep/2026 10:03:26] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:03:27] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:07:35] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:07:40] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:07:48] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:12:16] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:16:49] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:16:57] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 10:17:02] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 10:17:09] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 10:17:13] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 10:17:17] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 10:17:21] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 10:38:02] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:38:10] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:38:28] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 10:57:55] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 11:23:52] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 11:48:26] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 13:57:34] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 13:58:31] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:00:49] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:01:24] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:04:59] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: EXCN_IDNTF=79
+전체 분석 시작: EXCN_IDNTF=79
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=79, 1972건
+LLM 분석 시작: EXCN_IDNTF=79, 데이터=1972건
+LLM 입력 데이터 생성 완료: 3122459자
+LLM 호출 시작
+LLM 응답 수신: 808자
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=79
+분석 결과 저장 완료: EXCN_IDNTF=79
+121.138.152.97 - - [10/Sep/2026 14:06:08] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:07:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:09:46] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:11:59] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 14:12:09] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:12:26] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:13:20] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:13:29] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:14:30] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: EXCN_IDNTF=80
+전체 분석 시작: EXCN_IDNTF=80
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: EXCN_IDNTF=80, 1413건
+LLM 분석 시작: EXCN_IDNTF=80, 데이터=1413건
+LLM 입력 데이터 생성 완료: 1536611자
+LLM 호출 시작
+LLM 응답 수신: 406자
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: EXCN_IDNTF=80
+분석 결과 저장 완료: EXCN_IDNTF=80
+121.138.152.97 - - [10/Sep/2026 14:15:26] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:16:41] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:17:03] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:18:01] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:18:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:20:16] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:21:02] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:23:13] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:23:24] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:23:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:24:00] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:24:07] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:25:30] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:25:48] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:25:57] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:33:24] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:36:03] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:48:32] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:51:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 14:57:08] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:01:58] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:27:31] "GET /api/requests HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 15:27:33] "GET /api/requests HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 15:27:35] "GET /api/requests HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 15:27:38] "GET /api/requests HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 15:27:43] "GET /api/requests HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 15:43:13] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 15:43:49] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:46:40] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:54:11] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:54:16] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:55:08] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:55:36] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:55:41] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:55:44] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 15:58:30] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:00:13] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:10:49] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:12:11] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:12:15] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:12:23] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:13:23] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:16:43] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:16:50] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:16:58] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:17:08] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:17:14] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:17:28] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:22:37] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:22:55] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:23:11] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:23:14] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:23:17] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:23:24] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:23:41] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:29:19] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:29:25] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:47:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:49:11] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:49:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:52:37] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:52:40] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:55:11] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:55:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:55:21] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 16:55:24] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 16:56:06] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 17:00:38] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 17:00:44] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [10/Sep/2026 17:00:53] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 17:03:20] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [10/Sep/2026 17:16:39] "POST /api/analysis/result HTTP/1.1" 404 -
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+Address already in use
+Port 5410 is in use by another program. Either identify and stop that program, or start the server with a different port.
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+59.20.180.195 - - [11/Sep/2026 08:39:31] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:42:26] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:42:44] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:42:45] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:44:12] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:44:43] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:45:33] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:45:36] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:45:38] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:46:33] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:46:52] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:47:02] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:49:13] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:49:28] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:49:34] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:49:38] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:49:38] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:49:43] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:50:16] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:50:16] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:50:59] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:51:02] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:51:10] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:51:15] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:51:36] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:51:40] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:52:03] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:52:55] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:53:01] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:53:04] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:53:06] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:53:13] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:53:26] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:55:22] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:55:24] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:55:28] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:55:34] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:55:38] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:56:03] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:56:47] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:57:08] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:57:12] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:57:17] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:57:18] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 08:58:56] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:01:31] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:01:32] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:01:55] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:02:13] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:04:41] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:04:46] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:05:39] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:05:41] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:06:00] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:16:51] "POST /api/analysis/run HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:16:55] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:19:05] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 10:19:33] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:19:33] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [11/Sep/2026 10:19:34] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 10:19:46] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 10:22:23] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=33
+전체 분석 시작: REQ_IDNTF=33
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=33, 250건
+LLM 분석 시작: REQ_IDNTF=33, 데이터=250건
+LLM 입력 데이터 생성 완료: 316777자
+LLM 호출 시작
+LLM 응답 수신: 1260자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "이 논문들은 경제, 금융, 기술 등 다양한 분야에서 데이터 분석 및 기계 학습의 활용에 대해 다루고 있다. 특히, 자연어 처리 기술의 발전과 이를 활용한 다양한 응용 사례들이 주목받고 있다. 또한, 데이터 기반의 의사결정 및 예측 모델의 중요성이 강조되고 있다.",
+        "trend": "최근 데이터 기반의 연구 및 응용 사례들이 증가하고 있으며, 특히 금융 및 경제 분야에서의 활용도가 높아지고 있다. 기계 학습 및 자연어 처리 기술의 발전이 이러한 추세를 뒷받침하고 있다."
+    },
+    "key_topics": [
+        {
+            "topic": "자연어 처리 기술의 발전",
+            "description": "자연어 처리 기술은 텍스트 데이터의 분석 및 이해를 돕는 기술로, 다양한 응용 분야에서 활용되고 있다. 특히, 금융 및 경제 분야에서의 활용도가 높아지고 있다."
+        },
+        {
+            "topic": "기계 학습의 응용",
+            "description": "기계 학습 기술은 데이터 분석 및 예측 모델링에 활용되어 다양한 분야에서 그 중요성이 강조되고 있다. 특히, 금융 및 경제 분야에서의 응용 사례들이 늘어나고 있다."
+        },
+        {
+            "topic": "데이터 기반의 의사결정",
+            "description": "데이터 기반의 의사결정은 다양한 분야에서 그 중요성이 강조되고 있다. 특히, 금융 및 경제 분야에서의 데이터 기반 의사결정의 중요성이 높아지고 있다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "데이터 분석 기술의 발전",
+            "description": "데이터 분석 기술의 발전은 다양한 분야에서 그 중요성이 강조되고 있다. 특히, 금융 및 경제 분야에서의 데이터 분석 기술의 활용도가 높아지고 있다."
+        },
+        {
+            "title": "기계 학습의 중요성",
+            "description": "기계 학습 기술은 데이터 분석 및 예측 모델링에 활용되어 다양한 분야에서 그 중요성이 강조되고 있다. 특히, 금융 및 경제 분야에서의 기계 학습의 중요성이 높아지고 있다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=33
+[UPDATE 시작] REQ_IDNTF=33
+[UPDATE 결과] rowcount=1
+분석 결과 저장 완료: REQ_IDNTF=33
+223.49.253.26 - - [11/Sep/2026 10:51:44] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:09:27] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 11:09:29] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 11:09:31] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 11:12:38] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:21:01] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 11:21:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:22:58] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:26:32] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:28:10] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:28:35] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:29:05] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:30:36] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 11:30:47] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:37:11] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:40:11] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:41:34] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:46:32] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:48:28] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 11:48:50] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 12:23:54] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 12:24:48] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 12:24:53] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 12:24:58] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 12:25:02] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 12:25:06] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 12:25:10] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 12:25:14] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 13:02:19] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 13:53:27] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 14:05:26] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 14:59:10] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 15:58:31] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 15:58:35] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: REQ_IDNTF=23
+전체 분석 시작: REQ_IDNTF=23
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=23, 59920건
+LLM 분석 시작: REQ_IDNTF=23, 데이터=59920건
+LLM 입력 데이터 생성 완료: 120155382자
+LLM 호출 시작
+LLM 응답 수신: 976자
+===== 이번 LLM 응답 =====
+```json
+{
+  "overall_analysis": {
+    "summary": "이번 분석에서는 다양한 연구 분야에서의 최신 동향과 인공지능 및 기계 학습 기술의 적용 사례를 살펴보았다. 특히 의료 분야에서의 인공지능 기술 활용과 그에 따른 성과 및 한계점에 대해 논의하였다. 또한, 음성 인식 및 자연어 처리 기술의 발전과 그 응용 가능성에 대해 검토하였다.",
+    "trend": "최근의 연구들은 인공지능과 기계 학습 기술을 다양한 분야에 적용하여 새로운 가능성을 모색하고 있다. 의료 분야에서는 진단 정확도를 높이고 치료 방법을 개선하기 위해 인공지능을 활용하고 있으며, 음성 인식 기술은 보다 정교해지고 있다. 이러한 기술적 발전은 앞으로도 계속해서 다양한 산업에 영향을 미칠 것으로 예상된다."
+  },
+  "key_topics": [
+    {
+      "topic": "인공지능과 의료",
+      "description": "인공지능 기술은 의료 진단의 정확성을 높이고 치료 방법을 개선하는 데 중요한 역할을 하고 있다. 특히, 이미지 인식 및 자연어 처리 기술의 발전으로 의료 영상 진단 및 환자 데이터 분석이 더욱 정교해지고 있다."
+    },
+    {
+      "topic": "음성 인식 기술의 발전",
+      "description": "음성 인식 기술은 최근 몇 년간 급격히 발전하여 다양한 응용 분야에서 활용되고 있다. 특히, 의료 분야에서는 음성 인식 기술을 활용하여 환자의 음성 데이터를 분석하고 진단하는 데 사용되고 있다."
+    },
+    {
+      "topic": "기계 학습의 응용",
+      "description": "기계 학습 기술은 다양한 산업 분야에서 활용되고 있으며, 특히 의료 분야에서는 진단 및 치료 방법의 개선에 큰 역할을 하고 있다. 앞으로도 기계 학습 기술의 발전은 계속해서 다양한 산업에 영향을 미칠 것으로 예상된다."
+    }
+  ]
+}
+```
+=========================
+LLM 응답 필수 key 누락: implications
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+```json
+{
+  "overall_analysis": {
+    "summary": "이번 분석에서는 다양한 연구 분야에서의 최신 동향과 인공지능 및 기계 학습 기술의 적용 사례를 살펴보았다. 특히 의료 분야에서의 인공지능 기술 활용과 그에 따른 성과 및 한계점에 대해 논의하였다. 또한, 음성 인식 및 자연어 처리 기술의 발전과 그 응용 가능성에 대해 검토하였다.",
+    "trend": "최근의 연구들은 인공지능과 기계 학습 기술을 다양한 분야에 적용하여 새로운 가능성을 모색하고 있다. 의료 분야에서는 진단 정확도를 높이고 치료 방법을 개선하기 위해 인공지능을 활용하고 있으며, 음성 인식 기술은 보다 정교해지고 있다. 이러한 기술적 발전은 앞으로도 계속해서 다양한 산업에 영향을 미칠 것으로 예상된다."
+  },
+  "key_topics": [
+    {
+      "topic": "인공지능과 의료",
+      "description": "인공지능 기술은 의료 진단의 정확성을 높이고 치료 방법을 개선하는 데 중요한 역할을 하고 있다. 특히, 이미지 인식 및 자연어 처리 기술의 발전으로 의료 영상 진단 및 환자 데이터 분석이 더욱 정교해지고 있다."
+    },
+    {
+      "topic": "음성 인식 기술의 발전",
+      "description": "음성 인식 기술은 최근 몇 년간 급격히 발전하여 다양한 응용 분야에서 활용되고 있다. 특히, 의료 분야에서는 음성 인식 기술을 활용하여 환자의 음성 데이터를 분석하고 진단하는 데 사용되고 있다."
+    },
+    {
+      "topic": "기계 학습의 응용",
+      "description": "기계 학습 기술은 다양한 산업 분야에서 활용되고 있으며, 특히 의료 분야에서는 진단 및 치료 방법의 개선에 큰 역할을 하고 있다. 앞으로도 기계 학습 기술의 발전은 계속해서 다양한 산업에 영향을 미칠 것으로 예상된다."
+    }
+  ]
+}
+```
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=23
+분석 결과 저장 완료: REQ_IDNTF=23
+59.20.180.195 - - [11/Sep/2026 16:02:28] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:02:28] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:07:01] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:07:32] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:08:07] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:11:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:12:30] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:12:34] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:13:08] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:13:31] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:13:47] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:15:43] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:19:13] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:19:21] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:19:38] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:20:01] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:20:06] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:20:10] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:20:29] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:22:46] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:23:03] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [11/Sep/2026 16:23:09] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:24:36] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:25:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:25:31] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:25:52] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:33:33] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:33:46] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [11/Sep/2026 16:44:37] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [12/Sep/2026 11:13:32] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [12/Sep/2026 11:13:42] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 08:15:59] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 08:21:12] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 10:30:54] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 10:51:45] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 10:51:54] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 10:54:07] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 11:38:49] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 13:04:06] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 13:19:14] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 13:20:05] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 13:21:37] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 15:56:12] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 15:58:11] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 15:58:14] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 15:58:20] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 15:58:46] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 16:08:15] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 16:08:37] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 16:08:38] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 16:09:05] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [14/Sep/2026 16:09:15] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 16:09:15] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 16:09:16] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 16:16:56] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [14/Sep/2026 16:48:36] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 08:28:21] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 08:28:25] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [15/Sep/2026 08:50:57] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 09:08:28] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [15/Sep/2026 09:34:27] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 09:41:31] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 11:31:14] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [15/Sep/2026 11:31:39] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 11:32:04] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 11:32:19] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 11:49:40] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:04:28] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:04:48] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:05:19] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [15/Sep/2026 13:05:25] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:07:08] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:10:11] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:19:39] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 13:37:58] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 14:47:16] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [15/Sep/2026 16:16:18] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 08:59:22] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 09:16:47] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 09:46:30] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:15:13] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:15:25] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [16/Sep/2026 10:15:30] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [16/Sep/2026 10:15:33] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: REQ_IDNTF=7
+전체 분석 시작: REQ_IDNTF=7
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, 73064건
+LLM 분석 시작: REQ_IDNTF=7, 데이터=73064건
+LLM 입력 데이터 생성 완료: 156149540자
+LLM 호출 시작
+LLM 응답 수신: 1255자
+===== 이번 LLM 응답 =====
+```json
+{
+  "overall_analysis": {
+    "summary": "이번 분석에서는 다양한 연구 분야에서의 최신 동향과 인공지능 및 기계 학습 기술의 적용 사례를 살펴보았습니다. 특히 의료 분야에서의 인공지능 기술 활용과 그에 따른 성과 및 한점, 그리고 미래의 연구 방향에 대해 논의하였습니다. 또한, 음성 인식 및 자연어 처리 기술의 발전과 그 응용 사례를 살펴보았습니다.",
+    "trend": "최근의 연구들은 인공지능과 기계 학습 기술이 다양한 분야에서 어떻게 활용되고 있는지를 보여주고 있습니다. 특히 의료 분야에서는 진단 정확도를 높이고 치료 방법을 개선하는 데 있어 이러한 기술의 중요성이 강조되고 있습니다. 음성 인식 및 자연어 처리 기술 또한 다양한 응용 분야에서 그 효용성을 입증하고 있습니다."
+  },
+  "key_topics": [
+    {
+      "topic": "인공지능과 기계 학습의 의료 분야 적용",
+      "description": "의료 진단, 치료 방법 개선, 환자 데이터 분석 등에 인공지능과 기계 학습 기술이 어떻게 활용되고 있는지를 살펴보았습니다. 특히, 진단의 정확성을 높이고 치료의 효과를 극대화하는 데 있어 이러한 기술의 역할이 중요합니다."
+    },
+    {
+      "topic": "음성 인식 및 자연어 처리 기술의 발전",
+      "description": "음성 인식 및 자연어 처리 기술은 다양한 응용 분야에서 활용되고 있습니다. 특히, 사용자 인터페이스 개선, 정보 검색 및 추출, 그리고 데이터 분석 등에 이러한 기술이 어떻게 기여하고 있는지를 살펴보았습니다."
+    },
+    {
+      "topic": "다학제간 접근의 중요성",
+      "description": "다양한 학문 분야 간의 협력을 통해 더 나은 결과를 도출할 수 있다는 점이 강조되었습니다. 특히, 의료, 공학, 및 컴퓨터 과학 등의 분야가 어떻게 협력하여 새로운 기술과 지식을 창출해내는지에 대해 논의하였습니다."
+    }
+  ],
+  "implications": [
+    {
+      "topic": "미래 연구 방향",
+      "description": "향후 연구에서는 인공지능과 기계 학습 기술의 발전에 따라 더욱 정교하고 정확한 진단 및 치료 방법이 개발될 것으로 예상됩니다. 또한, 음성 인식 및 자연어 처리 기술의 발전으로 사용자 경험이 개선되고 다양한 응용 분야에서 새로운 기회가 창출될 것입니다."
+    }
+  ]
+}
+```
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7
+분석 결과 저장 완료: REQ_IDNTF=7
+59.20.180.195 - - [16/Sep/2026 10:20:45] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:20:45] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [16/Sep/2026 10:20:46] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:20:47] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:20:49] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:20:59] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:21:12] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [16/Sep/2026 10:21:17] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 10:37:06] "POST /api/analysis/result HTTP/1.1" 404 -
+59.20.180.195 - - [16/Sep/2026 11:06:03] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:07:05] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:07:47] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:09:16] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:09:48] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:10:03] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:32:39] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 11:49:40] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 14:26:55] "POST /api/analysis/result HTTP/1.1" 200 -
+59.20.180.195 - - [16/Sep/2026 15:31:06] "POST /api/analysis/result HTTP/1.1" 404 -
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+59.20.180.195 - - [17/Sep/2026 07:46:50] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 07:46:55] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 07:47:00] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 07:47:03] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 07:47:06] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 07:47:20] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 07:47:46] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 08:55:36] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 08:55:41] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 08:55:43] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 09:11:17] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 09:11:24] "POST /api/analysis/result HTTP/1.1" 400 -
+59.20.180.195 - - [17/Sep/2026 09:23:56] "POST /api/analysis/result HTTP/1.1" 400 -
+분석 결과 조회 API 호출: REQ_IDNTF=11, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=11, EXCN_SNO=1, EXCN_IDNTFS=[100]
+59.20.180.195 - - [17/Sep/2026 09:32:27] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [17/Sep/2026 09:34:22] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+전체 분석 시작: REQ_IDNTF=15, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=15, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139], 8469건
+LLM 분석 시작: REQ_IDNTF=15, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139], 데이터=8469건
+LLM 입력 데이터 생성 완료: 13376691자
+LLM 호출 시작
+LLM 응답 수신: 2440자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "수집된 논문들은 농업, 의료, 공중보건 등 다양한 분야에서 데이터 기반 분석과 인공지능 기술을 활용해 환경·건강 요인을 정밀하게 파악하고자 한다. 특히 스마트팜 데이터와 동적 시간 워핑, 구조 방정식 모델링, 역전파 가중치 등 고급 통계 기법이 두드러진다. 농가 맞춤형 환경 관리와 마취 시 혈압 변동이 신장 손상에 미치는 영향, 그리고 전 세계 뇌출혈의 부담 예측 등 실질적 의사결정에 기여할 수 있는 연구가 많다. 또한, 마커리스 자세 추정 기술이 재활 분야에서 활용되는 사례가 늘어나고 있다. AI 기반 위험 예측과 데이터 시각화가 의료·농업 현장에 적용되는 흐름이 뚜렷하다. 전반적으로 데이터와 AI를 결합해 복잡한 인과관계를 밝히려는 시도가 두드러진다. 이러한 연구들은 현장 적용 가능성을 높이면서도 정책적 시사점을 제공한다.",
+        "trend": "최근 연구는 대규모 데이터와 고급 분석 기법을 활용해 환경·건강 요인의 상호작용을 정밀하게 모델링하고 있다. 스마트팜과 의료 데이터의 통합 분석이 확대되면서 농가와 환자 맞춤형 관리가 가능해지고 있다. AI와 머신러닝이 재활, 위험 예측, 질병 부담 예측 등 다양한 분야에 적용되고 있다. 또한, 구조 방정식 모델링과 역전파 가중치를 통해 인과관계와 중재 경로를 명확히 하려는 경향이 두드러진다. 이러한 흐름은 데이터 기반 의사결정과 정책 설계의 중요성을 강조한다."
+    },
+    "key_topics": [
+        {
+            "topic": "스마트팜 데이터 기반 환경 관리",
+            "description": "광주형 가지 재배 데이터를 활용해 생육·환경 요인과 수확량 간의 상관관계를 분석하고, 우수농가의 관리 패턴을 벤치마킹해 월별 최적 환경 범위를 제안한다. 동적 시간 워핑 기법을 통해 시간적 변동성을 반영한 정밀 관리가 가능해진다."
+        },
+        {
+            "topic": "구조 방정식 모델링을 이용한 중재 분석",
+            "description": "비심장 수술 환자의 전신 마취 전 comorbidity와 수술 중 저혈압이 신장 손상에 미치는 영향을 구조 방정식 모델링으로 분석한다. IOH와 저알부민이 주요 매개 경로로 밝혀져 위험 요인 관리의 중요성을 시사한다."
+        },
+        {
+            "topic": "마커리스 자세 추정 기술의 재활 적용",
+            "description": "뇌졸중 상지 재활에서 2D RGB와 Kinect를 활용한 마커리스 자세 추정이 관절 가동 범위, 속도, 보상 움직임 탐지 등에 활용된다. 실제 ADL 수행과 가정 내 사용을 위한 연구가 필요하다는 결론이 도출된다."
+        },
+        {
+            "topic": "AI 기반 건강 위험 예측 및 시각화",
+            "description": "전 세계 뇌출혈 부담을 예측하고, 고혈압·흡연 같은 주요 위험 요인을 개선하면 2050년까지 DALY가 크게 감소할 수 있음을 시사한다. AI와 데이터 시각화가 공중보건 정책 설계에 활용될 수 있다."
+        },
+        {
+            "topic": "마이크로플라스틱과 환경 요인 분석",
+            "description": "지속가능한 농업을 위해 배액 EC, pH, CO2, 내부온도 등 환경 변수가 수확량에 미치는 영향을 다중 회귀와 DTW로 분석한다. 우수농가의 안정적 환경 관리 패턴이 최적화 방안에 반영된다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "데이터 기반 정밀 관리의 확대",
+            "description": "스마트팜과 의료 데이터의 통합 분석은 농가와 환자 맞춤형 관리가 가능하도록 하며, 실제 현장 적용 시 효율성을 높인다. 이는 비용 절감과 생산성 향상으로 이어질 수 있다."
+        },
+        {
+            "title": "인과관계 명확화와 정책 설계",
+            "description": "구조 방정식 모델링과 역전파 가중치를 통해 위험 요인의 직접·간접 효과를 구분함으로써 보다 타깃팅된 보건 정책을 설계할 수 있다. 이는 예방적 개입의 효과를 극대화한다."
+        },
+        {
+            "title": "AI·머신러닝의 재활 및 질병 예측 활용",
+            "description": "마커리스 자세 추정과 AI 기반 위험 예측이 재활 효과를 정량화하고, 장기적인 질병 부담을 감소시키는 데 기여할 수 있다. 이는 환자 중심의 치료와 공중보건 전략에 새로운 방향을 제시한다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=15, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+[INSERT 시작] REQ_IDNTF=15, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+분석결과 생성: ANLS_RSLT_IDNTF=6
+분석결과 EXCN 연결 저장: 6건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=6, REQ_IDNTF=15, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [17/Sep/2026 09:34:48] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=7, EXCN_SNO=8
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=8, EXCN_IDNTFS=[110, 111, 112]
+59.20.180.195 - - [17/Sep/2026 09:34:50] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [17/Sep/2026 09:34:54] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=7, EXCN_SNO=8
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=8, EXCN_IDNTFS=[110, 111, 112]
+59.20.180.195 - - [17/Sep/2026 09:35:54] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [17/Sep/2026 09:36:30] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [17/Sep/2026 09:39:20] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=31, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=31, EXCN_SNO=4, EXCN_IDNTFS=[160, 161]
+59.20.180.195 - - [17/Sep/2026 09:58:47] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: REQ_IDNTF=31, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=31, EXCN_SNO=4, EXCN_IDNTFS=[160, 161]
+전체 분석 시작: REQ_IDNTF=31, EXCN_IDNTFS=[160, 161]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=31, EXCN_IDNTFS=[160, 161], 1001건
+LLM 분석 시작: REQ_IDNTF=31, EXCN_IDNTFS=[160, 161], 데이터=1001건
+LLM 입력 데이터 생성 완료: 1064108자
+LLM 호출 시작
+LLM 응답 수신: 0자
+===== 이번 LLM 응답 =====
+
+=========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=31, EXCN_IDNTFS=[160, 161]
+[INSERT 시작] REQ_IDNTF=31, EXCN_IDNTFS=[160, 161]
+분석결과 생성: ANLS_RSLT_IDNTF=7
+분석결과 EXCN 연결 저장: 2건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=7, REQ_IDNTF=31, EXCN_IDNTFS=[160, 161]
+59.20.180.195 - - [17/Sep/2026 10:02:43] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=31, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=31, EXCN_SNO=4, EXCN_IDNTFS=[160, 161]
+59.20.180.195 - - [17/Sep/2026 10:02:45] "POST /api/analysis/result HTTP/1.1" 200 -
+121.138.152.97 - - [17/Sep/2026 13:22:57] "POST /api/analysis/run HTTP/1.1" 400 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=8
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=8, EXCN_IDNTFS=[110, 111, 112]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112], 14964건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112], 데이터=14964건
+LLM 입력 데이터 생성 완료: 33806269자
+LLM 호출 시작
+LLM 응답 수신: 1603자
+===== 이번 LLM 응답 =====
+{"overall_analysis":{"summary":"최근 수집된 연구들은 의료 분야에서 인공지능과 대규모 언어 모델을 활용한 다양한 시도를 보여준다. 특히 ChatGPT와 같은 LLM을 학회 초록 평가에 적용해 보았으나 인간 평가자와의 상관관계가 낮아 아직 실용화에 한계가 있다. 반면, AI 기반의 구조적 모델링과 머신러닝을 이용해 신약 후보 물질의 구조-활성 관계를 분석하거나, 자가진단 데이터에서 개별 증상 프로필을 추출해 치료를 개인화하는 연구가 진행되고 있다. 또한, 다중 특징을 활용한 기계학습 분류가 MEG 데이터와 같은 신경과학 분야에서도 시도되고 있으나, 데이터 규모가 제한적이라 성능 향상에 어려움이 있다. 이러한 연구들은 AI가 의료 연구와 임상에 기여할 수 있는 가능성을 시사하지만, 데이터 품질과 해석 가능성, 인간 전문가와의 협업이 중요함을 강조한다.","trend":"AI와 LLM이 의료 연구와 임상에 적용되는 사례가 늘어나고 있다. 초록 평가와 같은 행정 업무부터 신약 구조 최적화, 개인 맞춤 치료 모니터링, 신경과학 데이터 분석까지 다양한 영역에서 활용되고 있다. 그러나 데이터 규모, 편향, 해석 가능성 등 실용화에 필요한 과제들이 남아 있다."},"key_topics":[{"topic":"대규모 언어 모델을 활용한 초록 평가","description":"ChatGPT-3.5-turbo를 학회 초록 평가에 적용했으나 인간 평가자와의 상관관계가 낮아 실용화에 한계가 있다."},{"topic":"AI 기반 구조-활성 관계 분석","description":"딥러닝과 SHAP 해석을 결합해 트리파노마이오스마 크루지에 대한 신약 후보 물질의 구조-활성 관계를 파악하였다."},{"topic":"자기지도형 오토인코더를 이용한 섭식장애 치료 개인화","description":"EMA 데이터를 오토인코더로 차원 축소하고 클러스터링해 개별 증상 프로필을 도출, 치료 반응을 Mahalanobis 거리로 측정하였다."},{"topic":"다중 특징 기계학습을 활용한 MEG 데이터 분류","description":"ERF에서 추출한 다수의 파라미터를 입력으로 사용해 기계학습 모델을 적용했으나, 데이터 규모가 제한적이라 성능이 제한적이었다."}],"implications":[{"title":"AI 도구의 평가 기준과 인간 전문가의 역할","description":"LLM이 초록 평가에서 인간과 유사한 성능을 내지 못해, AI는 보조 도구로서의 역할이 필요하며 인간 전문가와의 협업이 중요하다."},{"title":"신약 개발에서 AI의 구조-활성 예측","description":"머신러닝과 SHAP 해석을 통해 핵심 분자 조각을 식별함으로써 신약 후보 물질 설계가 가속화될 수 있다."},{"title":"개인 맞춤형 치료 모니터링의 가능성","description":"EMA 데이터를 AI로 분석해 개별 증상 변화를 실시간으로 파악함으로써 치료를 동적으로 조정할 수 있다."},{"title":"데이터 규모가 제한된 신경과학 연구에서 ML 활용의 한계","description":"MEG와 같은 소규모 데이터셋에서는 기계학습 성능이 제한적이며, 부트스트래핑 같은 데이터 증강 기법이 오히려 부정확성을 초래할 수 있다."}]}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+[UPDATE 시작] ANLS_RSLT_IDNTF=5, REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+[UPDATE 결과] rowcount=1
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=5, REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+121.138.152.97 - - [17/Sep/2026 13:25:26] "POST /api/analysis/run HTTP/1.1" 200 -
+121.138.152.97 - - [17/Sep/2026 13:26:28] "POST /api/analysis/run HTTP/1.1" 400 -
+223.121.15.176 - - [17/Sep/2026 13:36:42] "GET /openapi.json HTTP/1.1" 404 -
+223.121.15.176 - - [17/Sep/2026 13:36:53] "OPTIONS /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=33, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=33, EXCN_SNO=2, EXCN_IDNTFS=[140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152]
+59.20.180.195 - - [17/Sep/2026 14:58:31] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [17/Sep/2026 14:58:39] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=33, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=33, EXCN_SNO=2, EXCN_IDNTFS=[140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152]
+59.20.180.195 - - [17/Sep/2026 18:16:10] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=7, EXCN_SNO=8
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=8, EXCN_IDNTFS=[110, 111, 112]
+59.20.180.195 - - [17/Sep/2026 18:16:31] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=2, EXCN_IDNTFS=[11, 12, 13]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[11, 12, 13]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[11, 12, 13], 13878건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[11, 12, 13], 데이터=13878건
+LLM 입력 데이터 생성 완료: 25851833자
+LLM 호출 시작
+LLM 응답 수신: 8236자
+===== 이번 LLM 응답 =====
+Below is a step‑by‑step guide that shows how to **measure the time delay** between the two lensed images of the quasar, using the data you supplied.  
+I’ll describe the physical idea, the data that enter the calculation, the equations that are used, and the practical steps you would follow with a real data set.
+
+---
+
+## 1.  What is a “time delay” in a lensed quasar?
+
+When a distant quasar is lensed by a foreground galaxy, the light from the quasar follows several different paths around the galaxy.  
+Each path has a different geometric length **and** passes through a different gravitational potential.  
+Consequently, the arrival time of photons from the quasar is different for each image.  
+
+If the quasar varies intrinsically (its brightness changes with time), the same intrinsic flare will appear in each image at different epochs.  
+The difference in those epochs is the **time delay** (Δt) between the images.
+
+---
+
+## 2.  Data that enter the calculation
+
+| Quantity | Symbol | Units | How you get it |
+|----------|--------|-------|----------------|
+| Angular separation between the two images | Δθ | arcsec | From the imaging data (e.g., HST, ground‑based). |
+| Redshift of the lens galaxy | z_l | – | Spectroscopic measurement. |
+| Redshift of the quasar | z_s | – | Spectroscopic measurement. |
+| Flux (or magnitude) of each image as a function of time | F_A(t), F_B(t) | e.g., Jy or mag | Photometric monitoring of the two images. |
+| (Optional) Lens mass model | M(θ) | – | Needed if you want to *predict* the delay, not just measure it. |
+
+In your case:
+
+| Image | Flux (e.g. in arbitrary units) | Separation (arcsec) |
+|-------|--------------------------------|---------------------|
+| A | 1.2 | 1.5 |
+| B | 0.8 | 1.5 |
+| Δθ (between A & B) | – | 1.5 |
+
+Redshifts:  
+- Lens: \(z_l = 0.5\)  
+- Quasar: \(z_s = 2.0\)
+
+---
+
+## 2.  Theoretical background
+
+### 2.1  Fermat potential
+
+The arrival time of a photon that travels along a particular image path is
+
+\[
+t(\boldsymbol{\theta}) = \frac{1+z_l}{c}\,\frac{D_{\Delta t}}{2}\,
+\left[\,|\boldsymbol{\theta}-\boldsymbol{\beta}|^2 - 2\,\psi(\boldsymbol{\theta})\,\right]
+\]
+
+where  
+
+- \(\boldsymbol{\theta}\) = image position on the sky  
+- \(\boldsymbol{\beta}\) = unlensed source position  
+- \(\psi(\boldsymbol{\theta})\) = lensing potential (integrated gravitational potential)  
+- \(D_{\Delta t}\) = “time‑delay distance”  
+
+The **time delay** between two images A and B is simply
+
+\[
+\Delta t_{AB} = t(\boldsymbol{\theta}_A) - t(\boldsymbol{\theta}_B)
+\]
+
+### 2.2  Time‑delay distance
+
+\[
+D_{\Delta t} \equiv (1+z_l)\,\frac{D_l D_s}{D_{ls}}
+\]
+
+where  
+
+- \(D_l\) = angular‑diameter distance to the lens  
+- \(D_s\) = angular‑diameter distance to the source  
+- \(D_{ls}\) = angular‑diameter distance between lens and source  
+
+These distances are computed from the cosmological parameters (e.g., \(H_0, \Omega_m, \Omega_\Lambda\)) and the redshifts \(z_l, z_s\).
+
+---
+
+## 3.  Practical measurement of the delay
+
+In practice, you **do not** compute the delay directly from the above equations because you do not know the lens potential \(\psi\) or the unlensed source position \(\boldsymbol{\beta}\).  
+Instead, you **measure** the delay from the light curves of the two images.  
+The steps below outline the standard procedure.
+
+### 3.1  Obtain light curves
+
+1. **Photometric monitoring**: Observe the system repeatedly over months/years.  
+   For each epoch \(t_i\), measure the flux (or magnitude) of image A and image B:  
+   \[
+   F_A(t_i),\; F_B(t_i)
+   \]
+2. **Calibration**: Use reference stars in the field to correct for atmospheric transparency, airmass, etc.  
+3. **Error estimation**: For each measurement, estimate the photometric uncertainty \(\sigma_{A,i}\) and \(\sigma_{B,i}\).
+
+### 3.2  Align the light curves
+
+Because the quasar’s intrinsic variability is the same in both images (just delayed), the two light curves should be identical after shifting one of them in time and (optionally) in magnitude.
+
+1. **Choose a trial delay** \(\Delta t\).  
+2. **Shift** one light curve by \(\Delta t\):  
+   \[
+   t'_i = t_i + \Delta t
+   \]
+3. **Interpolate** the shifted light curve to the observation times of the other image (e.g., linear or cubic spline interpolation).  
+4. **Compute a goodness‑of‑fit** statistic (e.g., χ², dispersion, or cross‑correlation) between the two curves.
+
+### 3.3  Find the best‑fit delay
+
+Repeat the above for a grid of \(\Delta t\) values (e.g., from –100 days to +100 days in 0.1 day steps).  
+Plot the goodness‑of‑fit versus \(\Delta t\).  
+The minimum (or maximum, depending on the statistic) gives the best‑fit delay \(\Delta t_{\rm best}\).
+
+#### Example using a simple χ²
+
+\[
+\chi^2(\Delta t) = \sum_{i} \frac{\left[ F_A(t_i) - F_B(t_i + \Delta t) \right]^2}
+{\sigma_{A,i}^2 + \sigma_{B,i}^2}
+\]
+
+The \(\Delta t\) that minimizes χ² is the measured delay.  
+You can estimate the uncertainty by finding the \(\Delta t\) values that increase χ² by 1 (for 1σ) or by using Monte‑Carlo simulations (bootstrap or jackknife).
+
+### 3.4  Account for microlensing
+
+Microlensing by stars in the lens galaxy can cause slow, smooth variations in the magnification of each image, which can bias the delay measurement if not accounted for.
+
+- **Model microlensing** as a low‑order polynomial or spline added to each light curve.  
+- **Simultaneously fit** the intrinsic quasar variability and the microlensing terms.  
+- **Iterate** until the residuals are consistent with noise.
+
+---
+
+## 4.  Applying the procedure to your data
+
+Below is a concrete example using the numbers you gave.  
+(For a real analysis you would replace the “fluxes” with actual measured magnitudes and uncertainties.)
+
+| Epoch (days) | Flux A | Flux B |
+|--------------|--------|--------|
+| 0            | 1.20   | 0.80   |
+| 10           | 1.25   | 0.85   |
+| 20           | 1.30   | 0.90   |
+| …            | …      | …      |
+
+1. **Plot** both light curves.  
+2. **Guess** an initial delay (e.g., 0 days).  
+3. **Shift** B by Δt and interpolate.  
+4. **Compute χ²** for a range of Δt (say –30 days to +30 days).  
+5. **Find the minimum** χ².  
+6. **Estimate error** by the Δt that gives χ² = χ²_min + 1.
+
+Because your data are very sparse, the uncertainty will be large.  
+With a realistic monitoring campaign (tens of epochs over a year or more), the delay can be measured to a few percent.
+
+---
+
+## 5.  What does the delay tell you?
+
+Once you have Δt, you can:
+
+1. **Constrain the Hubble constant** \(H_0\) if you have a lens mass model (since \(D_{\Delta t} \propto 1/H_0\)).  
+2. **Test the mass distribution** of the lens galaxy (by comparing the measured Δt with the model prediction).  
+3. **Study the quasar’s intrinsic variability** (e.g., structure function, power spectrum).  
+
+---
+
+### Quick summary of the key equations
+
+| Quantity | Equation |
+|----------|----------|
+| Arrival time | \(t(\theta) = \frac{1+z_l}{c}\,\frac{D_{\Delta t}}{2}\,[\,|\theta-\beta|^2 - 2\psi(\theta)\,]\) |
+| Time‑delay distance | \(D_{\Delta t} = (1+z_l)\frac{D_l D_s}{D_{ls}}\) |
+| Time delay between A & B | \(\Delta t_{AB} = t(\theta_A) - t(\theta_B)\) |
+| χ² goodness‑of‑fit | \(\chi^2(\Delta t) = \sum_i \frac{[F_A(t_i)-F_B(t_i+\Delta t)]^2}{\sigma_{A,i}^2+\sigma_{B,i}^2}\) |
+
+---
+
+## 6.  Practical tips
+
+| Tip | Why it matters |
+|-----|----------------|
+| **Use a dense, evenly spaced monitoring cadence** | Reduces aliasing and improves the precision of the delay. |
+| **Include a reference star** | Corrects for atmospheric transparency variations. |
+| **Apply a robust interpolation method** | Avoids introducing systematic errors when shifting light curves. |
+| **Simultaneously fit microlensing** | Prevents slow microlensing trends from biasing the delay. |
+| **Run Monte‑Carlo simulations** | Provides realistic error bars that account for irregular sampling. |
+
+---
+
+### Final note
+
+With the data you provided (fluxes 1.2 and 0.8, separation 1.5 arcsec, redshifts 0.5 and 2.0), the **measured delay** would be obtained by the light‑curve alignment procedure described above.  
+If you had a full light curve, you could plug the best‑fit Δt into the cosmological equations to infer \(H_0\) or test the lens model.  
+
+Good luck with your analysis!
+=========================
+LLM JSON 파싱 오류: line=1, column=2, message=Expecting property name enclosed in double quotes
+===== JSON 파싱 대상 =====
+{\theta}) = \frac{1+z_l}{c}\,\frac{D_{\Delta t}}{2}\,
+\left[\,|\boldsymbol{\theta}-\boldsymbol{\beta}|^2 - 2\,\psi(\boldsymbol{\theta})\,\right]
+\]
+
+where  
+
+- \(\boldsymbol{\theta}\) = image position on the sky  
+- \(\boldsymbol{\beta}\) = unlensed source position  
+- \(\psi(\boldsymbol{\theta})\) = lensing potential (integrated gravitational potential)  
+- \(D_{\Delta t}\) = “time‑delay distance”  
+
+The **time delay** between two images A and B is simply
+
+\[
+\Delta t_{AB} = t(\boldsymbol{\theta}_A) - t(\boldsymbol{\theta}_B)
+\]
+
+### 2.2  Time‑delay distance
+
+\[
+D_{\Delta t} \equiv (1+z_l)\,\frac{D_l D_s}{D_{ls}}
+\]
+
+where  
+
+- \(D_l\) = angular‑diameter distance to the lens  
+- \(D_s\) = angular‑diameter distance to the source  
+- \(D_{ls}\) = angular‑diameter distance between lens and source  
+
+These distances are computed from the cosmological parameters (e.g., \(H_0, \Omega_m, \Omega_\Lambda\)) and the redshifts \(z_l, z_s\).
+
+---
+
+## 3.  Practical measurement of the delay
+
+In practice, you **do not** compute the delay directly from the above equations because you do not know the lens potential \(\psi\) or the unlensed source position \(\boldsymbol{\beta}\).  
+Instead, you **measure** the delay from the light curves of the two images.  
+The steps below outline the standard procedure.
+
+### 3.1  Obtain light curves
+
+1. **Photometric monitoring**: Observe the system repeatedly over months/years.  
+   For each epoch \(t_i\), measure the flux (or magnitude) of image A and image B:  
+   \[
+   F_A(t_i),\; F_B(t_i)
+   \]
+2. **Calibration**: Use reference stars in the field to correct for atmospheric transparency, airmass, etc.  
+3. **Error estimation**: For each measurement, estimate the photometric uncertainty \(\sigma_{A,i}\) and \(\sigma_{B,i}\).
+
+### 3.2  Align the light curves
+
+Because the quasar’s intrinsic variability is the same in both images (just delayed), the two light curves should be identical after shifting one of them in time and (optionally) in magnitude.
+
+1. **Choose a trial delay** \(\Delta t\).  
+2. **Shift** one light curve by \(\Delta t\):  
+   \[
+   t'_i = t_i + \Delta t
+   \]
+3. **Interpolate** the shifted light curve to the observation times of the other image (e.g., linear or cubic spline interpolation).  
+4. **Compute a goodness‑of‑fit** statistic (e.g., χ², dispersion, or cross‑correlation) between the two curves.
+
+### 3.3  Find the best‑fit delay
+
+Repeat the above for a grid of \(\Delta t\) values (e.g., from –100 days to +100 days in 0.1 day steps).  
+Plot the goodness‑of‑fit versus \(\Delta t\).  
+The minimum (or maximum, depending on the statistic) gives the best‑fit delay \(\Delta t_{\rm best}\).
+
+#### Example using a simple χ²
+
+\[
+\chi^2(\Delta t) = \sum_{i} \frac{\left[ F_A(t_i) - F_B(t_i + \Delta t) \right]^2}
+{\sigma_{A,i}^2 + \sigma_{B,i}^2}
+\]
+
+The \(\Delta t\) that minimizes χ² is the measured delay.  
+You can estimate the uncertainty by finding the \(\Delta t\) values that increase χ² by 1 (for 1σ) or by using Monte‑Carlo simulations (bootstrap or jackknife).
+
+### 3.4  Account for microlensing
+
+Microlensing by stars in the lens galaxy can cause slow, smooth variations in the magnification of each image, which can bias the delay measurement if not accounted for.
+
+- **Model microlensing** as a low‑order polynomial or spline added to each light curve.  
+- **Simultaneously fit** the intrinsic quasar variability and the microlensing terms.  
+- **Iterate** until the residuals are consistent with noise.
+
+---
+
+## 4.  Applying the procedure to your data
+
+Below is a concrete example using the numbers you gave.  
+(For a real analysis you would replace the “fluxes” with actual measured magnitudes and uncertainties.)
+
+| Epoch (days) | Flux A | Flux B |
+|--------------|--------|--------|
+| 0            | 1.20   | 0.80   |
+| 10           | 1.25   | 0.85   |
+| 20           | 1.30   | 0.90   |
+| …            | …      | …      |
+
+1. **Plot** both light curves.  
+2. **Guess** an initial delay (e.g., 0 days).  
+3. **Shift** B by Δt and interpolate.  
+4. **Compute χ²** for a range of Δt (say –30 days to +30 days).  
+5. **Find the minimum** χ².  
+6. **Estimate error** by the Δt that gives χ² = χ²_min + 1.
+
+Because your data are very sparse, the uncertainty will be large.  
+With a realistic monitoring campaign (tens of epochs over a year or more), the delay can be measured to a few percent.
+
+---
+
+## 5.  What does the delay tell you?
+
+Once you have Δt, you can:
+
+1. **Constrain the Hubble constant** \(H_0\) if you have a lens mass model (since \(D_{\Delta t} \propto 1/H_0\)).  
+2. **Test the mass distribution** of the lens galaxy (by comparing the measured Δt with the model prediction).  
+3. **Study the quasar’s intrinsic variability** (e.g., structure function, power spectrum).  
+
+---
+
+### Quick summary of the key equations
+
+| Quantity | Equation |
+|----------|----------|
+| Arrival time | \(t(\theta) = \frac{1+z_l}{c}\,\frac{D_{\Delta t}}{2}\,[\,|\theta-\beta|^2 - 2\psi(\theta)\,]\) |
+| Time‑delay distance | \(D_{\Delta t} = (1+z_l)\frac{D_l D_s}{D_{ls}}\) |
+| Time delay between A & B | \(\Delta t_{AB} = t(\theta_A) - t(\theta_B)\) |
+| χ² goodness‑of‑fit | \(\chi^2(\Delta t) = \sum_i \frac{[F_A(t_i)-F_B(t_i+\Delta t)]^2}{\sigma_{A,i}^2+\sigma_{B,i}^2}
+==========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+Below is a step‑by‑step guide that shows how to **measure the time delay** between the two lensed images of the quasar, using the data you supplied.  
+I’ll describe the physical idea, the data that enter the calculation, the equations that are used, and the practical steps you would follow with a real data set.
+
+---
+
+## 1.  What is a “time delay” in a lensed quasar?
+
+When a distant quasar is lensed by a foreground galaxy, the light from the quasar follows several different paths around the galaxy.  
+Each path has a different geometric length **and** passes through a different gravitational potential.  
+Consequently, the arrival time of photons from the quasar is different for each image.  
+
+If the quasar varies intrinsically (its brightness changes with time), the same intrinsic flare will appear in each image at different epochs.  
+The difference in those epochs is the **time delay** (Δt) between the images.
+
+---
+
+## 2.  Data that enter the calculation
+
+| Quantity | Symbol | Units | How you get it |
+|----------|--------|-------|----------------|
+| Angular separation between the two images | Δθ | arcsec | From the imaging data (e.g., HST, ground‑based). |
+| Redshift of the lens galaxy | z_l | – | Spectroscopic measurement. |
+| Redshift of the quasar | z_s | – | Spectroscopic measurement. |
+| Flux (or magnitude) of each image as a function of time | F_A(t), F_B(t) | e.g., Jy or mag | Photometric monitoring of the two images. |
+| (Optional) Lens mass model | M(θ) | – | Needed if you want to *predict* the delay, not just measure it. |
+
+In your case:
+
+| Image | Flux (e.g. in arbitrary units) | Separation (arcsec) |
+|-------|--------------------------------|---------------------|
+| A | 1.2 | 1.5 |
+| B | 0.8 | 1.5 |
+| Δθ (between A & B) | – | 1.5 |
+
+Redshifts:  
+- Lens: \(z_l = 0.5\)  
+- Quasar: \(z_s = 2.0\)
+
+---
+
+## 2.  Theoretical background
+
+### 2.1  Fermat potential
+
+The arrival time of a photon that travels along a particular image path is
+
+\[
+t(\boldsymbol{\theta}) = \frac{1+z_l}{c}\,\frac{D_{\Delta t}}{2}\,
+\left[\,|\boldsymbol{\theta}-\boldsymbol{\beta}|^2 - 2\,\psi(\boldsymbol{\theta})\,\right]
+\]
+
+where  
+
+- \(\boldsymbol{\theta}\) = image position on the sky  
+- \(\boldsymbol{\beta}\) = unlensed source position  
+- \(\psi(\boldsymbol{\theta})\) = lensing potential (integrated gravitational potential)  
+- \(D_{\Delta t}\) = “time‑delay distance”  
+
+The **time delay** between two images A and B is simply
+
+\[
+\Delta t_{AB} = t(\boldsymbol{\theta}_A) - t(\boldsymbol{\theta}_B)
+\]
+
+### 2.2  Time‑delay distance
+
+\[
+D_{\Delta t} \equiv (1+z_l)\,\frac{D_l D_s}{D_{ls}}
+\]
+
+where  
+
+- \(D_l\) = angular‑diameter distance to the lens  
+- \(D_s\) = angular‑diameter distance to the source  
+- \(D_{ls}\) = angular‑diameter distance between lens and source  
+
+These distances are computed from the cosmological parameters (e.g., \(H_0, \Omega_m, \Omega_\Lambda\)) and the redshifts \(z_l, z_s\).
+
+---
+
+## 3.  Practical measurement of the delay
+
+In practice, you **do not** compute the delay directly from the above equations because you do not know the lens potential \(\psi\) or the unlensed source position \(\boldsymbol{\beta}\).  
+Instead, you **measure** the delay from the light curves of the two images.  
+The steps below outline the standard procedure.
+
+### 3.1  Obtain light curves
+
+1. **Photometric monitoring**: Observe the system repeatedly over months/years.  
+   For each epoch \(t_i\), measure the flux (or magnitude) of image A and image B:  
+   \[
+   F_A(t_i),\; F_B(t_i)
+   \]
+2. **Calibration**: Use reference stars in the field to correct for atmospheric transparency, airmass, etc.  
+3. **Error estimation**: For each measurement, estimate the photometric uncertainty \(\sigma_{A,i}\) and \(\sigma_{B,i}\).
+
+### 3.2  Align the light curves
+
+Because the quasar’s intrinsic variability is the same in both images (just delayed), the two light curves should be identical after shifting one of them in time and (optionally) in magnitude.
+
+1. **Choose a trial delay** \(\Delta t\).  
+2. **Shift** one light curve by \(\Delta t\):  
+   \[
+   t'_i = t_i + \Delta t
+   \]
+3. **Interpolate** the shifted light curve to the observation times of the other image (e.g., linear or cubic spline interpolation).  
+4. **Compute a goodness‑of‑fit** statistic (e.g., χ², dispersion, or cross‑correlation) between the two curves.
+
+### 3.3  Find the best‑fit delay
+
+Repeat the above for a grid of \(\Delta t\) values (e.g., from –100 days to +100 days in 0.1 day steps).  
+Plot the goodness‑of‑fit versus \(\Delta t\).  
+The minimum (or maximum, depending on the statistic) gives the best‑fit delay \(\Delta t_{\rm best}\).
+
+#### Example using a simple χ²
+
+\[
+\chi^2(\Delta t) = \sum_{i} \frac{\left[ F_A(t_i) - F_B(t_i + \Delta t) \right]^2}
+{\sigma_{A,i}^2 + \sigma_{B,i}^2}
+\]
+
+The \(\Delta t\) that minimizes χ² is the measured delay.  
+You can estimate the uncertainty by finding the \(\Delta t\) values that increase χ² by 1 (for 1σ) or by using Monte‑Carlo simulations (bootstrap or jackknife).
+
+### 3.4  Account for microlensing
+
+Microlensing by stars in the lens galaxy can cause slow, smooth variations in the magnification of each image, which can bias the delay measurement if not accounted for.
+
+- **Model microlensing** as a low‑order polynomial or spline added to each light curve.  
+- **Simultaneously fit** the intrinsic quasar variability and the microlensing terms.  
+- **Iterate** until the residuals are consistent with noise.
+
+---
+
+## 4.  Applying the procedure to your data
+
+Below is a concrete example using the numbers you gave.  
+(For a real analysis you would replace the “fluxes” with actual measured magnitudes and uncertainties.)
+
+| Epoch (days) | Flux A | Flux B |
+|--------------|--------|--------|
+| 0            | 1.20   | 0.80   |
+| 10           | 1.25   | 0.85   |
+| 20           | 1.30   | 0.90   |
+| …            | …      | …      |
+
+1. **Plot** both light curves.  
+2. **Guess** an initial delay (e.g., 0 days).  
+3. **Shift** B by Δt and interpolate.  
+4. **Compute χ²** for a range of Δt (say –30 days to +30 days).  
+5. **Find the minimum** χ².  
+6. **Estimate error** by the Δt that gives χ² = χ²_min + 1.
+
+Because your data are very sparse, the uncertainty will be large.  
+With a realistic monitoring campaign (tens of epochs over a year or more), the delay can be measured to a few percent.
+
+---
+
+## 5.  What does the delay tell you?
+
+Once you have Δt, you can:
+
+1. **Constrain the Hubble constant** \(H_0\) if you have a lens mass model (since \(D_{\Delta t} \propto 1/H_0\)).  
+2. **Test the mass distribution** of the lens galaxy (by comparing the measured Δt with the model prediction).  
+3. **Study the quasar’s intrinsic variability** (e.g., structure function, power spectrum).  
+
+---
+
+### Quick summary of the key equations
+
+| Quantity | Equation |
+|----------|----------|
+| Arrival time | \(t(\theta) = \frac{1+z_l}{c}\,\frac{D_{\Delta t}}{2}\,[\,|\theta-\beta|^2 - 2\psi(\theta)\,]\) |
+| Time‑delay distance | \(D_{\Delta t} = (1+z_l)\frac{D_l D_s}{D_{ls}}\) |
+| Time delay between A & B | \(\Delta t_{AB} = t(\theta_A) - t(\theta_B)\) |
+| χ² goodness‑of‑fit | \(\chi^2(\Delta t) = \sum_i \frac{[F_A(t_i)-F_B(t_i+\Delta t)]^2}{\sigma_{A,i}^2+\sigma_{B,i}^2}\) |
+
+---
+
+## 6.  Practical tips
+
+| Tip | Why it matters |
+|-----|----------------|
+| **Use a dense, evenly spaced monitoring cadence** | Reduces aliasing and improves the precision of the delay. |
+| **Include a reference star** | Corrects for atmospheric transparency variations. |
+| **Apply a robust interpolation method** | Avoids introducing systematic errors when shifting light curves. |
+| **Simultaneously fit microlensing** | Prevents slow microlensing trends from biasing the delay. |
+| **Run Monte‑Carlo simulations** | Provides realistic error bars that account for irregular sampling. |
+
+---
+
+### Final note
+
+With the data you provided (fluxes 1.2 and 0.8, separation 1.5 arcsec, redshifts 0.5 and 2.0), the **measured delay** would be obtained by the light‑curve alignment procedure described above.  
+If you had a full light curve, you could plug the best‑fit Δt into the cosmological equations to infer \(H_0\) or test the lens model.  
+
+Good luck with your analysis!
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[11, 12, 13]
+[INSERT 시작] REQ_IDNTF=7, EXCN_IDNTFS=[11, 12, 13]
+분석결과 생성: ANLS_RSLT_IDNTF=8
+분석결과 EXCN 연결 저장: 3건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=8, REQ_IDNTF=7, EXCN_IDNTFS=[11, 12, 13]
+183.111.252.158 - - [18/Sep/2026 08:00:54] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=7
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=7, EXCN_IDNTFS=[66, 67, 68]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68], 15636건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68], 데이터=15636건
+LLM 입력 데이터 생성 완료: 34688577자
+LLM 호출 시작
+LLM 응답 수신: 2715자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "최근 연구들은 인공지능과 기계학습을 활용해 약물 개발과 질병 진단을 혁신하고 있다. 특히, 표면-타깃 인히비터를 찾는 구조 기반 가상 스크리닝과 포스트-드로킹 분석이 결합된 사례가 두드러진다. 또한, 단일 리드 ECG와 같은 저비용 데이터에서도 높은 예측 성능을 보이는 해석 가능한 모델이 등장했다. 의료 영상 분야에서는 딥러닝이 뇌종양, 뇌수막종, 그리고 치주종양 등 다양한 종양의 조기 진단과 등급 분류에 활용되고 있다. 한편, 혈액학적 및 면역학적 지표를 이용해 출혈성 쇼크와 같은 급성 상황에서 핵심 유전자를 식별하고 약물 결합을 예측하는 연구도 진행 중이다. 이러한 연구들은 데이터 기반 접근법이 전통적 방법을 대체하거나 보완할 수 있음을 시사한다. 전반적으로 AI와 시뮬레이션 기법이 약물 탐색과 질병 예측의 효율성을 크게 향상시키고 있다.",
+        "trend": "AI와 기계학습이 약물 개발 단계에서부터 임상 진단에 이르기까지 전 범위에 걸쳐 통합되고 있다. 표면-타깃 인히비터 개발에서는 다중 도킹 엔진과 클러스터링을 결합해 포스트-드로킹 정제를 수행하는 것이 표준이 되고 있다. 의료 영상에서는 딥러닝이 주관적 판단을 대체하며, 특히 뇌종양과 뇌수막종에서 정확한 등급 분류가 가능해졌다. 심장독성 예측에서는 단일 리드 ECG와 해석 가능한 특성으로 초기에 위험을 감지할 수 있는 모델이 개발되었다. 이러한 흐름은 데이터 기반, 해석 가능성, 그리고 표면-타깃 접근법이 핵심 동력으로 부상하고 있음을 보여준다."
+    },
+    "key_topics": [
+        {
+            "topic": "표면-타깃 인히비터 개발",
+            "description": "D-아미노산 산화효소와 DAO와 같은 표면 부위에 결합하는 인히비터를 다중 도킹 엔진과 클러스터링, MD 시뮬레이션을 통해 정제하고, 가장 안정적인 결합 포즈를 찾아내는 연구가 진행되고 있다."
+        },
+        {
+            "topic": "AI 기반 조기 심장독성 예측",
+            "description": "단일 리드 ECG 데이터를 활용해 화학요법에 의한 심장독성을 초기에 예측하는 랜덤 포레스트와 XGBoost 모델이 거의 완벽한 성능을 보이며, 해석 가능한 특성으로 임상 적용 가능성을 제시한다."
+        },
+        {
+            "topic": "딥러닝을 이용한 종양 영상 분석",
+            "description": "뇌종양, 뇌수막종, 그리고 뇌종양과 같은 종양의 MRI 영상에서 딥러닝이 조기 진단과 등급 분류에 활용되어, 임상적 의사결정에 객관적 근거를 제공한다."
+        },
+        {
+            "topic": "표면-타깃 가상 스크리닝과 포스트-드로킹 분석",
+            "description": "다중 도킹 엔진과 포스트-드로킹 MD 시뮬레이션, MM/GBSA 계산을 결합해 표면 인히비터의 안정적 결합 포즈를 정제하고, 클러스터링 방법의 일관성을 평가한다."
+        },
+        {
+            "topic": "출혈성 쇼크에서의 면역학적 유전자 타깃팅",
+            "description": "출혈성 쇼크 환자에서 핵심 유전자를 기계학습으로 식별하고, 피린익산이 MPP1, RHOG, F2RL1에 결합해 면역 dysregulation을 개선함을 실험적으로 입증한다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "표면-타깃 인히비터 개발의 새로운 패러다임",
+            "description": "전통적인 활성 부위가 아닌 외부 표면을 타깃으로 하는 인히비터가 구조 기반 가상 스크리닝과 포스트-드로킹 분석을 통해 효과적으로 발견될 수 있음을 보여준다."
+        },
+        {
+            "title": "ECG 기반 조기 심장독성 예측의 임상 활용",
+            "description": "저비용 단일 리드 ECG와 해석 가능한 머신러닝 모델이 화학요법 중 심장독성을 초기에 감지할 수 있어, 자원 제한 환경에서도 적용 가능성을 높인다."
+        },
+        {
+            "title": "딥러닝이 의료 영상 진단을 지능화",
+            "description": "뇌종양과 같은 종양의 MRI 영상에서 딥러닝이 주관적 판단을 대체하고, 개인 맞춤 치료 계획 수립에 기여함으로써 환자 치료 성과를 향상시킨다."
+        },
+        {
+            "title": "표면-타깃 가상 스크리닝과 MD 시뮬레이션의 결합",
+            "description": "다중 도킹 엔진과 MD 시뮬레이션을 결합해 인히비터의 안정적 결합 포즈를 정제함으로써, 표면 인히비터 개발의 신뢰성을 크게 높인다."
+        },
+        {
+            "title": "출혈성 쇼크에서 면역학적 유전자 타깃팅",
+            "description": "피린익산이 MPP1, RHOG, F2RL1에 결합해 면역 dysregulation을 개선함으로써 출혈성 쇼크 치료에 새로운 약물 개발 방향을 제시한다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+[INSERT 시작] REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+분석결과 생성: ANLS_RSLT_IDNTF=9
+분석결과 EXCN 연결 저장: 3건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=9, REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+183.111.252.158 - - [18/Sep/2026 08:01:51] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=23, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=23, EXCN_SNO=2, EXCN_IDNTFS=[80, 81, 82]
+전체 분석 시작: REQ_IDNTF=23, EXCN_IDNTFS=[80, 81, 82]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=23, EXCN_IDNTFS=[80, 81, 82], 15005건
+LLM 분석 시작: REQ_IDNTF=23, EXCN_IDNTFS=[80, 81, 82], 데이터=15005건
+LLM 입력 데이터 생성 완료: 33641000자
+LLM 호출 시작
+LLM 응답 수신: 2339자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "최근 연구들은 대형 언어 모델(LLM)의 개인정보 보호와 보안, 구조적 pruning, 그리고 도메인 특화 AI의 활용을 중심으로 진행되고 있다. LLM이 수집한 데이터와 학습 과정에서 발생하는 개인정보 유출 위험이 제기되면서, 데이터 익명화와 보안 강화가 필수적이라는 인식이 확산되고 있다. 동시에, LLM pruning에 대한 retraining-free compensation 기법이 발전하면서 모델 경량화와 효율성 향상이 가속화되고 있다. 도메인 특화 AI 플랫폼이 일반 LLM보다 가이드라인 준수율이 높다는 결과는 전문 분야에서의 AI 활용 가능성을 시사한다. 그러나 LLM의 ill-conditioning 문제와 같은 수치적 불안정성은 여전히 해결 과제로 남아 있다. 이러한 연구들은 AI 기술의 실용화와 윤리적 책임을 동시에 요구한다.",
+        "trend": "개인정보 보호와 보안이 LLM 연구의 핵심 이슈로 부상하고 있다. 구조적 pruning에서 retraining 없이 성능을 보존하려는 시도가 활발히 진행되고 있으며, ill-conditioning을 해결하는 WLR 같은 기법이 주목받고 있다. 도메인 특화 AI가 일반 LLM보다 높은 정확도를 보이는 경향이 나타나고 있다. 또한, 임베딩 기반의 멀티라벨 분류와 같은 딥러닝 기법이 생물학적 데이터 분석에 적용되는 사례가 늘어나고 있다."
+    },
+    "key_topics": [
+        {
+            "topic": "LLM 개인정보 보호 및 보안",
+            "description": "LLM이 학습 과정에서 개인정보를 유출할 위험이 존재하며, 데이터 익명화와 보안 강화가 필수적이다. 연구에서는 LLM의 ill-conditioning 문제를 해결해 수치적 안정성을 높이는 방법이 제안되었다."
+        },
+        {
+            "topic": "구조적 pruning과 retraining-free compensation",
+            "description": "WLR와 같은 기법은 파라미터를 추가하지 않고 pruned 레이어를 재구성해 성능을 보존한다. LLaMA와 OPT 계열 모델에서 기존 방법을 능가하는 성능을 보였다."
+        },
+        {
+            "topic": "도메인 특화 AI vs 일반 LLM",
+            "description": "OpenEvidence와 같은 도메인 특화 AI가 AAOS 가이드라인과의 일치율이 높으며, 일반 LLM보다 전문 분야에서 더 신뢰할 수 있는 정보를 제공한다."
+        },
+        {
+            "topic": "임베딩 기반 멀티라벨 분류",
+            "description": "Gene Ontology 그래프 임베딩과 동적 임계값을 결합한 모델이 단백질 서브셀룰러 로컬라이제이션 예측에서 높은 정확도를 달성했다."
+        },
+        {
+            "topic": "생물학적 데이터 분석에 머신러닝 적용",
+            "description": "스테파일로코스 에피더미디스 바이오필름에서 분리된 세포 클러스터의 물리적 특성을 k‑means 클러스터링으로 분석해 새로운 생물학적 인사이트를 제공했다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "개인정보 보호 강화의 필요성",
+            "description": "LLM이 개인정보를 유출할 가능성이 높아 데이터 익명화와 보안 프로토콜이 필수적이다. 이는 의료·금융 등 민감 분야에서 AI 도입 시 가장 먼저 고려해야 할 요소다."
+        },
+        {
+            "title": "도메인 특화 AI의 실용성",
+            "description": "OpenEvidence와 같은 도메인 특화 AI가 일반 LLM보다 높은 정확도를 보이며, 전문 분야에서의 신뢰성 있는 정보 제공이 가능하다. 이는 의료·법률 등 분야별 AI 솔루션 개발의 방향성을 제시한다."
+        },
+        {
+            "title": "효율적 pruning 기법의 산업적 가치",
+            "description": "WLR와 같은 retraining-free pruning 방법은 모델 경량화와 비용 절감에 기여한다. 이는 대규모 AI 모델을 소규모 디바이스에서도 활용할 수 있게 해 산업 전반에 걸친 AI 도입을 촉진한다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=23, EXCN_IDNTFS=[80, 81, 82]
+[INSERT 시작] REQ_IDNTF=23, EXCN_IDNTFS=[80, 81, 82]
+분석결과 생성: ANLS_RSLT_IDNTF=10
+분석결과 EXCN 연결 저장: 3건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=10, REQ_IDNTF=23, EXCN_IDNTFS=[80, 81, 82]
+183.111.252.158 - - [18/Sep/2026 08:02:46] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=11, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=11, EXCN_SNO=1, EXCN_IDNTFS=[100]
+전체 분석 시작: REQ_IDNTF=11, EXCN_IDNTFS=[100]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=11, EXCN_IDNTFS=[100], 867건
+LLM 분석 시작: REQ_IDNTF=11, EXCN_IDNTFS=[100], 데이터=867건
+LLM 입력 데이터 생성 완료: 911047자
+LLM 호출 시작
+LLM 응답 수신: 2639자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "수집된 연구들은 대기오염, 수술 전 comorbidity, 뇌출혈, 스마트팜 환경 관리 등 다양한 분야를 포괄한다. 대기오염 연구에서는 PM2.5와 오존이 건강에 미치는 부정적 영향을 확인하고, 특히 고농도 지역에서의 위험이 두드러진다. 수술 관련 연구는 ASA-PS가 높을 때 intraoperative hypotension과 저알부민이 AKI 위험을 중간 매개한다는 구조방정식 모델링 결과를 제시한다. 뇌출혈 연구는 전 세계적으로 고혈압과 흡연이 주요 위험인자이며, 향후 위험 관리 개선 시 부담이 크게 감소할 것으로 전망한다. 스마트팜 연구는 동적 시간 워핑을 활용해 환경 변수와 수확량 간의 연관성을 정밀히 분석하고, 우수농가의 관리 패턴을 기반으로 맞춤형 환경 관리 범위를 제안한다. 이러한 연구들은 데이터 기반 의사결정과 예방적 개입의 중요성을 강조한다. 전반적으로, 환경·의료·농업 분야에서 정량적 분석과 예측 모델링이 핵심 도구로 부상하고 있다.",
+        "trend": "환경 오염과 건강 위험성에 대한 정량적 분석이 증가하고 있다. 수술 전 comorbidity와 intraoperative hypotension 간의 매개관계가 구조방정식 모델링으로 밝혀지는 등 복합적 인과관계 연구가 활발하다. 스마트팜 데이터와 동적 시간 워핑을 결합한 농업 생산성 연구가 새로운 트렌드를 형성하고 있다. 전 세계적 질병 부담 예측은 행동·대사 위험 요인 개선 시 큰 효과를 기대하게 한다."
+    },
+    "key_topics": [
+        {
+            "topic": "대기오염과 건강",
+            "description": "PM2.5와 오존이 대기질을 악화시키며, 특히 고농도 지역에서 호흡기·심혈관 질환 위험이 증가한다. 대기오염 연구는 지역별, 성별, 연령별로 차이를 분석해 정책적 개입의 필요성을 강조한다."
+        },
+        {
+            "topic": "수술 전 comorbidity와 AKI",
+            "description": "ASA-PS ≥3 환자에서 intraoperative hypotension과 저알부민이 AKI 위험을 48% 매개한다는 구조방정식 모델링 결과가 제시되었다. 성별에 따라 위험이 조절되며, 수술 전 위험 관리가 중요하다."
+        },
+        {
+            "topic": "뇌출혈(ICH) 전 세계적 부담",
+            "description": "전 세계적으로 ICH 발생률과 사망률이 감소 추세이지만, 저SDI 국가에서 여전히 높은 부담을 보인다. 고혈압과 흡연이 주요 위험인자이며, 개선 시 DALY가 크게 감소할 것으로 예측된다."
+        },
+        {
+            "topic": "스마트팜 데이터 기반 가지 수확량 관리",
+            "description": "DTW와 다중회귀를 활용해 환경 변수(EC, pH, CO2, 온도)와 수확량 간의 연관성을 분석하고, 우수농가의 관리 패턴을 모범 사례로 제시한다. 월별 환경 관리 범위가 데이터 기반으로 제안된다."
+        },
+        {
+            "topic": "정밀 농업과 데이터 분석",
+            "description": "스마트팜 연구는 농업 생산성을 향상시키기 위해 동적 시간 워핑, 통계적 모델링을 결합한 접근법을 사용한다. 환경 데이터와 생산성 지표를 연계해 맞춤형 관리가 가능해진다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "공공보건 정책 강화",
+            "description": "대기오염과 ICH 연구 결과를 바탕으로 지역별 대기질 개선 및 고혈압·흡연 예방 프로그램이 필요하다."
+        },
+        {
+            "title": "수술 전 위험 관리 개선",
+            "description": "ASA-PS가 높은 환자에 대해 intraoperative hypotension 예방과 저알부민 보충이 AKI 예방에 핵심적이다."
+        },
+        {
+            "title": "전 세계 질병 부담 예측 활용",
+            "description": "ICH 예측 모델은 행동·대사 위험 요인 개선 시 효과를 정량화해 국제 보건 정책 수립에 활용될 수 있다."
+        },
+        {
+            "title": "스마트팜 환경 최적화",
+            "description": "DTW 기반 환경 변수 분석은 가지 수확량을 극대화하기 위한 맞춤형 관리 범위를 제공하며, 농가의 생산성 향상에 직접적인 기여를 할 수 있다."
+        },
+        {
+            "title": "데이터 기반 의사결정 확산",
+            "description": "구조방정식, 역확률 가중치, DTW 등 정량적 분석 기법이 의료·환경·농업 분야에서 핵심 도구로 자리 잡으며, 정책·의료·농업 현장에서의 데이터 활용이 확대되고 있다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=11, EXCN_IDNTFS=[100]
+[INSERT 시작] REQ_IDNTF=11, EXCN_IDNTFS=[100]
+분석결과 생성: ANLS_RSLT_IDNTF=11
+분석결과 EXCN 연결 저장: 1건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=11, REQ_IDNTF=11, EXCN_IDNTFS=[100]
+183.111.252.158 - - [18/Sep/2026 08:03:04] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=8
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=8, EXCN_IDNTFS=[110, 111, 112]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112], 14964건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112], 데이터=14964건
+LLM 입력 데이터 생성 완료: 33806269자
+LLM 호출 시작
+LLM 응답 수신: 2193자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "최근 연구들은 인공지능과 딥러닝을 활용해 의료 영상, 약물 개발, 치료 개인화, 그리고 학술 초록 평가 등 다양한 분야에서 혁신을 시도하고 있다. 특히 3D CNN과 Auto‑Encoder 같은 모델이 의료 영상과 심리 데이터에서 높은 성능을 보였으며, SHAP 해석을 통해 약물 후보 물질의 구조-활성 관계를 파악했다. 그러나 LLM을 활용한 초록 평가에서는 인간 평가자와의 상관관계가 낮아 실제 활용에 한계가 있다는 점이 드러났다. 또한, 작은 데이터셋에서의 ML 적용은 과적합과 부트스트래핑의 부작용이 두드러진다. 이러한 결과는 AI 도구가 의료 현장에 적용되기 위해서는 데이터 품질과 해석 가능성, 그리고 인간 전문가와의 협업이 필수적임을 시사한다.",
+        "trend": "AI와 딥러닝이 의료 영상 분석과 약물 설계에 적극 활용되면서 정확도와 효율성이 크게 향상되고 있다. 반면, LLM을 통한 초록 평가와 같은 분야에서는 인간 전문가와의 일치도가 낮아 신뢰성 확보가 필요하다. 데이터 규모가 작은 경우 ML 성능이 제한되며, 부트스트래핑과 같은 데이터 증강 기법이 오히려 부정적 영향을 줄 수 있다. 전반적으로 AI 도입은 가능성을 보여주지만, 실제 임상 및 학술 환경에서의 적용을 위해서는 검증과 해석 가능성 확보가 핵심 과제로 남아 있다."
+    },
+    "key_topics": [
+        {
+            "topic": "의료 영상에서 딥러닝 기반 분류",
+            "description": "3D CNN을 활용해 경추 골절을 CT 영상에서 자동 분류하고, LLM을 통해 논문 초록을 요약하는 연구가 진행되고 있다."
+        },
+        {
+            "topic": "약물 설계에 머신러닝 적용",
+            "description": "딥 뉴럴 네트워크와 SHAP 해석을 결합해 트리파노스무스에 대한 구조-활성 관계를 분석하고, 새로운 약물 후보를 도출하였다."
+        },
+        {
+            "topic": "개인화 치료 모니터링",
+            "description": "자기지도형 Auto‑Encoder와 퍼지 클러스터링을 이용해 섭식 장애 환자의 심리 변화를 실시간으로 추적하고, 치료 효과를 정량화하였다."
+        },
+        {
+            "topic": "다중 특징 기반 MEG 분류",
+            "description": "ERF에서 추출한 다수의 파라미터를 입력으로 사용해 머신러닝 모델이 양측 뇌 반응과 실험 조건을 구분하는 연구가 진행되었다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "AI 도구의 임상 적용 가능성",
+            "description": "딥러닝 기반 영상 분석은 진단 정확도를 높일 수 있으나, 데이터 품질과 해석 가능성을 보장해야 한다."
+        },
+        {
+            "title": "LLM 활용의 한계와 개선 필요성",
+            "description": "초록 평가에서 LLM과 인간 평가자 간 상관관계가 낮아, LLM을 보조 도구로 활용하려면 추가적인 검증과 알고리즘 개선이 필요하다."
+        },
+        {
+            "title": "데이터 규모가 작은 분야에서의 ML 활용 주의점",
+            "description": "소규모 데이터셋에서는 부트스트래핑이 과적합을 유발할 수 있어, 데이터 증강 기법을 신중히 적용해야 한다."
+        },
+        {
+            "title": "약물 개발에서 AI의 가속화 효과",
+            "description": "머신러닝 기반 구조-활성 관계 분석은 신약 후보 물질 발굴 속도를 높이며, 해석 가능한 인사이트를 제공한다."
+        },
+        {
+            "title": "개인화 치료 모니터링의 실용성",
+            "description": "EMA 데이터를 AI로 분석하면 환자별 증상 프로필을 실시간으로 파악하고, 치료 조절에 실질적인 도움을 줄 수 있다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+[UPDATE 시작] ANLS_RSLT_IDNTF=5, REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+[UPDATE 결과] rowcount=1
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=5, REQ_IDNTF=7, EXCN_IDNTFS=[110, 111, 112]
+183.111.252.158 - - [18/Sep/2026 08:03:53] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=33, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=33, EXCN_SNO=2, EXCN_IDNTFS=[140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152]
+59.20.180.195 - - [18/Sep/2026 09:21:00] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [18/Sep/2026 09:21:11] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 09:25:49] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+전체 분석 시작: REQ_IDNTF=36, EXCN_IDNTFS=[162, 163, 164, 165]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=36, EXCN_IDNTFS=[162, 163, 164, 165], 4994건
+LLM 분석 시작: REQ_IDNTF=36, EXCN_IDNTFS=[162, 163, 164, 165], 데이터=4994건
+LLM 입력 데이터 생성 완료: 6465128자
+LLM 호출 시작
+LLM 응답 수신: 2322자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "수집된 논문들은 인공지능 기반 정보 추출, 청소년 정신건강, 사회적 처방, 농업 환경 관리, 의료 영상 진단, 그리고 수술 후 합병증 예측 등 다양한 분야를 포괄한다. 특히 AI와 딥러닝 기술이 의료·농업·교육 분야에서 활용되는 사례가 두드러진다. 청소년 정신건강과 사회적 처방에 대한 연구가 증가하면서, 의료 중심 개입을 보완하려는 시도가 눈에 띈다. 농업 분야에서는 스마트팜 데이터를 활용한 환경 변수 분석이 주류를 이루며, 데이터 기반 최적화 방안이 제시된다. 의료 영상에서는 확산 MRI 파라미터를 이용해 종양 침습 여부를 예측하는 연구가 진행되고 있다. 수술 전 comorbidity와 인수기 혈압 저하가 수술 후 신장 손상에 미치는 영향을 구조 방정식 모델링으로 분석한 연구도 포함된다. 전반적으로 데이터 과학과 AI가 다양한 분야에서 실질적 의사결정 지원 도구로 자리 잡고 있다.",
+        "trend": "AI와 딥러닝이 의료·농업·교육 분야에 적극 도입되고 있다. 데이터 기반의 정밀 환경 관리와 영상 바이오마커가 연구의 핵심이 되고 있다. 구조 방정식 모델링과 IPTW 같은 통계적 방법이 복합적 인과관계를 밝히는 데 활용된다. 청소년 정신건강과 사회적 처방에 대한 관심이 증가하며, 제도적 기반 마련이 주요 과제로 부각된다."
+    },
+    "key_topics": [
+        {
+            "topic": "AI 기반 정보 추출 및 의료 영상 진단",
+            "description": "딥러닝과 자연어처리 기술을 활용해 의료 문서와 영상 데이터를 자동으로 분석하고, 종양 침습 여부를 예측하는 연구가 진행된다. 확산 MRI 파라미터와 IVIM 파라미터를 결합해 종양의 lymphovascular invasion 위험을 사전 예측한다."
+        },
+        {
+            "topic": "청소년 정신건강과 사회적 처방",
+            "description": "청소년 대상 사회적 처방 도입 시 제도적, 인식적 장벽과 실행 조건을 탐색한 연구가 있다. 전문가 인터뷰를 통해 다기관 연계와 전담 인력 확보가 핵심 과제로 제시된다."
+        },
+        {
+            "topic": "스마트팜 데이터 기반 농업 환경 관리",
+            "description": "가장자리 가지 수확량에 영향을 미치는 환경 변수(EC, pH, CO2, 온도 등)를 다중회귀와 DTW로 분석해 우수농가의 관리 패턴을 도출한다. 월별 환경 관리 범위를 제안해 농가 맞춤형 정밀 관리에 기여한다."
+        },
+        {
+            "topic": "수술 전 comorbidity와 수술 후 AKI",
+            "description": "전수술 comorbidity가 수술 후 AKI에 미치는 영향을 구조 방정식 모델링으로 분석해 인수기 혈압 저하와 저알부민이 매개 역할을 한다는 결과를 제시한다."
+        },
+        {
+            "topic": "청소년 대상 사회적 처방 실행 과제",
+            "description": "청소년 사회적 처방 도입 시 제도적 기반, 기관 연계, 인식 개선이 주요 과제로 확인되며, 재원 안정화와 청소년 참여 보장이 실행 조건으로 제시된다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "AI와 데이터 과학이 의료·농업·교육 분야를 혁신",
+            "description": "딥러닝과 스마트팜 데이터가 질병 예측과 농업 생산성 향상에 실질적 기여를 하고 있다. 이는 맞춤형 의료와 정밀 농업으로의 전환을 가속화한다."
+        },
+        {
+            "title": "청소년 정신건강에 대한 사회적 처방의 필요성",
+            "description": "전통적 의료 개입을 넘어 사회적 자원을 연결하는 처방이 청소년 정신건강에 긍정적 영향을 줄 수 있다. 제도적 기반 마련과 인식 개선이 시급하다."
+        },
+        {
+            "title": "수술 전 comorbidity와 인수기 혈압 관리의 중요성",
+            "description": "수술 전 comorbidity가 AKI 위험을 증가시키는 경로가 인수기 혈압 저하와 저알부민을 통해 매개됨을 보여준다. 수술 전 혈압 관리와 영양 상태 개선이 필요하다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=36, EXCN_IDNTFS=[162, 163, 164, 165]
+[INSERT 시작] REQ_IDNTF=36, EXCN_IDNTFS=[162, 163, 164, 165]
+분석결과 생성: ANLS_RSLT_IDNTF=12
+분석결과 EXCN 연결 저장: 4건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=12, REQ_IDNTF=36, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 09:27:14] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [18/Sep/2026 09:27:15] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [18/Sep/2026 09:27:18] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 09:27:21] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 10:09:43] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=9
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=9, EXCN_IDNTFS=[166, 167, 168]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[166, 167, 168]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[166, 167, 168], 15326건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[166, 167, 168], 데이터=15326건
+LLM 입력 데이터 생성 완료: 33653903자
+LLM 호출 시작
+LLM 응답 수신: 1807자
+===== 이번 LLM 응답 =====
+{
+  "overall_analysis": {
+    "summary": "최근 AI 기술이 의료 분야에 급속히 확산되고 있다. 다수의 연구가 AI 기반 생체지표 탐색, 고급 영상 분석, 생성형 AI를 활용한 이미지 재구성, 그리고 AI 교육 및 문해력 향상을 다루고 있다. 특히, AI가 질병 예측·진단·치료에 직접 활용되는 사례가 늘어나면서, 의료 현장과 교육 현장에서 AI 활용에 대한 이해와 역량이 필수적이라는 인식이 확산되고 있다.",
+    "trend": "AI가 의료 데이터 분석과 영상 진단에 핵심 도구로 자리 잡으며, 동시에 의료진과 학생들의 AI 문해력을 강화하려는 움직임이 동시에 진행되고 있다. 생성형 AI는 이미 영상 재구성 및 데이터 증강에 활용되고 있으며, AI 기반 바이오마커와 세포형태학적 분석은 질병의 조기 진단과 맞춤 치료를 가능하게 한다."
+  },
+  "key_topics": [
+    {
+      "title": "AI 문해력과 교육",
+      "description": "의료 교육 현장에서 AI 활용에 대한 이해와 역량을 강화하려는 연구가 증가하고 있다. AI 문해력 향상을 통해 의료진과 학생들이 AI 도구를 효과적으로 활용할 수 있도록 교육 프로그램이 필요하다."
+    },
+    {
+      "title": "AI 기반 영상 진단",
+      "description": "AI가 CT, MRI, X‑ray 등 다양한 영상 데이터를 분석해 질병을 조기 진단하고, 고해상도 이미지를 생성·재구성하는 기술이 발전하고 있다."
+    },
+    {
+      "title": "생체지표 및 바이오마커 탐색",
+      "description": "AI를 활용해 혈액, 조직 등에서 질병과 관련된 유전자, 단백질, 대사체를 식별하고, 이를 기반으로 진단 및 예후 예측 모델을 구축하는 연구가 활발하다."
+    },
+    {
+      "title": "생성형 AI와 이미지 재구성",
+      "description": "GAN, VAE 등 생성형 모델을 이용해 의료 이미지를 고해상도로 재구성하거나, 부족한 데이터를 증강해 모델 학습을 보완하는 기술이 주목받고 있다."
+    },
+    {
+      "title": "AI를 활용한 세포형태학적 분석",
+      "description": "AI가 세포형태학적 데이터를 분석해 질병의 세포 수준 변화를 정량화하고, 이를 통해 맞춤형 치료 전략을 제시하는 연구가 진행되고 있다."
+    }
+  ],
+  "implications": [
+    {
+      "title": "의료 현장에 AI 통합 가속화",
+      "description": "AI 도구가 진단·치료에 직접 활용되면서, 의료진은 AI 결과를 해석하고 임상 결정을 내리는 역량을 갖추어야 한다."
+    },
+    {
+      "title": "AI 교육과 문해력 강화 필요성",
+      "description": "의료진과 학생들이 AI를 효과적으로 활용하려면 체계적인 교육 프로그램과 지속적인 학습 기회가 필수적이다."
+    },
+    {
+      "title": "생성형 AI의 윤리·규제 이슈",
+      "description": "생성형 AI가 의료 이미지를 재구성할 때 데이터 프라이버시와 진위성 보장이 중요하며, 관련 규제와 윤리 가이드라인이 필요하다."
+    },
+    {
+      "title": "AI 기반 바이오마커의 임상 적용",
+      "description": "AI가 발견한 바이오마커를 실제 진료에 적용하려면 검증 단계와 임상시험, 규제 승인 절차가 필수적이다."
+    }
+  ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[166, 167, 168]
+[INSERT 시작] REQ_IDNTF=7, EXCN_IDNTFS=[166, 167, 168]
+분석결과 생성: ANLS_RSLT_IDNTF=13
+분석결과 EXCN 연결 저장: 3건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=13, REQ_IDNTF=7, EXCN_IDNTFS=[166, 167, 168]
+183.111.252.158 - - [18/Sep/2026 10:37:55] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=7
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=7, EXCN_IDNTFS=[66, 67, 68]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68], 15636건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68], 데이터=15636건
+LLM 입력 데이터 생성 완료: 34688577자
+LLM 호출 시작
+LLM 응답 수신: 0자
+===== 이번 LLM 응답 =====
+
+=========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+[UPDATE 시작] ANLS_RSLT_IDNTF=9, REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+[UPDATE 결과] rowcount=1
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=9, REQ_IDNTF=7, EXCN_IDNTFS=[66, 67, 68]
+121.138.152.97 - - [18/Sep/2026 10:42:55] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 10:42:57] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 10:43:00] "POST /api/analysis/result HTTP/1.1" 200 -
+127.0.0.1 - - [18/Sep/2026 13:54:18] "GET / HTTP/1.1" 404 -
+127.0.0.1 - - [18/Sep/2026 14:02:45] "GET / HTTP/1.1" 404 -
+210.183.104.161 - - [18/Sep/2026 14:47:24] "GET / HTTP/1.1" 404 -
+210.183.104.161 - - [18/Sep/2026 14:47:24] "GET /favicon.ico HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=36, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=36, EXCN_SNO=1, EXCN_IDNTFS=[162, 163, 164, 165]
+59.20.180.195 - - [18/Sep/2026 14:53:21] "POST /api/analysis/result HTTP/1.1" 200 -
+112.148.16.205 - - [19/Sep/2026 15:38:31] "GET / HTTP/1.1" 404 -
+112.148.16.205 - - [19/Sep/2026 15:38:31] "GET /favicon.ico HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=33, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=33, EXCN_SNO=2, EXCN_IDNTFS=[140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152]
+59.20.180.195 - - [21/Sep/2026 14:17:43] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [21/Sep/2026 14:17:51] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=11, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=11, EXCN_SNO=1, EXCN_IDNTFS=[100]
+59.20.180.195 - - [21/Sep/2026 14:18:52] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=7, EXCN_SNO=9
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=9, EXCN_IDNTFS=[166, 167, 168]
+59.20.180.195 - - [21/Sep/2026 14:19:05] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=23, EXCN_SNO=6
+분석 대상 EXCN 조회 완료: REQ_IDNTF=23, EXCN_SNO=6, EXCN_IDNTFS=[169, 170, 171, 172, 173, 174, 175]
+59.20.180.195 - - [21/Sep/2026 14:19:17] "POST /api/analysis/result HTTP/1.1" 404 -
+분석 결과 조회 API 호출: REQ_IDNTF=31, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=31, EXCN_SNO=4, EXCN_IDNTFS=[160, 161]
+59.20.180.195 - - [21/Sep/2026 14:19:21] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [21/Sep/2026 14:19:24] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=15, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=4, EXCN_IDNTFS=[134, 135, 136, 137, 138, 139]
+59.20.180.195 - - [21/Sep/2026 14:19:59] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+전체 분석 시작: REQ_IDNTF=40, EXCN_IDNTFS=[190]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=40, EXCN_IDNTFS=[190], 109건
+LLM 분석 시작: REQ_IDNTF=40, EXCN_IDNTFS=[190], 데이터=109건
+LLM 입력 데이터 생성 완료: 138246자
+LLM 호출 시작
+LLM 호출 실패
+RemoteProtocolError: Server disconnected without sending a response.
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=40, EXCN_IDNTFS=[190]
+[INSERT 시작] REQ_IDNTF=40, EXCN_IDNTFS=[190]
+분석결과 생성: ANLS_RSLT_IDNTF=14
+분석결과 EXCN 연결 저장: 1건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=14, REQ_IDNTF=40, EXCN_IDNTFS=[190]
+183.111.252.158 - - [21/Sep/2026 16:33:02] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+59.20.180.195 - - [21/Sep/2026 16:33:03] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+59.20.180.195 - - [21/Sep/2026 16:33:03] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+59.20.180.195 - - [21/Sep/2026 16:40:43] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+전체 분석 시작: REQ_IDNTF=40, EXCN_IDNTFS=[190]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=40, EXCN_IDNTFS=[190], 109건
+LLM 분석 시작: REQ_IDNTF=40, EXCN_IDNTFS=[190], 데이터=109건
+LLM 입력 데이터 생성 완료: 138246자
+LLM 호출 시작
+LLM 응답 수신: 0자
+===== 이번 LLM 응답 =====
+
+=========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=40, EXCN_IDNTFS=[190]
+[UPDATE 시작] ANLS_RSLT_IDNTF=14, REQ_IDNTF=40, EXCN_IDNTFS=[190]
+[UPDATE 결과] rowcount=1
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=14, REQ_IDNTF=40, EXCN_IDNTFS=[190]
+121.138.152.97 - - [21/Sep/2026 16:46:54] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+59.20.180.195 - - [21/Sep/2026 16:47:06] "POST /api/analysis/result HTTP/1.1" 200 -
+Traceback (most recent call last):
+  File "/home/kmacgpt/pnu_personalization/pnu_app.py", line 3, in <module>
+    from analysis_api import analysis_bp
+  File "/home/kmacgpt/pnu_personalization/analysis_api.py", line 4, in <module>
+    from analysis_runner import run_analysis
+  File "/home/kmacgpt/pnu_personalization/analysis_runner.py", line 9, in <module>
+    from llm_service import get_llm_analysis
+  File "/home/kmacgpt/pnu_personalization/llm_service.py", line 3, in <module>
+    from langchain_ollama import ChatOllama
+  File "/home/kmacgpt/.local/lib/python3.12/site-packages/langchain_ollama/__init__.py", line 19, in <module>
+    from langchain_ollama.chat_models import ChatOllama
+  File "/home/kmacgpt/.local/lib/python3.12/site-packages/langchain_ollama/chat_models.py", line 55, in <module>
+    from langchain_core.language_models import LanguageModelInput
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "/home/kmacgpt/.local/lib/python3.12/site-packages/langchain_core/language_models/__init__.py", line 108, in __getattr__
+    result = import_attr(attr_name, module_name, __spec__.parent)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kmacgpt/.local/lib/python3.12/site-packages/langchain_core/_import_utils.py", line 35, in import_attr
+    module = import_module(f".{module_name}", package=package)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kmacgpt/.local/lib/python3.12/site-packages/langchain_core/language_models/base.py", line 41, in <module>
+    from transformers import GPT2TokenizerFast  # type: ignore[import-not-found]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/__init__.py", line 26, in <module>
+    from . import dependency_versions_check
+  File "/usr/local/lib/python3.12/dist-packages/transformers/dependency_versions_check.py", line 16, in <module>
+    from .utils.versions import require_version, require_version_core
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/__init__.py", line 27, in <module>
+    from .chat_template_utils import DocstringParsingException, TypeHintParsingException, get_json_schema
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/chat_template_utils.py", line 39, in <module>
+    from torch import Tensor
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 367, in <module>
+    from torch._C import *  # noqa: F403
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 463, in _lock_unlock_module
+KeyboardInterrupt
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+분석 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+전체 분석 시작: REQ_IDNTF=41, EXCN_IDNTFS=[191, 192, 193]
+사이트별 수집 현황 분석 시작
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+주요 저널 분석 완료
+워드클라우드 분석 시작
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=41, EXCN_IDNTFS=[191, 192, 193], 9298건
+LLM 분석 시작: REQ_IDNTF=41, EXCN_IDNTFS=[191, 192, 193], 데이터=9298건
+LLM 입력 데이터 생성 완료: 17902369자
+LLM 호출 시작
+LLM 호출 실패
+ResponseError: error parsing tool call: raw='import json, textwrap, re, sys, math, random, statistics, itertools, collections, datetime, decimal, fractions, typing, pprint, hashlib, os, pathlib, typing, fractions, math, statistics, random, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, datetime, collections, itertools, math, statistics, random, fractions, decimal, typing, json, textwrap, re, sys, 
+', err=invalid character 'i' looking for beginning of value (status code: 500)
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=41, EXCN_IDNTFS=[191, 192, 193]
+[INSERT 시작] REQ_IDNTF=41, EXCN_IDNTFS=[191, 192, 193]
+분석결과 생성: ANLS_RSLT_IDNTF=15
+분석결과 EXCN 연결 저장: 3건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=15, REQ_IDNTF=41, EXCN_IDNTFS=[191, 192, 193]
+183.111.252.158 - - [21/Sep/2026 16:58:16] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+59.20.180.195 - - [21/Sep/2026 16:58:44] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+59.20.180.195 - - [21/Sep/2026 17:03:05] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+59.20.180.195 - - [22/Sep/2026 08:22:04] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+59.20.180.195 - - [22/Sep/2026 08:22:11] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+59.20.180.195 - - [22/Sep/2026 08:59:09] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+59.20.180.195 - - [22/Sep/2026 08:59:27] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=1, EXCN_IDNTFS=[190]
+59.20.180.195 - - [22/Sep/2026 09:00:01] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=1
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=1, EXCN_IDNTFS=[191, 192, 193]
+59.20.180.195 - - [22/Sep/2026 09:01:20] "POST /api/analysis/result HTTP/1.1" 200 -
+ * Serving Flask app 'pnu_app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5410
+ * Running on http://210.107.60.90:5410
+Press CTRL+C to quit
+분석 결과 조회 API 호출: REQ_IDNTF=46, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=46, EXCN_SNO=2, EXCN_IDNTFS=[293]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=46, EXCN_IDNTFS=[293], 76건
+59.20.180.195 - - [06/Oct/2026 16:42:01] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=45, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=45, EXCN_SNO=3, EXCN_IDNTFS=[289, 290]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=45, EXCN_IDNTFS=[289, 290], 7098건
+59.20.180.195 - - [06/Oct/2026 16:42:09] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=4, EXCN_IDNTFS=[280, 281, 282]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=41, EXCN_IDNTFS=[280, 281, 282], 13974건
+59.20.180.195 - - [06/Oct/2026 16:42:21] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=45, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=45, EXCN_SNO=3, EXCN_IDNTFS=[289, 290]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=45, EXCN_IDNTFS=[289, 290], 7098건
+59.20.180.195 - - [06/Oct/2026 17:06:18] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=45, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=45, EXCN_SNO=3, EXCN_IDNTFS=[289, 290]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=45, EXCN_IDNTFS=[289, 290], 7098건
+59.20.180.195 - - [06/Oct/2026 17:07:33] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=2, EXCN_IDNTFS=[291]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[291], 152건
+59.20.180.195 - - [06/Oct/2026 17:09:09] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=46, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=46, EXCN_SNO=2, EXCN_IDNTFS=[293]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=46, EXCN_IDNTFS=[293], 76건
+59.20.180.195 - - [06/Oct/2026 17:12:30] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=40, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=3, EXCN_IDNTFS=[294]
+전체 분석 시작: REQ_IDNTF=40, EXCN_IDNTFS=[294]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+LLM 분석 시작: REQ_IDNTF=40, EXCN_IDNTFS=[294], 데이터=154건
+LLM 입력 데이터 생성 완료: 221187자
+LLM 호출 시작
+LLM 응답 수신: 0자
+===== 이번 LLM 응답 =====
+
+=========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294]
+[INSERT 시작] REQ_IDNTF=40, EXCN_IDNTFS=[294]
+분석결과 생성: ANLS_RSLT_IDNTF=41
+분석결과 EXCN 연결 저장: 1건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=41, REQ_IDNTF=40, EXCN_IDNTFS=[294]
+183.111.252.158 - - [06/Oct/2026 17:31:53] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=3, EXCN_IDNTFS=[294]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+59.20.180.195 - - [06/Oct/2026 17:36:26] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=46, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=46, EXCN_SNO=2, EXCN_IDNTFS=[293]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=46, EXCN_IDNTFS=[293], 76건
+59.20.180.195 - - [06/Oct/2026 20:18:56] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=3, EXCN_IDNTFS=[294]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+59.20.180.195 - - [06/Oct/2026 20:19:12] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=45, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=45, EXCN_SNO=3, EXCN_IDNTFS=[289, 290]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=45, EXCN_IDNTFS=[289, 290], 7098건
+59.20.180.195 - - [06/Oct/2026 20:22:14] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=41, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=41, EXCN_SNO=4, EXCN_IDNTFS=[280, 281, 282]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=41, EXCN_IDNTFS=[280, 281, 282], 13974건
+59.20.180.195 - - [06/Oct/2026 20:22:48] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=45, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=45, EXCN_SNO=3, EXCN_IDNTFS=[289, 290]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=45, EXCN_IDNTFS=[289, 290], 7098건
+59.20.180.195 - - [06/Oct/2026 20:23:07] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=40, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=40, EXCN_SNO=3, EXCN_IDNTFS=[294]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=40, EXCN_IDNTFS=[294], 154건
+59.20.180.195 - - [06/Oct/2026 20:23:18] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=44, EXCN_SNO=3
+분석 대상 EXCN 조회 완료: REQ_IDNTF=44, EXCN_SNO=3, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304]
+전체 분석 시작: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 9280건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 9280건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 9280건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 9280건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 9280건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 9280건
+LLM 분석 시작: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304], 데이터=9280건
+LLM 입력 데이터 생성 완료: 15834366자
+LLM 호출 시작
+LLM 응답 수신: 0자
+===== 이번 LLM 응답 =====
+
+=========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304]
+[INSERT 시작] REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304]
+분석결과 생성: ANLS_RSLT_IDNTF=42
+분석결과 EXCN 연결 저장: 10건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=42, REQ_IDNTF=44, EXCN_IDNTFS=[295, 296, 297, 298, 299, 300, 301, 302, 303, 304]
+183.111.252.158 - - [07/Oct/2026 06:51:23] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=46, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=46, EXCN_SNO=2, EXCN_IDNTFS=[293]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=46, EXCN_IDNTFS=[293], 76건
+59.20.180.195 - - [07/Oct/2026 15:40:19] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=12
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=12, EXCN_IDNTFS=[307, 308, 309]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 23256건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 23256건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 23256건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 23256건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 23256건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 23256건
+LLM 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309], 데이터=23256건
+LLM 입력 데이터 생성 완료: 51569805자
+LLM 호출 시작
+LLM 응답 수신: 1663자
+===== 이번 LLM 응답 =====
+{"overall_analysis":{"summary":"최근 의료 연구에서는 인공지능과 기계학습을 활용한 진단·예측 모델이 급부상하고 있다. 특히 영상, 유전체, 단백질체, 비침습적 샘플(정액, 혈액) 등 다양한 데이터 소스를 통합해 높은 정확도를 달성하는 사례가 다수 보고되었다. AI 기반 모델은 기존 검사 대비 절차를 단순화하고 비용을 절감하며, 환자 편의성을 크게 향상시킬 수 있다. 한편, 정신건강 분야에서는 회복 대학과 같은 혁신적 프로그램이 정량적 효과를 입증하기 어려웠으며, 이는 측정 도구와 연구 설계의 한계를 시사한다. 또한, COPD와 같은 만성질환에서도 혈액 기반 메틸화 패널이 진단·분류에 활용되며, 개인 맞춤 치료가 가능해졌다. 전반적으로 AI와 ‘비침습적’ 접근법이 의료 현장에 실질적 변화를 주도하고 있다.","trend":"AI와 기계학습이 의료 진단·예측 분야에서 핵심 도구로 자리 잡고 있다. 특히 영상, 유전체, 단백질체 등 ‘omics’ 데이터를 활용한 모델이 높은 정확도를 보이며, 비침습적 샘플(정액, cfDNA)로도 질병을 탐지할 수 있다. 만성질환과 암, 정신건강 등 다양한 영역에서 AI가 적용되고 있으나, 일부 분야에서는 정량적 효과가 미미하거나 검증이 어려운 점이 부각된다. 이러한 흐름은 데이터 기반 개인 맞춤 의료와 비용 효율성 향상을 목표로 한다."},"key_topics":[{"topic":"AI 기반 영상·유전체 진단","description":"CT, MRI, PET 등 영상과 cfDNA 메틸화, 정액 RNA 프로파일을 결합해 AI 모델이 고정밀 진단·분류를 수행한다. 특히 EPIMETRIC와 Semen RNA Classifier는 각각 COPD와 전립선암을 비침습적으로 진단한다."},{"topic":"비침습적 샘플 활용","description":"정액, 정액 RNA, cfDNA 등 환자 집에서 수집 가능한 샘플을 이용해 진단·위험분류가 가능해진다. 이는 생검 필요성을 크게 줄이고 환자 편의성을 높인다."},{"topic":"개인 맞춤 치료와 반응 예측","description":"CFTR 모듈러 치료와 ETI에 대한 단백질체 분석은 기계학습으로 치료 반응을 예측한다. 이는 환자별 맞춤 치료 전략 수립에 활용될 수 있다."},{"topic":"정신건강 회복 프로그램의 효과 검증","description":"회복 대학 참여가 정량적 회복 지표에 미치는 효과가 미미해, 기존 정량적 도구의 한계와 연구 설계의 필요성을 제시한다."}],"implications":[{"title":"AI 진단 모델의 임상 전환 가속화","description":"높은 민감도·특이도를 보이는 AI 모델은 불필요한 절차를 줄여 의료비용을 절감하고 환자 경험을 개선한다. 그러나 모델의 일반화와 규제 승인 절차가 필요하다."},{"title":"비침습적 샘플 수집의 보편화","description":"집에서 수집 가능한 정액·정액 RNA 샘플은 접근성을 높여 대규모 스크리닝이 가능하다. 이는 전통적 생검 기반 진단의 부담을 크게 완화한다."},{"title":"데이터 기반 개인 맞춤 치료의 확대","description":"CFTR 모듈러 치료와 같은 맞춤형 약물에 대한 단백질체·사이토카인 변화를 AI로 예측함으로써 치료 반응을 사전에 파악할 수 있다. 이는 치료 효율성을 높이고 부작용을 최소화한다."}]}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309]
+[INSERT 시작] REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309]
+분석결과 생성: ANLS_RSLT_IDNTF=43
+분석결과 EXCN 연결 저장: 3건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=43, REQ_IDNTF=7, EXCN_IDNTFS=[307, 308, 309]
+183.111.252.158 - - [09/Oct/2026 10:40:43] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=23, EXCN_SNO=9
+분석 대상 EXCN 조회 완료: REQ_IDNTF=23, EXCN_SNO=9, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316]
+전체 분석 시작: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 23233건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 23233건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 23233건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 23233건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 23233건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 23233건
+LLM 분석 시작: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316], 데이터=23233건
+LLM 입력 데이터 생성 완료: 39056061자
+LLM 호출 시작
+LLM 응답 수신: 1745자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "최근 연구들은 인공지능과 기계학습을 활용해 다양한 질병의 진단·분류·예후 예측을 시도하고 있다. 혈액, cfDNA, 세멘 RNA, 정액 RNA, sputum 프로테오믹스 등 비침습적 샘플을 이용해 고정밀 바이오마커를 개발하는 사례가 늘고 있다. 또한, 재활 대학과 같은 정신건강 지원 프로그램의 효과를 정량적으로 평가하려는 시도도 진행되고 있으나, 기존의 정성적 증거와 차이가 있는 결과가 나타났다. 한편, 기계학습 모델은 특정 치료 반응(예: CFTR 모듈러, ETI)과 관련된 분자 메커니즘을 밝혀내는 데 유용함을 입증했다. 이러한 연구들은 맞춤형 의료와 비침습적 진단 기술의 발전 가능성을 시사한다. 그러나 데이터 품질, 표준화된 평가 도구의 한계, 그리고 임상 적용 시점에서의 실용성 검증이 여전히 과제로 남아 있다.",
+        "trend": "AI 기반 진단 알고리즘이 혈액·정액·cfDNA·정액 RNA 등 다양한 생체 시료에서 활용되고 있다. 비침습적 샘플 수집이 가능해진 만큼, 대규모 다기관 검증 연구가 증가하고 있다. 정신건강 분야에서는 정량적 효과를 입증하기 어려운 복합적 개입이 연구되고 있다. 기계학습은 치료 반응 예측과 분자 메커니즘 해석에 새로운 통찰을 제공하고 있다."
+    },
+    "key_topics": [
+        {
+            "topic": "비침습적 진단 바이오마커 개발",
+            "description": "정액 RNA, semen RNA, cfDNA 메틸화 프로파일 등 비침습적 시료를 이용해 고정밀 진단 모델을 구축하고, 불필요한 조직검사를 크게 줄일 수 있는 가능성을 보여준다."
+        },
+        {
+            "topic": "AI·ML 기반 치료 반응 예측",
+            "description": "CFTR 모듈러 치료와 ETI에 대한 기계학습 모델이 RNA 스플라이싱, ER 스트레스, 지질 운반 등 분자 메커니즘을 예측하며, 치료 효과를 정량화한다."
+        },
+        {
+            "topic": "정신건강 개입의 정량적 평가",
+            "description": "회복 대학 참여가 정량적 재활 지표에 미치는 영향을 비교한 연구에서 효과가 미미해졌으며, 정성적 증거와 정량적 결과 간의 차이를 강조한다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "맞춤형 의료의 확대",
+            "description": "비침습적 시료와 AI 모델을 결합하면 환자 맞춤형 진단·치료가 가능해져 의료비용 절감과 환자 편의성이 크게 향상된다."
+        },
+        {
+            "title": "정신건강 개입의 평가 재고",
+            "description": "정성적 효과가 정량적 도구로는 측정되지 않는 경우가 많아, 정신건강 개입의 효과를 평가할 때는 새로운 평가 지표와 방법론이 필요하다."
+        },
+        {
+            "title": "분자 메커니즘 해석의 중요성",
+            "description": "기계학습이 치료 반응과 관련된 분자 경로를 밝혀내면서, 약물 개발 및 치료 전략 수립에 있어 분자 수준의 이해가 필수적임을 시사한다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316]
+[INSERT 시작] REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316]
+분석결과 생성: ANLS_RSLT_IDNTF=44
+분석결과 EXCN 연결 저장: 7건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=44, REQ_IDNTF=23, EXCN_IDNTFS=[310, 311, 312, 313, 314, 315, 316]
+183.111.252.158 - - [09/Oct/2026 11:07:29] "POST /api/analysis/run HTTP/1.1" 200 -
+91.230.168.62 - - [11/Oct/2026 16:37:14] code 400, message Bad request version ('-')
+91.230.168.62 - - [11/Oct/2026 16:37:14] "\x16\x03\x03\x02b\x01\x00\x02^\x03\x03¯P#Ü\x19\x918N¾\x89/(\x03\x03Z\x91ÿ6Pj.+³\x0d,¤`3ÿ$°' \x0c-" 400 -
+91.230.168.41 - - [11/Oct/2026 16:37:19] "GET / HTTP/1.1" 404 -
+분석 API 호출: REQ_IDNTF=43, EXCN_SNO=8
+분석 대상 EXCN 조회 완료: REQ_IDNTF=43, EXCN_SNO=8, EXCN_IDNTFS=[323, 324]
+전체 분석 시작: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 7058건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 7058건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 7058건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 7058건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 7058건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 7058건
+LLM 분석 시작: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324], 데이터=7058건
+LLM 입력 데이터 생성 완료: 8177479자
+LLM 호출 시작
+LLM 응답 수신: 2304자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "최근 한국의 의료 연구는 당뇨병 치료와 심혈관 위험 관리, 희귀 종양에 대한 면역요법, 그리고 종양 DNA를 활용한 액체 생검 등 다양한 분야에서 진행되고 있다. 특히 당뇨병 환자에 대한 인슐린 유사체와 GLP‑1, SGLT‑2 억제제의 복합 치료가 혈당 조절과 심혈관 위험 감소에 효과적이라는 결과가 반복적으로 보고되고 있다. 한편, 희귀 암군에서 CTLA‑4와 PD‑1 차단제의 병용 요법이 일정 수준의 반응률과 장기 생존을 보인 사례가 나타났으며, 이는 면역요법의 적용 범위를 확대할 가능성을 시사한다. 또한, HPV DNA와 같은 종양 DNA를 혈액에서 검출하는 디지털 PCR 기술이 수술 전 위험 분류와 수술 계획에 활용될 수 있다는 점이 부각된다. 실험실 데이터의 상호 운용성을 위한 필수 데이터 요소가 제안되면서, AI 기반 진단 및 치료 모니터링이 보다 정밀해질 전망이다. 전반적으로, 정밀의료와 데이터 표준화가 병합되어 환자 맞춤형 치료와 효율적 의료 시스템 구축을 가속화하고 있다.",
+        "trend": "당뇨병 치료에서는 인슐린 유사체와 GLP‑1, SGLT‑2 억제제의 조합이 혈당 및 심혈관 위험을 동시에 개선하는 방향으로 연구가 진행되고 있다. 희귀 암군에서는 면역요법의 효과와 안전성을 확인하기 위한 바스켓 트라이얼이 확대되고 있다. 종양 DNA를 활용한 액체 생검은 수술 전 위험 평가와 치료 모니터링에 새로운 가능성을 제공하고 있다. 실험실 데이터의 표준화와 상호 운용성 확보는 AI 기반 진단과 의료 정보 교환을 위한 기반을 마련하고 있다."
+    },
+    "key_topics": [
+        {
+            "topic": "당뇨병 치료와 심혈관 위험 관리",
+            "description": "인슐린 유사체와 GLP‑1, SGLT‑2 억제제의 복합 치료가 혈당 조절과 심혈관 위험 감소에 효과적이며, 혈당 조절이 심혈관 위험에 미치는 영향이 강조된다."
+        },
+        {
+            "topic": "희귀 암군에 대한 면역요법",
+            "description": "vaginal cancer와 vaginal cancer sub‑cohort에서 ipilimumab과 nivolumab 병용 요법이 일정 수준의 반응률과 장기 생존을 보였으며, 안전성에 대한 새로운 데이터가 제공된다."
+        },
+        {
+            "topic": "종양 DNA를 활용한 액체 생검",
+            "description": "수술 전 cervical cancer에서 ctHPV DNA가 혈액에서 검출되며, 림프관 침범 및 림프절 전이와 연관되어 위험 분류에 활용될 수 있다."
+        },
+        {
+            "topic": "실험실 데이터 상호 운용성",
+            "description": "국제 표준에 부합하는 필수 데이터 요소 프레임워크가 제안되어, 의료 정보 교환과 AI 기반 분석의 기반을 마련한다."
+        },
+        {
+            "topic": "Langerhans Cell Histiocytosis의 대사 바이오마커",
+            "description": "골수 채취물에서 특정 지질 및 아미노산 대사 변화를 통해 진단, 예후, 치료 모니터링이 가능하며, 이는 LCH의 분자적 분류에 기여한다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "정밀의료와 데이터 표준화의 시너지",
+            "description": "혈액 내 종양 DNA와 대사 프로파일링 같은 정밀의료 기술이 데이터 표준화와 결합될 때, 진단과 치료 모니터링이 더욱 정밀해질 수 있다."
+        },
+        {
+            "title": "희귀 암에 대한 면역요법의 가능성 확대",
+            "description": "바스켓 트라이얼을 통한 면역요법의 효과가 확인되면서, 희귀 암군에서도 맞춤형 면역치료가 현실화될 가능성이 높아진다."
+        },
+        {
+            "title": "심혈관 위험 관리와 당뇨병 치료의 통합",
+            "description": "당뇨병 치료에서 혈당 조절이 심혈관 위험에 미치는 영향을 고려한 통합적 치료 전략이 필요하며, 이는 환자 관리의 새로운 패러다임을 제시한다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=43, EXCN_IDNTFS=[323, 324]
+[INSERT 시작] REQ_IDNTF=43, EXCN_IDNTFS=[323, 324]
+분석결과 생성: ANLS_RSLT_IDNTF=45
+분석결과 EXCN 연결 저장: 2건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=45, REQ_IDNTF=43, EXCN_IDNTFS=[323, 324]
+183.111.252.158 - - [12/Oct/2026 03:24:44] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=15, EXCN_SNO=7
+분석 대상 EXCN 조회 완료: REQ_IDNTF=15, EXCN_SNO=7, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322]
+전체 분석 시작: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 20996건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 20996건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 20996건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 20996건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 20996건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 20996건
+LLM 분석 시작: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322], 데이터=20996건
+LLM 입력 데이터 생성 완료: 28230811자
+LLM 호출 시작
+LLM 응답 수신: 2357자
+===== 이번 LLM 응답 =====
+{
+    "overall_analysis": {
+        "summary": "한국과 전 세계에서 심혈관 질환과 대동맥류 같은 고위험 질환의 부담이 지속적으로 감소하고 있으나, 지역별 및 사회경제적 지표에 따라 차이가 큽니다. 고혈압과 흡연이 주요 위험 요인으로 확인되며, 고혈압은 여성에서, 흡연은 남성에서 더 큰 영향을 미칩니다. 비만과 고혈압 관리가 향후 2050년까지 질환 사망률을 크게 낮출 수 있다는 시나리오가 제시됩니다. 당뇨병과 고혈압, 비만이 상호작용하여 당뇨병 위험을 증가시키는 것으로 나타났으며, 특히 비만이 가장 큰 기여를 합니다. 비타민 K 독립 항응고제(NOACs)는 고령자와 여성에서 급성 신손상 위험을 높이는 것으로 밝혀졌습니다. 또한, 대동맥류와 같은 무증상 질환의 조기 진단과 예방이 중요하다는 점이 강조됩니다. 전반적으로 위험 요인 관리와 조기 스크리닝이 질환 부담을 줄이는 핵심 전략으로 부각됩니다.",
+        "trend": "전 세계적으로 심혈관 질환의 사망률은 감소 추세를 보이지만, 저소득 지역에서는 증가하는 경향이 관찰됩니다. 고혈압과 흡연이 가장 큰 위험 요인으로 남아 있으며, 개선된 생활습관이 이들 위험을 크게 완화할 수 있습니다. 당뇨병과 고혈압, 비만이 상호작용하여 위험을 가중시키는 경향이 지속적으로 확인되고 있습니다. NOACs 사용 시 신장 기능 모니터링이 필수적이며, 고위험군에 대한 주의가 필요합니다. 전반적으로 예방과 조기 진단이 질환 부담을 줄이는 핵심 요소로 부각됩니다."
+    },
+    "key_topics": [
+        {
+            "topic": "심혈관 질환 및 대동맥류의 전 세계적 부담",
+            "description": "전 세계적으로 대동맥류 사망률이 감소하고 있으나, 고소득 지역과 저소득 지역 간 차이가 크며, 흡연과 고혈압이 주요 위험 요인으로 확인됩니다."
+        },
+        {
+            "topic": "고혈압과 비만이 당뇨병 위험에 미치는 영향",
+            "description": "비만이 당뇨병 위험을 가장 크게 증가시키며, 고혈압과 고혈당이 당뇨병 발병과 합병증에 중요한 역할을 합니다."
+        },
+        {
+            "topic": "NOACs 사용과 급성 신손상 위험",
+            "description": "비타민 K 독립 항응고제 사용 시 고령자와 여성에서 급성 신손상 위험이 증가하며, 정기적인 신장 기능 모니터링이 필요합니다."
+        },
+        {
+            "topic": "대동맥류 위험 요인 및 예측 시나리오",
+            "description": "흡연과 고수축기 혈압이 대동맥류 사망률의 주요 위험 요인으로 확인되며, 향후 2050년까지 행동 및 대사 위험 관리 개선 시 사망률을 크게 낮출 수 있습니다."
+        },
+        {
+            "topic": "비만과 고혈압 관리의 중요성",
+            "description": "비만과 고혈압은 당뇨병 및 심혈관 질환의 주요 위험 요인으로, 생활습관 개선과 체중 관리가 질환 예방에 핵심적입니다."
+        }
+    ],
+    "implications": [
+        {
+            "title": "지역별 맞춤형 예방 전략 필요",
+            "description": "고소득 지역은 감소 추세를 보이지만, 저소득 지역에서는 증가하고 있어 지역별 의료 인프라와 사회경제적 지표를 고려한 맞춤형 예방 전략이 필요합니다."
+        },
+        {
+            "title": "생활습관 개선을 통한 위험 요인 완화",
+            "description": "흡연 금지, 고혈압 관리, 비만 예방 등 생활습관 개선이 전반적인 질환 부담을 크게 줄일 수 있으므로, 공공 보건 정책에서 우선적으로 추진해야 합니다."
+        },
+        {
+            "title": "조기 스크리닝과 조기 진단 강화",
+            "description": "대동맥류와 같은 무증상 질환의 조기 진단을 위해 정기적인 스크리닝 프로그램이 확대되어야 하며, 이는 사망률 감소에 직접적인 기여를 할 것입니다."
+        },
+        {
+            "title": "항응고제 사용 시 신장 기능 모니터링 강화",
+            "description": "NOACs 사용 시 급성 신손상 위험이 증가하므로, 고령자와 여성 등 고위험군에 대한 정기적인 신장 기능 검사가 필수적입니다."
+        }
+    ]
+}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322]
+[INSERT 시작] REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322]
+분석결과 생성: ANLS_RSLT_IDNTF=46
+분석결과 EXCN 연결 저장: 6건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=46, REQ_IDNTF=15, EXCN_IDNTFS=[317, 318, 319, 320, 321, 322]
+183.111.252.158 - - [12/Oct/2026 03:57:37] "POST /api/analysis/run HTTP/1.1" 200 -
+59.20.180.195 - - [13/Oct/2026 21:10:16] "GET /api/analysis/result HTTP/1.1" 405 -
+분석 API 호출: REQ_IDNTF=44, EXCN_SNO=4
+분석 대상 EXCN 조회 완료: REQ_IDNTF=44, EXCN_SNO=4, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334]
+전체 분석 시작: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 9495건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 9495건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 9495건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 9495건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 9495건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 9495건
+LLM 분석 시작: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334], 데이터=9495건
+LLM 입력 데이터 생성 완료: 16777271자
+LLM 호출 시작
+LLM 응답 수신: 1864자
+===== 이번 LLM 응답 =====
+{"overall_analysis":{"summary":"최근 연구들은 폐쇄 루프 제어와 개방형 제어 인터페이스를 활용한 시스템 최적화에 초점을 맞추고 있다. 특히 전기 수직 이착륙(eVTOL) 항공기와 같은 신기술 분야에서 인간-기계 상호작용을 개선하기 위한 실험이 활발히 진행되고 있다. 동시에 대기오염과 물리적 활동, 스트레스 간의 상호작용을 정밀하게 분석하기 위해 지리정보 기반 실시간 데이터 수집과 딥러닝 기법이 도입되고 있다. 이러한 연구들은 도시 이동성, 공중보건, 그리고 환경 모니터링을 통합적으로 다루는 ‘컨텍스트 인식’ 접근법을 강조한다. 또한 폐수 처리 공정에서의 미세먼지 방출과 항균 저항성 유전자 전파를 줄이기 위한 물리적 공정 개선이 실질적 효과를 보이고 있다. 전반적으로 데이터 기반 의사결정과 인간 중심 설계가 과학 연구와 정책에 중요한 역할을 하고 있다.","trend":"폐수 처리와 같은 산업 공정에서 미세먼지와 항균 저항성 유전자의 공기 방출을 줄이기 위한 물리적 공정 개선이 주목받고 있다. eVTOL과 같은 신기술 분야에서는 인간-기계 인터페이스의 인체공학적 설계가 핵심 이슈로 부각된다. 도시 이동성 데이터와 대기질 경보에 대한 실시간 반응을 분석하는 연구가 증가하며, 이는 공중보건 커뮤니케이션과 교통 계획에 새로운 시사점을 제공한다."},"key_topics":[{"topic":"폐수 처리 공정의 미세먼지 방출 감소","description":"수평 브러시와 미세 버블 두 가지 환기 패턴을 비교한 연구에서 미세먼지 방출량이 크게 차이났으며, 미세 버블이 더 효과적임을 확인했다."},{"topic":"eVTOL 항공기 조종 인터페이스 최적화","description":"VR 시뮬레이터를 활용해 조종 stick이 가장 선호되고 빠른 작업 완료를 보였으며, 이는 도시 항공 이동성 설계에 활용 가능하다."},{"topic":"대기질 경보에 대한 도시 이동성 반응","description":"몬트리올에서 화재 연기 경보 시 자전거 이용이 감소하고 버스·지하철 이용이 증가하는 패턴이 관찰되었으며, 이는 공중보건 커뮤니케이션에 활용된다."},{"topic":"실시간 지리정보 기반 스트레스·대기질 분석","description":"지리적 순간평가와 DAG-MR-DML 기법을 통해 실제와 인지된 대기질이 스트레스에 미치는 영향을 정밀히 분석했다."},{"topic":"폐수 처리 공정의 항균 저항성 유전자 방출","description":"수평 브러시 환기 방식이 미세먼지와 항균 저항성 유전자를 공기 중으로 더 많이 방출함을 확인했다."},{"topic":"DOCK 단백질의 생물학적 기능","description":"DOCK2와 DOCK8이 면역 세포 이동과 신호 전달에 중요한 역할을 하며, 이들의 조절 메커니즘이 연구되고 있다."}],"implications":[{"title":"컨텍스트 인식형 도시 공기질 정보 시스템 구축","description":"지리적 맥락을 고려한 실시간 공기질 데이터와 운동 권고를 제공함으로써 인지 오류를 줄이고 정신 건강을 증진시킬 수 있다."},{"title":"폐수 처리 공정의 물리적 공정 개선","description":"미세 버블 환기와 같은 물리적 공정 변경이 항균 저항성 유전자 방출을 감소시켜 공중보건에 긍정적 영향을 미친다."},{"title":"eVTOL 조종 인터페이스 설계 지침","description":"조종 stick이 가장 효율적이며 선호되는 인터페이스임을 확인해 도시 항공 이동성 설계에 적용할 수 있다."},{"title":"폐수 처리 공정의 대기질 방출 모니터링 필요성","description":"연속적인 미세먼지 모니터링과 차량 배출가스 데이터를 통합해 장기적인 대기질 변화를 정확히 파악해야 한다."}]}
+=========================
+LLM 분석 완료
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334]
+[INSERT 시작] REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334]
+분석결과 생성: ANLS_RSLT_IDNTF=47
+분석결과 EXCN 연결 저장: 10건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=47, REQ_IDNTF=44, EXCN_IDNTFS=[325, 326, 327, 328, 329, 330, 331, 332, 333, 334]
+183.111.252.158 - - [14/Oct/2026 06:42:50] "POST /api/analysis/run HTTP/1.1" 200 -
+분석 결과 조회 API 호출: REQ_IDNTF=46, EXCN_SNO=2
+분석 대상 EXCN 조회 완료: REQ_IDNTF=46, EXCN_SNO=2, EXCN_IDNTFS=[293]
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=46, EXCN_IDNTFS=[293], 76건
+59.20.180.195 - - [14/Oct/2026 11:46:06] "POST /api/analysis/result HTTP/1.1" 200 -
+분석 API 호출: REQ_IDNTF=7, EXCN_SNO=13
+분석 대상 EXCN 조회 완료: REQ_IDNTF=7, EXCN_SNO=13, EXCN_IDNTFS=[337, 338, 339]
+전체 분석 시작: REQ_IDNTF=7, EXCN_IDNTFS=[337, 338, 339]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[337, 338, 339], 23064건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[337, 338, 339], 23064건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[337, 338, 339], 23064건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[337, 338, 339], 23064건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=7, EXCN_IDNTFS=[337, 338, 339], 23064건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+분석 실행 오류: 1021 (HY000): Disk full (/tmp/#sql-temptable-27a0e4-5d240-1b9.MAI); waiting for someone to free some space... (errno: 28 "No space left on device")
+183.111.252.158 - - [16/Oct/2026 10:40:25] "POST /api/analysis/run HTTP/1.1" 500 -
+분석 API 호출: REQ_IDNTF=23, EXCN_SNO=10
+분석 대상 EXCN 조회 완료: REQ_IDNTF=23, EXCN_SNO=10, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346]
+전체 분석 시작: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346]
+사이트별 수집 현황 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 11674건
+사이트별 수집 현황 분석 완료
+주요 연구분야 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 11674건
+주요 연구분야 분석 완료
+주요 저널 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 11674건
+주요 저널 분석 완료
+워드클라우드 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 11674건
+워드클라우드 분석 완료
+키워드 네트워크 분석 시작
+전체 분석 대상 ID 선정 완료: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 11674건
+키워드 네트워크 분석 완료
+LLM 종합 분석 시작
+LLM 분석 대상 조회: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 11674건
+LLM 분석 시작: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346], 데이터=11674건
+LLM 입력 데이터 생성 완료: 13524574자
+LLM 호출 시작
+LLM 응답 수신: 0자
+===== 이번 LLM 응답 =====
+
+=========================
+LLM JSON 파싱 실패
+===== LLM RAW RESPONSE =====
+
+============================
+LLM 종합 분석 완료
+전체 분석 완료: REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346]
+[INSERT 시작] REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346]
+분석결과 생성: ANLS_RSLT_IDNTF=48
+분석결과 EXCN 연결 저장: 7건
+분석 결과 저장 완료: ANLS_RSLT_IDNTF=48, REQ_IDNTF=23, EXCN_IDNTFS=[340, 341, 342, 343, 344, 345, 346]
+183.111.252.158 - - [16/Oct/2026 11:35:32] "POST /api/analysis/run HTTP/1.1" 200 -
