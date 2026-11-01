@@ -519,41 +519,27 @@ def get_wordcloud_data(
 # 키워드 네트워크
 # =========================================================
 
-
-
-
 def get_keyword_network(
     req_idntf,
     excn_idntfs,
-    min_cooccurrence=2,
-    min_jaccard=0.05,
+    min_cooccurrence=1,
+    min_jaccard=0.0,
     max_links=100
 ):
     """
-    논문별 저자 키워드 및 제목/초록의 주요 용어를 활용한
-    키워드 동시 출현 네트워크 분석.
+    논문에 등록된 키워드만 활용하는 동시 출현 네트워크.
 
-    - 검색어 관련성 필터 적용하지 않음
-    - 기존 수집 논문 전체 활용
-    - 저자 키워드 우선
-    - 한국어 명사/복합명사 보완
-    - 실제 동시 출현 관계 기반 연결
-    - 연결된 핵심 키워드 중심 노드 구성
-    - 기존 nodes/links 반환 구조 유지
+    - 제목 및 초록에서 키워드를 추가 추출하지 않음
+    - arXiv 분야 분류 코드 및 일반 불용어 제거
+    - 논문별 키워드 동시 출현 관계 분석
+    - 빈도 상위 최대 40개 키워드 활용
+    - 연결 강도에 따른 최대 100개 연결선 표시
+    - 실제 연결 관계를 기반으로 군집 구분
+    - 기존 nodes / links 응답 구조 유지
     """
-
     import re
-    import math
     from collections import Counter, defaultdict
     from itertools import combinations
-
-    try:
-        from kiwipiepy import Kiwi
-    except ImportError as exc:
-        raise RuntimeError(
-            "키워드 네트워크 분석에 kiwipiepy가 필요합니다. "
-            "pip install kiwipiepy 를 실행하세요."
-        ) from exc
 
     # =====================================================
     # 1. 분석 대상 논문 조회
@@ -565,7 +551,10 @@ def get_keyword_network(
     )
 
     if not article_ids:
-        return {"nodes": [], "links": []}
+        return {
+            "nodes": [],
+            "links": []
+        }
 
     conn = None
     cursor = None
@@ -576,22 +565,7 @@ def get_keyword_network(
 
         placeholders = make_in_clause(article_ids)
 
-        cursor.execute(
-            f"""
-            SELECT
-                a.ARTCL_IDNTF AS article_id,
-                a.TTL AS title,
-                a.ABST AS abstract
-            FROM CLCT_ARTCL a
-            WHERE a.ARTCL_IDNTF IN ({placeholders})
-            """,
-            tuple(article_ids)
-        )
-
-        articles = cursor.fetchall()
-
-        cursor.execute(
-            f"""
+        sql = f"""
             SELECT
                 k.ARTCL_IDNTF AS article_id,
                 k.KWRD AS keyword
@@ -599,12 +573,13 @@ def get_keyword_network(
             WHERE k.ARTCL_IDNTF IN ({placeholders})
               AND k.KWRD IS NOT NULL
               AND TRIM(k.KWRD) <> ''
-            ORDER BY k.ARTCL_IDNTF, k.SNO
-            """,
-            tuple(article_ids)
-        )
+            ORDER BY
+                k.ARTCL_IDNTF,
+                k.SNO
+        """
 
-        keyword_rows = cursor.fetchall()
+        cursor.execute(sql, tuple(article_ids))
+        rows = cursor.fetchall()
 
     finally:
         if cursor:
@@ -614,470 +589,281 @@ def get_keyword_network(
             conn.close()
 
     # =====================================================
-    # 2. 키워드 정제
+    # 2. 키워드 정제 기준
     # =====================================================
 
-    kiwi = Kiwi()
+    arxiv_code = re.compile(
+        r"^(?:"
+        r"(?:cs|econ|eess|math|nlin|physics|q-bio|q-fin|stat)\.[a-z-]+"
+        r"|(?:astro-ph|cond-mat|gr-qc|hep-ex|hep-lat|hep-ph|hep-th|"
+        r"math-ph|nucl-ex|nucl-th|quant-ph)(?:\.[a-z-]+)?"
+        r")$",
+        re.I
+    )
 
     stopwords = {
-        "연구", "분석", "결과", "방법", "목적",
-        "대상", "논문", "본고", "고찰", "검토",
-        "중심", "활용", "관련", "통한", "기반",
-        "내용", "특성", "영향", "변화", "사례",
-        "비교", "조사", "제시", "확인", "필요",
-        "의미", "문제", "자료", "관점", "측면",
-        "과정", "분야", "연구자", "저자",
-        "주제", "구조", "방식", "유형",
+        "the", "and", "of", "for", "with", "from",
+        "to", "in", "on", "at", "by", "a", "an",
+        "is", "are", "or", "as", "using",
         "study", "research", "analysis",
         "result", "results", "method", "methods",
-        "paper", "approach", "based", "using",
-        "effect", "effects", "data",
-        "conclusion", "introduction", "purpose"
+        "paper", "data", "introduction", "conclusion",
+        "연구", "분석", "결과", "방법", "논문",
+        "고찰", "검토", "본고", "목적", "대상",
+        "내용", "관련", "중심", "통한", "기반"
     }
 
-    english_stop = {
-        "the", "and", "of", "for", "with", "from",
-        "this", "that", "these", "those",
-        "were", "was", "are", "is", "be",
-        "been", "being", "have", "has", "had",
-        "into", "between", "among", "their",
-        "its", "our", "can", "may", "using",
-        "used", "also", "than", "such", "not",
-        "but", "which", "who", "when", "where",
-        "what", "how", "more", "less", "each",
-        "both", "other", "an", "a", "to", "in",
-        "on", "at", "by", "as", "or", "if",
-        "study", "research", "results",
-        "method", "methods", "analysis"
-    }
-
-    def normalize(term):
-        term = re.sub(
+    def clean_keyword(raw):
+        display = re.sub(
             r"\s+",
             " ",
-            str(term or "").strip()
+            str(raw or "").strip()
         )
 
-        if re.search(r"[가-힣]", term):
-            return re.sub(r"\s+", "", term)
+        if not display or len(display) > 80:
+            return None, None
 
-        return term.lower()
+        if not re.search(r"[가-힣A-Za-z]", display):
+            return None, None
 
-    def valid(term):
-        term = str(term or "").strip().lower()
+        normalized = normalize_keyword(display)
 
-        if not (2 <= len(term) <= 45):
-            return False
+        if len(normalized) < 2:
+            return None, None
 
-        if term in stopwords or term in english_stop:
-            return False
+        if normalized.lower() in stopwords:
+            return None, None
 
-        if not re.search(r"[가-힣a-z]", term):
-            return False
+        if arxiv_code.fullmatch(display):
+            return None, None
 
-        # 영어 불용어가 포함된 구문 제거
-        if re.search(r"[a-z]", term):
-            words = re.findall(r"[a-z]+", term)
+        if re.fullmatch(r"[A-Za-z ]+", display):
+            words = display.lower().split()
 
-            if any(
-                word in english_stop or word in stopwords
-                for word in words
+            if len(words) > 1 and all(
+                word in stopwords for word in words
             ):
-                return False
+                return None, None
 
-        return True
-
-    # =====================================================
-    # 3. 제목/초록에서 한국어 명사 및 복합명사 추출
-    # =====================================================
-
-    def extract_terms(text):
-        text = str(text or "")[:12000]
-
-        result = set()
-
-        if not text.strip():
-            return result
-
-        tokens = kiwi.tokenize(text)
-        run = []
-
-        def flush_run():
-            if not run:
-                return
-
-            # 단일 명사
-            for token in run:
-                term = normalize(token)
-
-                if valid(term):
-                    result.add(term)
-
-            # 2~3개 명사로 구성된 복합명사
-            for size in (2, 3):
-                for idx in range(len(run) - size + 1):
-                    term = normalize(
-                        "".join(run[idx:idx + size])
-                    )
-
-                    if valid(term):
-                        result.add(term)
-
-        previous_end = None
-
-        for token in tokens:
-            tag = token.tag
-            word = token.form
-
-            if tag.startswith("NN"):
-                if (
-                    previous_end is not None
-                    and token.start > previous_end + 1
-                ):
-                    flush_run()
-                    run = []
-
-                run.append(word)
-                previous_end = token.start + len(word)
-
-            else:
-                flush_run()
-                run = []
-                previous_end = None
-
-        flush_run()
-
-        # 영문 제목/초록의 일반 단어를
-        # 무차별적으로 추가하지 않음.
-        # 영문 저자 키워드는 별도로 유지.
-
-        return result
+        return normalized, display
 
     # =====================================================
-    # 4. 저자 키워드 정리
+    # 3. 논문별 등록 키워드 구성
     # =====================================================
 
-    author = defaultdict(set)
-    display = {}
+    article_keywords = defaultdict(set)
+    display_names = {}
 
-    for row in keyword_rows:
-        raw = str(row["keyword"] or "").strip()
-        key = normalize(raw)
+    for row in rows:
+        key, name = clean_keyword(row["keyword"])
 
-        if not valid(key):
+        if key is None:
             continue
 
-        author[row["article_id"]].add(key)
-        display.setdefault(key, raw)
+        article_id = row["article_id"]
+
+        article_keywords[article_id].add(key)
+        display_names.setdefault(key, name)
 
     # =====================================================
-    # 5. 제목/초록의 용어 출현 빈도 계산
-    # =====================================================
-
-    extracted = {}
-    df = Counter()
-
-    for row in articles:
-        aid = row["article_id"]
-
-        title_terms = extract_terms(row["title"])
-        abstract_terms = extract_terms(row["abstract"])
-
-        extracted[aid] = (
-            title_terms,
-            abstract_terms
-        )
-
-        df.update(title_terms | abstract_terms)
-
-    total_docs = max(1, len(articles))
-
-    # =====================================================
-    # 6. 논문별 대표 키워드 구성
-    # =====================================================
-
-    article_terms = {}
-
-    for row in articles:
-        aid = row["article_id"]
-
-        base = set(author.get(aid, set()))
-
-        title_terms, abstract_terms = extracted[aid]
-
-        candidates = (
-            title_terms | abstract_terms
-        ) - base
-
-        scored = []
-
-        for term in candidates:
-            # 1개 논문에서만 나타나는 일반명사 제한
-            # 제목에 등장한 용어는 예외 허용
-            if df[term] < 2 and term not in title_terms:
-                continue
-
-            # 대부분의 논문에서 나타나는 일반 용어 제외
-            if (
-                total_docs >= 10
-                and df[term] / total_docs > 0.65
-            ):
-                continue
-
-            score = (
-                2.0 if term in title_terms else 0.0
-            )
-
-            score += (
-                math.log(
-                    (total_docs + 1) / (df[term] + 1)
-                ) + 1
-            )
-
-            # 복합명사 약한 가중치
-            if len(term) >= 4:
-                score += 0.25
-
-            scored.append((score, term))
-
-        scored.sort(
-            key=lambda x: (-x[0], x[1])
-        )
-
-        additions = [
-            term for _, term in scored[:4]
-        ]
-
-        article_terms[aid] = (
-            base | set(additions)
-        )
-
-        for term in additions:
-            display.setdefault(term, term)
-
-    # =====================================================
-    # 7. 키워드별 논문 출현 빈도
+    # 4. 키워드별 출현 논문 수 계산
     # =====================================================
 
     counts = Counter(
-        term
-        for terms in article_terms.values()
-        for term in terms
+        keyword
+        for keywords in article_keywords.values()
+        for keyword in keywords
     )
 
     if not counts:
-        return {"nodes": [], "links": []}
-
-    author_counts = Counter(
-        term
-        for terms in author.values()
-        for term in terms
-    )
+        return {
+            "nodes": [],
+            "links": []
+        }
 
     ranked = sorted(
         counts,
-        key=lambda t: (
-            -(counts[t] + 0.5 * author_counts[t]),
-            -counts[t],
-            t
+        key=lambda keyword: (
+            -counts[keyword],
+            keyword
         )
     )
 
-    # =====================================================
-    # 8. 후보 키워드 간 동시 출현 관계 계산
-    # =====================================================
-
-    candidate_order = ranked[:100]
+    # 최대 40개 핵심 키워드 선정
+    candidate_order = ranked[:40]
     candidate_set = set(candidate_order)
+
+    # =====================================================
+    # 5. 키워드 동시 출현 관계 계산
+    # =====================================================
 
     pairs = Counter()
 
-    for terms in article_terms.values():
-        selected_terms = sorted(
-            terms & candidate_set
+    for keywords in article_keywords.values():
+        selected = sorted(
+            keywords & candidate_set
         )
 
         pairs.update(
-            combinations(selected_terms, 2)
+            combinations(selected, 2)
         )
+
+    # =====================================================
+    # 6. 연결 강도 및 Jaccard 계산
+    # =====================================================
 
     links = []
 
-    for (source, target), co in pairs.items():
+    for (source, target), cooccurrence in pairs.items():
+
         union = (
             counts[source]
             + counts[target]
-            - co
+            - cooccurrence
         )
 
-        jac = (
-            co / union if union else 0.0
+        jaccard = (
+            cooccurrence / union
+            if union else 0.0
         )
 
-        if (
-            co < min_cooccurrence
-            or jac < min_jaccard
-        ):
+        if cooccurrence < min_cooccurrence:
+            continue
+
+        if jaccard < min_jaccard:
             continue
 
         links.append({
             "source": source,
             "target": target,
-            "cooccurrence": co,
-            "jaccard": round(jac, 4)
+            "cooccurrence": cooccurrence,
+            "jaccard": round(jaccard, 4)
         })
 
     links.sort(
-        key=lambda x: (
-            -x["cooccurrence"],
-            -x["jaccard"],
-            x["source"],
-            x["target"]
+        key=lambda link: (
+            -link["cooccurrence"],
+            -link["jaccard"],
+            link["source"],
+            link["target"]
         )
     )
 
+    links = links[:max(0, int(max_links))]
+
     # =====================================================
-    # 9. 연결 강도 중심으로 핵심 노드 선정
+    # 7. 네트워크 노드 선정
     # =====================================================
 
-    strength = Counter()
-
-    for link in links:
-        strength[link["source"]] += (
-            link["cooccurrence"]
-        )
-
-        strength[link["target"]] += (
-            link["cooccurrence"]
-        )
-
-    selected_order = sorted(
-        strength,
-        key=lambda t: (
-            -strength[t],
-            -counts[t],
-            t
-        )
-    )[:32]
-
-    selected = set(selected_order)
-
-    chosen = [
-        link
-        for link in links
-        if (
-            link["source"] in selected
-            and link["target"] in selected
-        )
-    ][:max(0, int(max_links))]
-
-    # 실제 연결선이 있는 노드만 유지
     connected = {
-        term
-        for link in chosen
-        for term in (
+        keyword
+        for link in links
+        for keyword in (
             link["source"],
             link["target"]
         )
     }
 
+    # 연결이 부족하면 상위 키워드를 일부 유지
+    # 실제 연결이 없는 키워드에 가짜 연결선을 생성하지 않음
+    if len(connected) < 8:
+        connected.update(candidate_order[:8])
+
     selected_order = [
-        term
-        for term in selected_order
-        if term in connected
+        keyword
+        for keyword in candidate_order
+        if keyword in connected
     ]
 
     # =====================================================
-    # 10. 연결 관계 구성
+    # 8. 키워드 연결 관계 구성
     # =====================================================
 
     adjacency = defaultdict(dict)
 
-    for link in chosen:
-        a = link["source"]
-        b = link["target"]
-        w = link["cooccurrence"]
+    for link in links:
+        source = link["source"]
+        target = link["target"]
+        weight = link["cooccurrence"]
 
-        adjacency[a][b] = w
-        adjacency[b][a] = w
+        adjacency[source][target] = weight
+        adjacency[target][source] = weight
 
     # =====================================================
-    # 11. 군집 분석: 가중 라벨 전파
+    # 9. 연결 관계 기반 군집 분석
     # =====================================================
 
     labels = {
-        term: term
-        for term in selected_order
+        keyword: keyword
+        for keyword in selected_order
     }
 
-    for _ in range(15):
+    for _ in range(20):
         changed = False
-        next_labels = dict(labels)
 
-        for term in selected_order:
-            if not adjacency[term]:
+        for keyword in selected_order:
+
+            if not adjacency[keyword]:
                 continue
 
-            weights = Counter()
+            scores = Counter()
 
-            for neighbor, weight in adjacency[term].items():
-                weights[labels[neighbor]] += weight
+            for neighbor, weight in adjacency[keyword].items():
+                scores[labels[neighbor]] += weight
 
             best = sorted(
-                weights,
+                scores,
                 key=lambda label: (
-                    -weights[label],
+                    -scores[label],
                     label
                 )
             )[0]
 
-            if best != labels[term]:
-                next_labels[term] = best
+            if labels[keyword] != best:
+                labels[keyword] = best
                 changed = True
-
-        labels = next_labels
 
         if not changed:
             break
 
-    community_ids = {
-        label: idx + 1
-        for idx, label in enumerate(
+    communities = {
+        label: index + 1
+        for index, label in enumerate(
             sorted(set(labels.values()))
         )
     }
 
     # =====================================================
-    # 12. 프론트엔드 응답 데이터 구성
+    # 10. 프론트엔드 노드 구성
     # =====================================================
 
     nodes = []
 
-    for term in selected_order:
+    for keyword in selected_order:
+
         nodes.append({
-            "id": term,
-            "label": display.get(term, term),
-            "count": counts[term],
-            "degree": len(adjacency[term]),
+            "id": keyword,
+            "label": display_names[keyword],
+            "count": counts[keyword],
+            "degree": len(adjacency[keyword]),
             "weighted_degree": sum(
-                adjacency[term].values()
+                adjacency[keyword].values()
             ),
-            "community": community_ids[labels[term]]
+            "community": communities[labels[keyword]]
         })
 
     print(
         f"키워드 네트워크 생성 완료: "
-        f"논문 {len(articles)}건, "
+        f"논문 {len(article_ids)}건, "
+        f"등록 키워드 {len(counts)}종, "
         f"노드 {len(nodes)}개, "
-        f"연결선 {len(chosen)}개"
+        f"연결선 {len(links)}개"
     )
 
     return {
         "nodes": nodes,
-        "links": chosen
+        "links": links
     }
-
-
 # =========================================================
 # 수집 데이터 목록 조회
 # =========================================================
