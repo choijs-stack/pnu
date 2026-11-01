@@ -527,255 +527,231 @@ def get_keyword_network(
     min_jaccard=0.05,
     max_links=100
 ):
-    """
-    논문 키워드 동시출현 네트워크 생성
+    """등록 키워드 우선 + 제목/초록 보완형 동시출현 네트워크.
 
-    개선 내용
-    1. 전체 논문에서 주요 키워드 최대 30개 선정
-    2. 키워드별 등장 문서 수 계산
-    3. 주요 키워드 간 동시출현 관계 분석
-    4. 동시출현 빈도 및 Jaccard 유사도 활용
-    5. 연결 관계가 부족한 경우 보조 관계 추가
-    6. 기존 nodes / links 응답 구조 유지
+    - 논문별 등록 키워드는 그대로 유지한다.
+    - 제목에서 추출한 명사구 후보는 초록 또는 다른 논문에서도 확인되는 경우만 보완한다.
+    - 초록은 등록 키워드/제목 후보의 출현 여부를 확인하는 근거로 사용한다.
+    - 응답은 기존 프론트엔드와 호환되는 nodes/links 구조를 유지한다.
     """
     from collections import Counter, defaultdict
 
-    article_ids = get_analysis_article_ids(
-        req_idntf,
-        excn_idntfs
-    )
-
+    article_ids = get_analysis_article_ids(req_idntf, excn_idntfs)
     if not article_ids:
-        return {
-            "nodes": [],
-            "links": []
-        }
+        return {"nodes": [], "links": []}
 
     conn = None
     cursor = None
-
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-
         placeholders = make_in_clause(article_ids)
 
-        sql = f"""
-            SELECT
-                k.ARTCL_IDNTF AS article_id,
-                k.KWRD AS keyword
-            FROM CLCT_ARTCL_KWRD k
-            WHERE k.ARTCL_IDNTF IN ({placeholders})
-              AND k.KWRD IS NOT NULL
-              AND TRIM(k.KWRD) <> ''
-            ORDER BY
-                k.ARTCL_IDNTF,
-                k.SNO
-        """
+        # 제목과 초록을 함께 조회하되, 키워드 테이블의 기존 데이터를 우선 사용한다.
+        cursor.execute(f"""
+            SELECT ARTCL_IDNTF AS article_id, TTL AS title, ABST AS abstract
+            FROM CLCT_ARTCL
+            WHERE ARTCL_IDNTF IN ({placeholders})
+        """, tuple(article_ids))
+        articles = cursor.fetchall()
 
-        cursor.execute(sql, tuple(article_ids))
-        rows = cursor.fetchall()
+        cursor.execute(f"""
+            SELECT ARTCL_IDNTF AS article_id, KWRD AS keyword
+            FROM CLCT_ARTCL_KWRD
+            WHERE ARTCL_IDNTF IN ({placeholders})
+              AND KWRD IS NOT NULL AND TRIM(KWRD) <> ''
+            ORDER BY ARTCL_IDNTF, SNO
+        """, tuple(article_ids))
+        keyword_rows = cursor.fetchall()
 
-        # 1. 논문별 키워드 정리
-        article_keywords = defaultdict(set)
+        # 형태소 분석기를 추가 설치하지 않는 안전한 후보 추출.
+        # 전문용어 전체를 완벽히 인식하는 방식은 아니므로 후속 검증이 필요하다.
+        stopwords = {
+            "연구", "분석", "고찰", "검토", "특성", "특징", "관한", "대한",
+            "중심", "중심으로", "통한", "활용", "기반", "비교", "사례",
+            "방법", "결과", "영향", "관계", "현황", "방안", "문제", "의미",
+            "가능성", "시사점", "논문", "대상", "측면", "과정", "구조",
+            "대하여", "있다", "있으며", "위한", "그리고", "또한", "이러한",
+            "the", "and", "for", "with", "from", "using", "study",
+            "analysis", "based", "research", "effect", "effects", "case",
+        }
+        suffixes = ("에서는", "으로는", "으로", "에서", "에게", "에는", "과의",
+                    "와의", "들과", "들의", "들을", "으로서", "으로써", "에", "은", "는", "이", "가", "을", "를", "과", "와", "의", "도")
+
+        def tokens(text):
+            words = re.findall(r"[가-힣]{2,}|[A-Za-z][A-Za-z0-9-]{2,}", str(text or ""))
+            output = []
+            for word in words:
+                word = word.lower() if re.search(r"[A-Za-z]", word) else word
+                if re.search(r"[가-힣]", word):
+                    for suffix in suffixes:
+                        if word.endswith(suffix) and len(word) - len(suffix) >= 2:
+                            word = word[:-len(suffix)]
+                            break
+                if len(word) >= 2 and word not in stopwords:
+                    output.append(word)
+            return output
+
+        def valid_term(term):
+            if not term or term in {".", ",", "-", "--"}:
+                return False
+            words = tokens(term)
+            return bool(words) and any(w not in stopwords for w in words)
+
+        # 논문별 등록 키워드
+        registered = defaultdict(set)
         display_names = {}
-
-        noise = {".", ",", "-", "--"}
-
-        for row in rows:
+        registered_terms = set()
+        for row in keyword_rows:
             raw = str(row["keyword"] or "").strip()
-
-            if not raw or raw in noise:
+            if not valid_term(raw):
                 continue
-
-            normalized = normalize_keyword(raw)
-
-            if not normalized or normalized in noise:
+            key = normalize_keyword(raw)
+            if not key:
                 continue
+            registered[row["article_id"]].add(key)
+            registered_terms.add(key)
+            display_names.setdefault(key, raw)
 
-            article_keywords[
-                row["article_id"]
-            ].add(normalized)
-
-            display_names.setdefault(
-                normalized,
-                raw
+        # 제목에서 등장하는 후보어를 추출한다. 제목 전체를 임의로 분절해
+        # 수많은 조합을 만드는 대신 단일 내용어와 인접 2어절만 사용한다.
+        title_candidates = defaultdict(set)
+        title_document_counts = Counter()
+        text_by_article = {}
+        for article in articles:
+            aid = article["article_id"]
+            title = str(article.get("title") or "")
+            abstract = str(article.get("abstract") or "")
+            text_by_article[aid] = (title, abstract)
+            terms = tokens(title)
+            candidate_strings = set(terms)
+            candidate_strings.update(
+                " ".join(terms[i:i + 2])
+                for i in range(len(terms) - 1)
             )
+            for raw in candidate_strings:
+                if not valid_term(raw):
+                    continue
+                key = normalize_keyword(raw)
+                title_candidates[aid].add(key)
+                display_names.setdefault(key, raw)
+            title_document_counts.update(title_candidates[aid])
 
-        # 2. 키워드별 등장 문서 수 계산
+        # 등록 키워드가 있으면 기본으로 사용하고, 제목 후보는
+        # (a) 다른 논문 제목에도 등장하거나 (b) 같은 논문의 초록에
+        # 등장할 때만 추가한다. 논문당 최대 3개로 제한한다.
+        article_keywords = defaultdict(set)
+        origin_counts = Counter()
+        for article in articles:
+            aid = article["article_id"]
+            title, abstract = text_by_article[aid]
+            existing = set(registered[aid])
+            article_keywords[aid].update(existing)
+            origin_counts.update(existing)
+
+            abstract_norm = normalize_keyword(abstract) if abstract else ""
+            supplemental = []
+            for key in title_candidates[aid]:
+                if key in existing or len(key) < 3:
+                    continue
+                in_abstract = bool(abstract_norm and key in abstract_norm)
+                in_other_titles = title_document_counts[key] >= 2
+                if not (in_abstract or in_other_titles):
+                    continue
+                supplemental.append((in_other_titles, in_abstract,
+                                     title_document_counts[key], len(key), key))
+            supplemental.sort(reverse=True)
+            for _, _, _, _, key in supplemental[:3]:
+                article_keywords[aid].add(key)
+
+        # 초록에 등록된 주요 키워드가 실제로 등장하면 관계 분석에
+        # 활용하되, 그 논문의 등록 키워드가 아닌 것을 무제한 추가하지 않는다.
         counts = Counter(
-            keyword
-            for keywords in article_keywords.values()
-            for keyword in keywords
+            kw for keywords in article_keywords.values() for kw in keywords
         )
-
         if not counts:
-            return {
-                "nodes": [],
-                "links": []
-            }
+            return {"nodes": [], "links": []}
 
-        # 3. 주요 키워드 후보 선정
-        ranked = sorted(
-            counts,
-            key=lambda kw: (-counts[kw], kw)
-        )
-
-        repeated = [
-            kw for kw in ranked
-            if counts[kw] >= 2
-        ]
-
-        if len(repeated) >= 10:
-            candidates = repeated[:30]
-        else:
-            candidates = ranked[:30]
-
+        # 저자 키워드의 우선순위를 유지하면서 반복 출현을 중시한다.
+        ranked = sorted(counts, key=lambda kw: (
+            -counts[kw], -origin_counts[kw], kw
+        ))
+        max_nodes = 40
+        repeated = [kw for kw in ranked if counts[kw] >= 2]
+        candidates = repeated[:max_nodes]
+        if len(candidates) < min(15, len(ranked)):
+            for kw in ranked:
+                if kw not in candidates:
+                    candidates.append(kw)
+                if len(candidates) >= min(max_nodes, len(ranked)):
+                    break
         selected = set(candidates)
 
-        # 4. 키워드 동시출현 계산
         pair_counts = Counter()
-
         for keywords in article_keywords.values():
-            present = sorted(
-                keywords & selected
-            )
+            present = sorted(keywords & selected)
+            pair_counts.update(combinations(present, 2))
 
-            pair_counts.update(
-                combinations(present, 2)
-            )
-
-        # 5. 연결 관계 및 Jaccard 계산
         def make_link(pair, cooccurrence):
             source, target = pair
-
-            union = (
-                counts[source]
-                + counts[target]
-                - cooccurrence
-            )
-
-            jaccard = (
-                cooccurrence / union
-                if union else 0.0
-            )
-
+            union = counts[source] + counts[target] - cooccurrence
             return {
                 "source": source,
                 "target": target,
                 "cooccurrence": cooccurrence,
-                "jaccard": round(jaccard, 4)
+                "jaccard": round(cooccurrence / union, 4) if union else 0.0,
             }
 
-        primary = []
-        supplemental = []
-
+        primary, supplemental = [], []
         for pair, cooccurrence in pair_counts.items():
-            link = make_link(
-                pair,
-                cooccurrence
-            )
-
-            if (
-                cooccurrence >= min_cooccurrence
-                and link["jaccard"] >= min_jaccard
-            ):
+            link = make_link(pair, cooccurrence)
+            if (cooccurrence >= min_cooccurrence and
+                    link["jaccard"] >= min_jaccard):
                 primary.append(link)
-
-            elif (
-                cooccurrence >= 1
-                and counts[pair[0]] >= 2
-                and counts[pair[1]] >= 2
-            ):
+            elif cooccurrence >= 1:
                 supplemental.append(link)
 
-        # 6. 연결 관계 우선순위
         def priority(link):
-            return (
-                -link["cooccurrence"],
-                -link["jaccard"],
-                link["source"],
-                link["target"]
-            )
+            return (-link["cooccurrence"], -link["jaccard"],
+                    link["source"], link["target"])
 
         primary.sort(key=priority)
         supplemental.sort(key=priority)
-
-        max_links = max(
-            0,
-            int(max_links)
-        )
-
-        # 기본 관계가 부족할 경우 보완
-        target_links = min(
-            max_links,
-            15
-        )
-
+        max_links = max(0, int(max_links))
         chosen = primary[:max_links]
-
+        # 연결이 적을 때는 동시출현 1회 관계도 구분 가능한 범위에서 보완.
+        target_links = min(max_links, 35)
         if len(chosen) < target_links:
-            used = {
-                (x["source"], x["target"])
-                for x in chosen
-            }
-
+            used = {(x["source"], x["target"]) for x in chosen}
             for link in supplemental:
-                key = (
-                    link["source"],
-                    link["target"]
-                )
-
-                if key not in used:
+                pair = (link["source"], link["target"])
+                if pair not in used:
                     chosen.append(link)
-                    used.add(key)
-
+                    used.add(pair)
                 if len(chosen) >= target_links:
                     break
+        chosen = sorted(chosen, key=priority)[:max_links]
 
-        # 7. 최대 연결선 수 제한
-        chosen = sorted(
-            chosen,
-            key=priority
-        )[:max_links]
+        connected = {kw for link in chosen
+                     for kw in (link["source"], link["target"])}
+        # 연결선이 없는 핵심 키워드도 화면에 일부 유지한다.
+        standalone = set(candidates[:min(10, len(candidates))])
+        shown = connected | standalone
+        nodes = [{
+            "id": kw,
+            "label": display_names.get(kw, kw),
+            "count": counts[kw],
+        } for kw in candidates if kw in shown]
+        nodes.sort(key=lambda x: (-x["count"], x["id"]))
 
-        # 8. 실제 연결된 키워드 선정
-        connected = {
-            kw
-            for link in chosen
-            for kw in (
-                link["source"],
-                link["target"]
-            )
-        }
-
-        # 9. 노드 생성
-        nodes = [
-            {
-                "id": kw,
-                "label": display_names[kw],
-                "count": counts[kw]
-            }
-            for kw in candidates
-            if kw in connected
-        ]
-
-        nodes.sort(
-            key=lambda x: (
-                -x["count"],
-                x["id"]
-            )
-        )
-
-        return {
-            "nodes": nodes,
-            "links": chosen
-        }
+        print(f"키워드 네트워크: 논문 {len(articles)}건, "
+              f"등록 키워드 {len(registered_terms)}종, "
+              f"노드 {len(nodes)}개, 연결 {len(chosen)}개")
+        return {"nodes": nodes, "links": chosen}
 
     finally:
         if cursor:
             cursor.close()
-
         if conn and conn.is_connected():
             conn.close()
 
