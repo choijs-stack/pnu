@@ -506,12 +506,23 @@ def get_llm_analysis(
 {document_text}
 """
 
+    # flow만 길이 제한에 도달하므로 출력 예산을 별도로 확보한다.
+    # 정상 종료하는 comparison/conclusion/trend/extras 설정은 유지한다.
+    flow_llm = ChatOllama(
+        model=model_name,
+        base_url=base_url,
+        temperature=0.1,
+        num_predict=11000,
+    )
+
     # summary만 세 개의 독립 요청으로 분리한다.
     # 각 요청에 동일한 수집 자료를 전달하되, 한 번에 한 분석 영역만 작성한다.
     summary_flow_prompt = common + """
 [작성 결과: summary / 핵심 연구 흐름 및 주요 성과]
 이용자에게 제공할 상세 학술 분석의 첫 번째 영역만 작성하세요.
 반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
+제목은 반드시 독립된 줄에 쓰고, 제목 다음에 빈 줄을 넣으세요.
+각 연구군의 내용을 끝까지 완성하고 문장 중간에 종료하지 마세요.
 
 ### 핵심 연구 흐름 및 주요 성과
 실제로 확인되는 핵심 연구군 3~5개를 #### 소제목으로 구분하세요.
@@ -608,9 +619,9 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
 응답을 끝까지 완성하는 것이 중요하므로 마지막 JSON 닫는 괄호까지 출력하세요.
 """
 
-    def run_text_section(name, prompt):
+    def run_text_section(name, prompt, model=None):
         try:
-            response = llm.invoke(prompt)
+            response = (model or llm).invoke(prompt)
             raw = response.content
             if not isinstance(raw, str):
                 raw = str(raw or "")
@@ -636,8 +647,28 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
         value = re.sub(r"^```(?:markdown|md|text)?\s*\n?", "", value.strip(), flags=re.I)
         value = re.sub(r"\n?```\s*$", "", value)
         value = re.sub(r"\[근거\s*:\s*\d+\s*\]", "", value)
+        # 숫자만 지우면 '1403032번 논문' -> '번 논문'이 되므로 표현 단위로 교체한다.
+        for source_id in sorted(source_ids, key=len, reverse=True):
+            value = re.sub(
+                rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*번\s*논문",
+                "해당 연구", value
+            )
+            value = re.sub(
+                rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*논문",
+                "해당 연구", value
+            )
         for source_id in sorted(source_ids, key=len, reverse=True):
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}(?![0-9A-Za-z])", "", value)
+        # 알려진 고정 섹션 제목은 정확히 분리 (제목 뒤 본문이 붙어도 처리).
+        for fixed_heading in (
+            "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
+            "종합 결론 및 분석 한계", "연구동향 및 변화",
+            "신흥 연구 후보 및 기술 발전 방향",
+        ):
+            value = re.sub(
+                rf"(?<!#)###\s+{re.escape(fixed_heading)}(?=\s|$)",
+                "\n\n### " + fixed_heading + "\n\n", value,
+            )
         value = re.sub(r"[ \t]*(?<!#)(#{3,4})[ \t]+", r"\n\n\1 ", value)
         for heading in (
             "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
@@ -655,7 +686,7 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
 
     # 다른 섹션이 실패해도 정상 생성된 섹션은 보존한다.
     summary_parts = [
-        tidy_markdown(run_text_section("summary/flow", summary_flow_prompt)),
+        tidy_markdown(run_text_section("summary/flow", summary_flow_prompt, model=flow_llm)),
         tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt)),
         tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt)),
     ]
