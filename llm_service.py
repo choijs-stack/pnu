@@ -524,15 +524,14 @@ def get_llm_analysis(
     # 각 요청에 동일한 수집 자료를 전달하되, 한 번에 한 분석 영역만 작성한다.
     summary_flow_prompt = common + """
 [작성 결과: summary / 핵심 연구 흐름 및 주요 성과]
-[JSON 출력 구조]
-{"blocks":[{"title":"소제목","paragraphs":["첫 번째 분석 문단","두 번째 분석 문단"]}]}
-blocks의 각 항목은 독립된 소제목과 문단 배열입니다. 분석 본문은 paragraphs에 넣고 제목과 합치지 마세요.
 이용자에게 제공할 상세 학술 분석의 첫 번째 영역만 작성하세요.
-반드시 JSON 객체 하나만 출력하세요. Markdown이나 코드블록을 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
+제목은 반드시 독립된 줄에 쓰고, 제목 다음에 빈 줄을 넣으세요.
+#### 소제목에는 연구군 이름만 쓰고 본문 첫 문장을 같은 줄에 이어 쓰지 마세요.
 각 연구군의 내용을 끝까지 완성하고 문장 중간에 종료하지 마세요.
 
-핵심 연구 흐름 및 주요 성과:
-실제로 확인되는 핵심 연구군 3~4개를 소제목으로 구분하세요.
+### 핵심 연구 흐름 및 주요 성과
+실제로 확인되는 핵심 연구군 3~4개를 #### 소제목으로 구분하세요.
 각 연구군에 대해 연구 배경과 문제, 논문의 구체적인 접근 방법,
 자료에서 확인되는 주요 결과, 해당 결과의 의미와 한계를
 서로 연결하여 연구군마다 1~2개의 충실한 문단으로 분석하세요.
@@ -546,20 +545,18 @@ blocks의 각 항목은 독립된 소제목과 문단 배열입니다. 분석 �
 
     summary_comparison_prompt = common + """
 [작성 결과: summary / 연구 간 차별성 및 연계성]
-[JSON 출력 구조]
-{"blocks":[{"title":"소제목","paragraphs":["첫 번째 분석 문단","두 번째 분석 문단"]}]}
-blocks의 각 항목은 독립된 소제목과 문단 배열입니다. 분석 본문은 paragraphs에 넣고 제목과 합치지 마세요.
 이용자에게 제공할 상세 학술 분석의 두 번째 영역만 작성하세요.
-반드시 JSON 객체 하나만 출력하세요. Markdown이나 코드블록을 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
 
-연구 간 차별성 및 연계성:
-서로 비교할 실질적인 이유가 있는 3~5개의 연구 조합을 소제목으로 다루세요.
+### 연구 간 차별성 및 연계성
+서로 비교할 실질적인 이유가 있는 3~5개의 연구 조합을 #### 소제목으로 다루세요.
 각 조합마다 연구 목표와 해결 방식의 차이, 상호 보완 관계,
 연결했을 때 가능한 연구 질문, 검증되지 않은 부분을
 2개 문단 이상으로 충분히 논의하세요.
 관련성이 약한 연구끼리는 억지로 연결하지 마세요.
-각 연구 조합의 소제목은 두 연구의 차이점이나 연계 방향을 나타내는 한국어 비교 주제 하나로 작성하세요.
+각 연구 조합의 #### 소제목은 두 연구의 차이점이나 연계 방향을 나타내는 한국어 비교 주제 하나로 작성하세요.
 개별 논문의 원제목을 각각 소제목으로 출력하지 마세요.
+#### 소제목과 본문은 서로 다른 줄에 작성하세요.
 연구명 뒤에 논문 내부 식별번호나 빈 괄호를 붙이지 마세요.
 다른 summary 영역인 '핵심 연구 흐름 및 주요 성과'와
 '종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
@@ -568,34 +565,28 @@ blocks의 각 항목은 독립된 소제목과 문단 배열입니다. 분석 �
 
     summary_conclusion_prompt = common + """
 [작성 결과: summary / 종합 결론 및 분석 한계]
-[JSON 출력 구조]
-{"blocks":[{"title":"소제목","paragraphs":["첫 번째 분석 문단","두 번째 분석 문단"]}]}
-blocks의 각 항목은 독립된 소제목과 문단 배열입니다. 분석 본문은 paragraphs에 넣고 제목과 합치지 마세요.
-blocks의 title은 공통 성과, 기술적 공백, 실제 적용상의 조건, 후속 연구 기획, 분석 한계를 사용하세요.
 이용자에게 제공할 상세 학술 분석의 세 번째 영역만 작성하세요.
-반드시 JSON 객체 하나만 출력하세요. Markdown이나 코드블록을 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
 
-종합 결론 및 분석 한계:
+### 종합 결론 및 분석 한계
 전체 자료를 가로지르는 공통 성과, 기술적 공백, 실제 적용상의 조건,
 후속 연구기획과 의사결정에 필요한 검증 과제를
 각각 별도의 상세 문단으로 분석하세요.
 논문별 요약을 반복하지 말고 전체 자료를 종합하세요.
 논문 초록만으로 실증 여부를 판단할 수 없으면 그 한계를 명시하세요.
 짧은 개요나 두세 문장짜리 결론으로 끝내지 마세요.
-각 소주제(공통 성과, 기술적 공백, 실제 적용상의 조건, 후속 연구 기획, 분석 한계)를 별도 항목으로 구분하세요.
+각 소주제(공통 성과, 기술적 공백, 실제 적용상의 조건, 후속 연구 기획, 분석 한계)는 독립된 Markdown 소제목과 문단으로 구분하세요.
 다른 summary 영역은 이번 응답에 작성하지 마세요.
 근거가 부족하면 추측으로 분량을 채우지 마세요.
 """
 
     trend_prompt = common + """
 [작성 결과: trend]
-[JSON 출력 구조]
-{"sections":[{"title":"연구동향 및 변화","blocks":[{"title":"","paragraphs":["첫 번째 문단","두 번째 문단"]}]},{"title":"신흥 연구 후보 및 기술 발전 방향","blocks":[{"title":"연구 후보 이름","paragraphs":["연구 내용 문단","검증 및 적용 문단"]}]}]}
-sections는 정확히 위 두 개를 순서대로 작성하세요. 연구동향은 title이 빈 blocks 하나에 4~5개의 문단을 넣고, 신흥 연구 후보는 후보마다 blocks 항목 하나씩 작성하세요.
 이용자에게 직접 보여줄 상세 연구동향 분석입니다.
-반드시 JSON 객체 하나만 출력하세요. Markdown이나 코드블록을 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
+제목 앞뒤에 빈 줄을 넣으세요.
 
-연구동향 및 변화:
+### 연구동향 및 변화
 수집 자료에 실제 등장하는 기술적 연구 흐름을 4~5개의 충실한 문단으로 분석하세요.
 각 문단에서 관련 기술의 연구 문제, 서로 다른 접근 방법, 실제 확인된 성과,
 다른 연구와 연결되는 지점, 아직 남은 문제를 구체적으로 설명하세요.
@@ -603,8 +594,8 @@ sections는 정확히 위 두 개를 순서대로 작성하세요. 연구동향�
 같은 발행연월의 논문들 사이에 선후 관계나 증가·감소 추세를 만들어내지 마세요.
 단순히 기술 이름을 나열하거나 '연구가 활발하다'고 단정하지 마세요.
 
-신흥 연구 후보 및 기술 발전 방향:
-자료로 뒷받침되는 3~4개의 연구 후보를 소제목으로 제시하세요.
+### 신흥 연구 후보 및 기술 발전 방향
+자료로 뒷받침되는 3~4개의 연구 후보를 #### 소제목으로 제시하세요.
 각 후보에 대해 (1) 근거가 되는 기존 기술과 해결되지 않은 문제,
 (2) 제안하는 연구 구성 및 방법, (3) 필요한 데이터와 검증 설계,
 (4) 평가 지표 및 적용 시 유의사항을 각각 구체적인 문장으로 연결해
@@ -741,70 +732,22 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
             return text
         return f"### {heading}\n\n{text}"
 
-    def render_structured_markdown(raw, expected_title=None, is_trend=False):
-        """Build Markdown from explicit JSON fields, not guessed word boundaries."""
-        parsed = parse_llm_json(raw)
-        if not isinstance(parsed, dict):
-            print("[LLM] 구조화 JSON 파싱 실패: 기존 Markdown 후처리로 대체")
-            return tidy_markdown(raw) if is_trend else ensure_section_heading(tidy_markdown(raw), expected_title)
-
-        def render_blocks(blocks):
-            parts = []
-            if not isinstance(blocks, list):
-                return parts
-            for block in blocks:
-                if not isinstance(block, dict):
-                    continue
-                title = block.get("title", "")
-                if isinstance(title, str) and title.strip():
-                    parts.append("#### " + re.sub(r"^#+\s*", "", title.strip()))
-                paragraphs = block.get("paragraphs", [])
-                if isinstance(paragraphs, str):
-                    paragraphs = [paragraphs]
-                if not isinstance(paragraphs, list):
-                    continue
-                for paragraph in paragraphs:
-                    if isinstance(paragraph, str) and paragraph.strip():
-                        parts.append(paragraph.strip().replace(r"\n", "\n").replace(r"\*\*", "**"))
-            return parts
-
-        if is_trend:
-            sections = parsed.get("sections")
-            if not isinstance(sections, list):
-                return tidy_markdown(raw)
-            output = []
-            expected = ("연구동향 및 변화", "신흥 연구 후보 및 기술 발전 방향")
-            for i, title in enumerate(expected):
-                section = next((x for x in sections if isinstance(x, dict) and x.get("title") == title), None)
-                if section is None and i < len(sections) and isinstance(sections[i], dict):
-                    section = sections[i]
-                if section is not None:
-                    content = render_blocks(section.get("blocks"))
-                    if content:
-                        output.extend(["### " + title, *content])
-            return "\n\n".join(output).strip() if output else tidy_markdown(raw)
-
-        content = render_blocks(parsed.get("blocks"))
-        if not content:
-            return ensure_section_heading(tidy_markdown(raw), expected_title)
-        return "\n\n".join(["### " + expected_title, *content]).strip()
-
     summary_parts = [
-        render_structured_markdown(
-            run_text_section("summary/flow", summary_flow_prompt, model=flow_llm),
+        ensure_section_heading(
+            tidy_markdown(run_text_section("summary/flow", summary_flow_prompt, model=flow_llm)),
             "핵심 연구 흐름 및 주요 성과",
         ),
-        render_structured_markdown(
-            run_text_section("summary/comparison", summary_comparison_prompt),
+        ensure_section_heading(
+            tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt)),
             "연구 간 차별성 및 연계성",
         ),
-        render_structured_markdown(
-            run_text_section("summary/conclusion", summary_conclusion_prompt),
+        ensure_section_heading(
+            tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt)),
             "종합 결론 및 분석 한계",
         ),
     ]
-    summary = "\\n\\n".join(part for part in summary_parts if part)
-    trend = render_structured_markdown(run_text_section("trend", trend_prompt), is_trend=True)
+    summary = "\n\n".join(part for part in summary_parts if part)
+    trend = tidy_markdown(run_text_section("trend", trend_prompt))
     extras_raw = run_text_section("topics/implications", extras_prompt)
     extras = parse_llm_json(extras_raw) if extras_raw else None
     if not isinstance(extras, dict):
