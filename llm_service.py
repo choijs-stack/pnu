@@ -98,6 +98,180 @@ def parse_llm_json(content):
 
 
 # =========================================================
+# Markdown 정리
+# =========================================================
+# LLM 출력의 제목 구분자([SECTION]/[SUBSECTION]/[END_TITLE]/[CONTENT])를 Markdown 제목으로
+# 바꾸고, 어떤 Markdown 렌더러에서도 같은 모양이 나오도록 제목·문단·목록 사이 빈 줄을 보장한다.
+# 본문 문장과 수치는 수정하지 않는다.
+_BR_O = r"[\[【]"   # 여는 괄호: [ 또는 전각 【
+_BR_C = r"[\]】]"   # 닫는 괄호: ] 또는 전각 】
+
+# 제목 시작 구분자 (모델이 SUB_SECTION, sub section 처럼 쓰는 경우 포함)
+_SECTION_OPEN_ANY = rf"{_BR_O}\s*(?:SUB[ _-]?SECTION|SECTION)\s*{_BR_C}"
+_SECTION_OPEN = rf"{_BR_O}\s*(?P<kind>SUB[ _-]?SECTION|SECTION)\s*{_BR_C}"
+
+# 제목 종료 구분자와 모델이 자주 쓰는 변형:
+# [END_TITLE] [END TITLE] [ENDTITLE] [/END_TITLE] [TITLE_END]
+# [END_SECTION] [END_SUBSECTION] [/SECTION] [/SUBSECTION] [/TITLE]
+_TITLE_END = (
+    rf"{_BR_O}\s*(?:"
+    r"/?\s*(?:END[ _-]?TITLE|END[ _-]?(?:SUB[ _-]?)?SECTION|TITLE[ _-]?END)"
+    r"|/\s*(?:(?:SUB[ _-]?)?SECTION|TITLE)"
+    rf")\s*{_BR_C}"
+)
+
+# 본문 구분자와 변형: [CONTENT] [END_CONTENT] [/CONTENT] [CONTENT_END]
+_CONTENT_TOKEN = rf"{_BR_O}\s*/?\s*(?:END[ _-]?)?CONTENT(?:[ _-]?END)?\s*{_BR_C}"
+
+# [SECTION]제목[END_TITLE] 전체. 종료 구분자가 없으면 줄 끝, 다음 구분자, [CONTENT] 앞까지를 제목으로 본다.
+_HEADING_RE = re.compile(
+    _SECTION_OPEN
+    + r"[ \t]*\n?[ \t]*"
+    + rf"(?P<title>(?:(?!{_SECTION_OPEN_ANY}|{_TITLE_END}|{_CONTENT_TOKEN})[^\n]){{1,200}}?)"
+    + rf"(?:\s*{_TITLE_END}|[ \t]*(?=\n|$)|[ \t]*(?={_SECTION_OPEN_ANY}|{_CONTENT_TOKEN}))",
+    re.IGNORECASE,
+)
+
+_LIST_ITEM_RE = re.compile(r"^[ \t]*(?:[-*+]|\d{1,3}[.)])[ \t]+\S")
+_HEADING_LINE_RE = re.compile(r"^#{1,6}[ \t]+\S")
+
+
+def _heading_repl(match):
+    kind = match.group("kind").upper()
+    level = "####" if kind.startswith("SUB") else "###"
+    title = " ".join(match.group("title").split()).strip(" *_\"'“”:：")
+    if not title:
+        return "\n\n"
+    return f"\n\n{level} {title}\n\n"
+
+
+def _classify_line(line):
+    if _HEADING_LINE_RE.match(line):
+        return "heading"
+    if _LIST_ITEM_RE.match(line):
+        return "list"
+    if line.startswith("|"):
+        return "table"
+    if line[:1] in (" ", "\t"):
+        return "indent"
+    return "text"
+
+
+def _normalize_blank_lines(value):
+    """제목·문단·목록 사이에 빈 줄을 보장한다.
+
+    LLM이 문단과 (1)(2)(3) 항목을 한 줄 줄바꿈으로만 구분하면 Markdown 렌더러는
+    한 문단으로 합쳐 버리고, 문단 바로 다음 줄의 '- 항목'은 목록으로 인식하지 않는다.
+    연속된 목록 항목과 표 행만 붙여 두고 나머지는 모두 빈 줄로 분리한다.
+    """
+    out = []
+    prev_kind = None
+    for raw_line in value.split("\n"):
+        line = raw_line.rstrip()
+        if not line.strip():
+            if out and out[-1] != "":
+                out.append("")
+            prev_kind = None
+            continue
+
+        kind = _classify_line(line)
+        if kind == "indent":
+            if prev_kind == "list":
+                # 목록 항목에 이어지는 들여쓴 줄은 그대로 둔다.
+                out.append(line)
+                continue
+            # 목록 밖의 들여쓰기는 코드블록으로 렌더링되므로 제거한다.
+            line = line.lstrip()
+            kind = _classify_line(line)
+
+        tight = (
+            (prev_kind == "list" and kind == "list")
+            or (prev_kind == "table" and kind == "table")
+        )
+        if out and out[-1] != "" and not tight:
+            out.append("")
+        out.append(line)
+        prev_kind = kind
+    return "\n".join(out)
+
+
+def tidy_markdown(value):
+    """LLM 출력의 제목 구분자를 Markdown 제목으로 바꾸고 문단 구조를 정리한다."""
+    if not value:
+        return ""
+    value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
+    value = re.sub(r"^```(?:markdown|md|text)?[ \t]*\n?", "", value, flags=re.I)
+    value = re.sub(r"\n?```[ \t]*$", "", value)
+
+    # **[SECTION]제목[END_TITLE]** 처럼 구분자를 굵게 감싼 경우 바깥 ** 를 먼저 제거한다.
+    value = re.sub(rf"(?:\*\*|__)[ \t]*(?={_SECTION_OPEN_ANY})", "", value, flags=re.I)
+    value = re.sub(rf"({_TITLE_END})[ \t]*(?:\*\*|__)", r"\1", value, flags=re.I)
+
+    # 제목 구분자 -> Markdown 제목
+    value = _HEADING_RE.sub(_heading_repl, value)
+
+    # 남은 구분자 토큰 제거 ([CONTENT], 짝이 맞지 않는 [END_TITLE], 제목 없는 [SECTION])
+    value = re.sub(_CONTENT_TOKEN, "\n\n", value, flags=re.I)
+    value = re.sub(_TITLE_END, "\n", value, flags=re.I)
+    value = re.sub(rf"{_SECTION_OPEN_ANY}[ \t]*", "\n", value, flags=re.I)
+
+    # 모델이 직접 쓴 Markdown 제목은 레벨을 ###/####로 통일한다.
+    value = re.sub(r"(?m)^[ \t]{0,3}#{1,2}[ \t]+", "### ", value)
+    value = re.sub(r"(?m)^[ \t]{0,3}#{5,}[ \t]*", "#### ", value)
+    value = re.sub(r"(?m)^[ \t]{0,3}(#{3,4})(?=[^#\s])", r"\1 ", value)
+    # '### **제목**' -> '### 제목'
+    value = re.sub(r"(?m)^(#{3,4}) (?:\*\*|__)(.+?)(?:\*\*|__)[ \t]*$", r"\1 \2", value)
+    # 한 줄 전체가 굵게 처리된 짧은 구절(문장부호로 끝나지 않음)은 소제목으로 본다.
+    value = re.sub(
+        r"(?m)^[ \t]*(?:\*\*|__)([^\n*_]{1,80}?)(?<![.!?。])(?:\*\*|__)[ \t]*:?[ \t]*$",
+        r"#### \1", value,
+    )
+    # 구분선(---, ===)은 앞 문단을 setext 제목으로 바꿔 버리므로 제거한다.
+    value = re.sub(r"(?m)^[ \t]*(?:-{3,}|={3,}|\*{3,}|_{3,})[ \t]*$", "", value)
+    # 비표준 글머리표(•, ◦, ▪, ㆍ)는 Markdown 목록으로 바꾼다.
+    value = re.sub(r"(?m)^[ \t]*[•◦▪ㆍ·][ \t]+", "- ", value)
+
+    value = _normalize_blank_lines(value)
+    return re.sub(r"\n{3,}", "\n\n", value).strip()
+
+
+def ensure_section_heading(text, heading):
+    """summary 영역별 결과의 최상위 제목을 지정한 영역 제목 하나로 통일한다.
+
+    모델이 [SECTION] 제목을 조금 다르게 쓰거나 소제목에 [SECTION]을 쓴 경우
+    ### 제목이 중복되지 않도록, 첫 ###는 영역 제목으로 바꾸고 나머지 ###는 ####로 내린다.
+    다른 섹션이 실패해도 정상 생성된 섹션은 보존한다.
+    """
+    if not text:
+        return ""
+    lines = text.split("\n")
+    first_done = False
+    body_started = False
+    kept = []
+    for line in lines:
+        m = re.match(r"^### (.+)$", line)
+        if not m:
+            if line.strip():
+                body_started = True
+            kept.append(line)
+            continue
+        title = m.group(1).strip()
+        if not first_done and not body_started:
+            kept.append(f"### {heading}")
+            first_done = True
+        elif title == heading:
+            # 영역 제목이 본문 중간에 다시 나오면 중복이므로 제거한다.
+            continue
+        else:
+            kept.append(f"#### {title}")
+    text = "\n".join(kept)
+    text = re.sub(r"\n{3,}", "\n\n", text).strip()
+    if not first_done:
+        text = f"### {heading}\n\n{text}"
+    return text
+
+
+# =========================================================
 # LLM 분석용 데이터 조회
 # =========================================================
 def get_analysis_documents(
@@ -671,39 +845,6 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
         except Exception as exc:
             print(f"[LLM] {name} 생성 실패: {type(exc).__name__}: {exc}")
             return ""
-
-    def tidy_markdown(value):
-        """명시적 제목 구분자만 Markdown으로 변환한다. 본문 수치/수식은 수정하지 않는다."""
-        if not value:
-            return ""
-        value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
-        value = re.sub(r"^```(?:markdown|md|text)?[ \t]*\n?", "", value, flags=re.I)
-        value = re.sub(r"\n?```[ \t]*$", "", value)
-
-        # LLM이 생성한 명시적 제목 구분자만 변환한다. 제목/본문을 추측해 자르지 않는다.
-        def heading_repl(match):
-            level = "###" if match.group(1).upper() == "SECTION" else "####"
-            title = " ".join(match.group(2).split())
-            return f"\n\n{level} {title}\n\n"
-
-        value = re.sub(
-            r"\[(SECTION|SUBSECTION)\][ \t]*([^\[\]\n]+?)[ \t]*\[END_TITLE\]",
-            heading_repl, value, flags=re.I,
-        )
-        value = re.sub(r"\[CONTENT\][ \t]*", "\n\n", value, flags=re.I)
-        # 모델이 기존 Markdown 제목을 준 경우에도, 본문 경계를 임의로 추측하지 않는다.
-        value = re.sub(r"(?m)^(#{3,4})(?=[^#\s])", r"\1 ", value)
-        value = re.sub(r"(?m)^(#{3,4} [^\n]+)\n(?!\n)", r"\1\n\n", value)
-        value = re.sub(r"[ \t]+\n", "\n", value)
-        return re.sub(r"\n{3,}", "\n\n", value).strip()
-
-    # 다른 섹션이 실패해도 정상 생성된 섹션은 보존한다.
-    def ensure_section_heading(text, heading):
-        if not text:
-            return ""
-        if re.search(rf"(?m)^###\s+{re.escape(heading)}(?:\s|$)", text):
-            return text
-        return f"### {heading}\n\n{text}"
 
     summary_parts = [
         ensure_section_heading(
