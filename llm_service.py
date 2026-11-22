@@ -634,6 +634,15 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
 응답을 끝까지 완성하는 것이 중요하므로 마지막 JSON 닫는 괄호까지 출력하세요.
 """
 
+    # 디버깅 전용: 원본과 후처리 결과를 구분해 확인한다.
+    # 실제 개행은 repr()에서 \n으로 표시되어 눈으로 비교할 수 있다.
+    def debug_markdown(label, content):
+        content = content if isinstance(content, str) else str(content or "")
+        print(f"\n[MARKDOWN DEBUG] ===== {label} ({len(content)} chars) =====", flush=True)
+        print(content, flush=True)
+        print(f"[MARKDOWN DEBUG] {label} first_500_repr={content[:500]!r}", flush=True)
+        print(f"[MARKDOWN DEBUG] ===== END {label} =====\n", flush=True)
+
     def run_text_section(name, prompt, model=None):
         try:
             response = (model or llm).invoke(prompt)
@@ -642,6 +651,7 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
                 raw = str(raw or "")
             raw = raw.strip()
             print(f"[LLM] {name} 응답: {len(raw)}자")
+            debug_markdown(f"RAW {name}", raw)
             meta = getattr(response, "response_metadata", {}) or {}
             print(f"[LLM] {name} 종료 정보: {meta.get('done_reason', meta.get('eval_count', 'unknown'))}")
             if raw.startswith("```"):
@@ -745,8 +755,11 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
             "종합 결론 및 분석 한계",
         ),
     ]
+    for index, part in enumerate(summary_parts):
+        debug_markdown(f"AFTER summary/{['flow', 'comparison', 'conclusion'][index]}", part)
     summary = "\n\n".join(part for part in summary_parts if part)
     trend = tidy_markdown(run_text_section("trend", trend_prompt))
+    debug_markdown("AFTER trend", trend)
     extras_raw = run_text_section("topics/implications", extras_prompt)
     extras = parse_llm_json(extras_raw) if extras_raw else None
     if not isinstance(extras, dict):
@@ -773,6 +786,8 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
                 break
         return normalized
 
+    debug_markdown("FINAL API summary", summary)
+    debug_markdown("FINAL API trend", trend)
     result = {
         "overall_analysis": {"summary": summary, "trend": trend},
         "key_topics": normalize_items(extras.get("key_topics"), "topic", 5),
