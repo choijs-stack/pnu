@@ -506,11 +506,12 @@ def get_llm_analysis(
 {document_text}
 """
 
-    summary_prompt = common + """
-[작성 결과: summary]
-아래는 이용자에게 직접 보여줄 상세 연구 분석입니다.
+    # summary만 세 개의 독립 요청으로 분리한다.
+    # 각 요청에 동일한 수집 자료를 전달하되, 한 번에 한 분석 영역만 작성한다.
+    summary_flow_prompt = common + """
+[작성 결과: summary / 핵심 연구 흐름 및 주요 성과]
+이용자에게 제공할 상세 학술 분석의 첫 번째 영역만 작성하세요.
 반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
-제목은 줄의 시작에서 ### 또는 ####로 작성하고 제목 앞뒤에 빈 줄을 넣으세요.
 
 ### 핵심 연구 흐름 및 주요 성과
 실제로 확인되는 핵심 연구군 3~5개를 #### 소제목으로 구분하세요.
@@ -519,6 +520,15 @@ def get_llm_analysis(
 서로 연결하여 2~3개의 충실한 문단으로 분석하세요.
 연구군에 여러 논문이 있으면 공통점과 각 논문의 고유한 기여를 구별하세요.
 논문별 초록을 단순히 줄여 붙인 목록이 되어서는 안 됩니다.
+다른 summary 영역인 '연구 간 차별성 및 연계성'과
+'종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
+근거가 부족하면 추측으로 분량을 채우지 마세요.
+"""
+
+    summary_comparison_prompt = common + """
+[작성 결과: summary / 연구 간 차별성 및 연계성]
+이용자에게 제공할 상세 학술 분석의 두 번째 영역만 작성하세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
 
 ### 연구 간 차별성 및 연계성
 서로 비교할 실질적인 이유가 있는 3~5개의 연구 조합을 #### 소제목으로 다루세요.
@@ -526,16 +536,25 @@ def get_llm_analysis(
 연결했을 때 가능한 연구 질문, 검증되지 않은 부분을
 2개 문단 이상으로 충분히 논의하세요.
 관련성이 약한 연구끼리는 억지로 연결하지 마세요.
+다른 summary 영역인 '핵심 연구 흐름 및 주요 성과'와
+'종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
+근거가 부족하면 추측으로 분량을 채우지 마세요.
+"""
+
+    summary_conclusion_prompt = common + """
+[작성 결과: summary / 종합 결론 및 분석 한계]
+이용자에게 제공할 상세 학술 분석의 세 번째 영역만 작성하세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
 
 ### 종합 결론 및 분석 한계
 전체 자료를 가로지르는 공통 성과, 기술적 공백, 실제 적용상의 조건,
 후속 연구기획과 의사결정에 필요한 검증 과제를
 각각 별도의 상세 문단으로 분석하세요.
-이미 쓴 연구군별 요약을 반복하지 말고 분석 결과를 종합하세요.
+논문별 요약을 반복하지 말고 전체 자료를 종합하세요.
 논문 초록만으로 실증 여부를 판단할 수 없으면 그 한계를 명시하세요.
-
-중요: 짧은 개요나 두세 문장짜리 결론으로 끝내지 마세요.
-근거가 허용하는 범위에서 충분히 상세하고 구체적인 해설을 작성하세요.
+짧은 개요나 두세 문장짜리 결론으로 끝내지 마세요.
+다른 summary 영역은 이번 응답에 작성하지 마세요.
+근거가 부족하면 추측으로 분량을 채우지 마세요.
 """
 
     trend_prompt = common + """
@@ -635,7 +654,12 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
         return re.sub(r"\n{3,}", "\n\n", value).strip()
 
     # 다른 섹션이 실패해도 정상 생성된 섹션은 보존한다.
-    summary = tidy_markdown(run_text_section("summary", summary_prompt))
+    summary_parts = [
+        tidy_markdown(run_text_section("summary/flow", summary_flow_prompt)),
+        tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt)),
+        tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt)),
+    ]
+    summary = "\n\n".join(part for part in summary_parts if part)
     trend = tidy_markdown(run_text_section("trend", trend_prompt))
     extras_raw = run_text_section("topics/implications", extras_prompt)
     extras = parse_llm_json(extras_raw) if extras_raw else None
