@@ -655,47 +655,66 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
     source_ids = {str(row.get("ARTCL_IDNTF")).strip() for row in rows if row.get("ARTCL_IDNTF") is not None}
 
     def tidy_markdown(value):
+        """LLM의 Markdown 표시 형식만 보정한다. 본문 내용과 수치는 수정하지 않는다."""
         if not value:
             return ""
         value = value.replace(r"\n", "\n").replace(r"\r", "")
         value = re.sub(r"^```(?:markdown|md|text)?\s*\n?", "", value.strip(), flags=re.I)
         value = re.sub(r"\n?```\s*$", "", value)
         value = re.sub(r"\[근거\s*:\s*\d+\s*\]", "", value)
-        # 내부 논문 ID만 삭제한다. 본문의 일반 수치나 기술명은 건드리지 않는다.
         for source_id in sorted(source_ids, key=len, reverse=True):
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*번\s*논문", "해당 연구", value)
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*논문", "해당 연구", value)
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}(?![0-9A-Za-z])", "", value)
         value = re.sub(r"\(\s*\)", "", value)
+        # Markdown으로 이스케이프된 제목과 강조만 복구한다.
+        value = re.sub(r"\\(?=#{1,6}\s)", "", value)
+        value = value.replace(r"\*\*", "**")
 
         fixed = (
             "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
             "종합 결론 및 분석 한계", "연구동향 및 변화",
             "신흥 연구 후보 및 기술 발전 방향",
         )
-        # 모델이 제목을 본문에 붙여 쓰거나 백슬래시로 #를 이스케이프해도 분리한다.
-        value = re.sub(r"\\(?=#{1,6}\s)", "", value)
+        # 고정 섹션 제목은 위치에 상관없이 별도 줄로 만든다.
         for heading in fixed:
             value = re.sub(
-                rf"(?:^|\s)#{{3}}\s+{re.escape(heading)}(?=\s|$)",
+                rf"(?:^|\s)###\s+{re.escape(heading)}(?=\s|$)",
                 "\n\n### " + heading + "\n\n", value,
             )
-        # 이미 정상인 제목은 유지하면서, 한 줄에 붙은 Markdown 제목을 분리한다.
+            # 제목 직후 같은 텍스트를 다시 생성한 경우만 제거한다.
+            value = re.sub(
+                rf"(### {re.escape(heading)})\s+{re.escape(heading)}(?=\s|$)",
+                r"\1", value,
+            )
+
+        # 본문 중간에 붙어 나온 ### / #### 제목을 각각 새 줄로 이동.
         value = re.sub(r"[ \t]+(?=#{2,4}\s+\S)", "\n\n", value)
         value = re.sub(r"(?m)^[ \t]*(#{2,4})[ \t]+", r"\1 ", value)
-        # 고정 제목 뒤에 같은 제목을 일반 텍스트로 반복한 경우 정리한다.
-        for heading in fixed:
-            value = re.sub(rf"(?m)^(### {re.escape(heading)})\n+{re.escape(heading)}(?=\s|$)", r"\1", value)
-        # ##는 상위 ### 섹션 내부에서는 하위 #### 소제목이어야 한다.
-        value = re.sub(r"(?m)^## (공통 성과|기술적 공백|실제 적용상의 조건|후속 연구 기획|분석 한계)\b", r"#### \1", value)
-        # 모델이 ### 제목을 연속 반복하면 중복 한 개만 제거한다.
-        for heading in fixed:
+        value = re.sub(
+            r"(?m)^## (공통 성과|기술적 공백|실제 적용상의 조건|후속 연구 기획|분석 한계)\b",
+            r"#### \1", value,
+        )
+        # 종합 결론의 고정 소제목은 뒤에 문장이 붙어도 정확히 분리.
+        for subheading in ("공통 성과", "기술적 공백", "실제 적용상의 조건", "후속 연구 기획", "분석 한계"):
             value = re.sub(
-                rf"(?m)^(### {re.escape(heading)})\s*\n+(?:{re.escape(heading)}\s*\n+)+",
+                rf"(?m)^(#### {re.escape(subheading)})[ \t]+(?=\S)",
                 r"\1\n\n", value,
             )
-        # 번호가 있는 신흥 연구 후보에서 (1) 본문을 제목과 분리한다.
-        value = re.sub(r"(?m)^(#### [^\n]+?)[ \t]+(?=\(1\)\s)", r"\1\n\n", value)
+        # 제목 뒤 첫 본문 문장이 한 줄에 이어진 경우를 제한적으로 분리.
+        # 한글 문장 도입부만 대상으로 해 영어 기술명·숫자를 임의로 자르지 않는다.
+        intro = (r"한국의|한 연구는|한 연구에서는|두 연구는|두 논문은|"
+                 r"다수의 연구가|현재 문헌은|본 분석은|재생에너지|"
+                 r"풍력[·ㆍ]|태양광|정책 논문은|머신러닝|동적 보상|"
+                 r"핵-재생|공기열|법적[·ㆍ]|기술적 측면에서는|"
+                 r"이 조합은|이 두 연구는|기존 연구는")
+        value = re.sub(
+            rf"(?m)^(#### [^\n]{{6,160}}?)[ \t]+(?=(?:{intro})(?:\s|[가-힣(]))",
+            r"\1\n\n", value,
+        )
+        # 번호로 시작하는 하위 항목도 별도 문단으로 구분.
+        value = re.sub(r"(?m)^(#### [^\n]+?)[ \t]+(?=(?:\(1\)|1\))\s)", r"\1\n\n", value)
+        value = re.sub(r"(?m)(?<!\n)[ \t]+(?=(?:[2-4]\)|\([2-4]\))\s)", "\n\n", value)
         value = re.sub(r"[ \t]+\n", "\n", value)
         return re.sub(r"\n{3,}", "\n\n", value).strip()
 
