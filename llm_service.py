@@ -484,28 +484,13 @@ def clean_analysis_markdown(value):
 
 
 def normalize_analysis_result(result):
-    """기존 API 스키마 유지, 제목 후처리 및 섹션 누락 감지."""
+    """기존 API 스키마 유지, 제목 후처리."""
     overall = result.get("overall_analysis")
     if not isinstance(overall, dict):
         overall = {}
     summary = clean_analysis_markdown(overall.get("summary", ""))
     trend = clean_analysis_markdown(overall.get("trend", ""))
 
-    required_summary = [
-        "### 핵심 연구 흐름 및 주요 성과",
-        "### 연구 간 차별성 및 연계성",
-        "### 종합 결론 및 분석 한계",
-    ]
-    required_trend = [
-        "### 연구동향 및 변화",
-        "### 신흥 연구 후보 및 기술 발전 방향",
-    ]
-    for heading in required_summary:
-        if heading not in summary:
-            print(f"[LLM 출력 경고] 종합분석 필수 섹션 누락: {heading}")
-    for heading in required_trend:
-        if heading not in trend:
-            print(f"[LLM 출력 경고] 연구동향 필수 섹션 누락: {heading}")
     result["overall_analysis"] = {"summary": summary, "trend": trend}
 
     for key, title_key, limit in (("key_topics", "topic", 5), ("implications", "title", 4)):
@@ -550,6 +535,14 @@ def validate_evidence_ids(content, allowed_ids):
         if not ids or any(v not in allowed_ids for v in ids):
             return False
     return True
+
+
+def sanitize_evidence_ids(content, allowed_ids):
+    """존재하지 않는 문헌 ID를 근거로 표시하지 않는다 (주장 진위 검증과는 별개)."""
+    def replace(match):
+        valid = [v.strip() for v in match.group(1).split(",") if v.strip() in allowed_ids]
+        return "[근거: " + ", ".join(valid) + "]" if valid else ""
+    return re.sub(r"\[근거:\s*([^\]]+)\]", replace, content)
 
 
 def get_llm_analysis(
@@ -633,9 +626,9 @@ def get_llm_analysis(
     for row in rows:
         doc_id = row.get("ARTCL_IDNTF")
         doc = make_document_text(row)
-        source_docs.append(f"[자료 ID: {doc_id}]\\n{doc}")
+        source_docs.append(f"[자료 ID: {doc_id}]\n{doc}")
 
-    document_text = "\\n\\n".join(source_docs)
+    document_text = "\n\n".join(source_docs)
 
     shared_rules = f"""
 당신은 대학 연구기획용 근거 기반 학술 분석가다. 입력된 수집 자료만 사용한다.
@@ -726,61 +719,30 @@ implications는 2~4개. 확인된 연구 근거[근거: ID] → 제안하는 연
 topic/title에 숫자, 순번, 마크다운 기호를 절대 넣지 않는다.
 """
 
-    def generate_section(section_key, instruction, required_headings=()):
-        # 섹션 누락/JSON 파싱 실패 시 해당 섹션만 최대 2회 재시도
-        for attempt in range(2):
-            retry_note = (
-                "\\n이전 출력에서 필수 섹션이 누락되거나 JSON이 유효하지 않았다. "
-                "반드시 모든 제목을 채우고 완결된 JSON으로 반환한다."
-                if attempt else ""
-            )
-            try:
-                response = llm.invoke(shared_rules + "\\n" + instruction + retry_note)
-                parsed = parse_section_json(response.content)
-                value = parsed.get(section_key)
-                if section_key in ("summary", "trend"):
-                    value = clean_analysis_markdown(value)
-                    if not value or any(h not in value for h in required_headings):
-                        print(f"[LLM] {section_key} 필수 제목 누락, 재시도 {attempt + 1}/2")
-                        continue
-                    if not validate_evidence_ids(value, allowed_ids):
-                        print(f"[LLM] {section_key} 출처 ID 오류, 재시도 {attempt + 1}/2")
-                        continue
-                    return value
-                if section_key == "extras":
-                    topics = parsed.get("key_topics", [])
-                    implications = parsed.get("implications", [])
-                    if isinstance(topics, list) and isinstance(implications, list):
-                        candidate = {"key_topics": topics, "implications": implications}
-                        if validate_evidence_ids(json.dumps(candidate, ensure_ascii=False), allowed_ids):
-                            return candidate
-            except Exception as exc:
-                print(f"[LLM] {section_key} 생성 실패 ({attempt + 1}/2): {type(exc).__name__}: {exc}")
-        return None
+    def generate_section(section_key, instruction):
+        """섹션별 1회 생성. 제목 누락만으로 결과를 버리지 않는다."""
+        try:
+            response = llm.invoke(shared_rules + "\n" + instruction)
+            parsed = parse_section_json(response.content)
+            if section_key in ("summary", "trend"):
+                value = parsed.get(section_key, "")
+                if not isinstance(value, str):
+                    return ""
+                return sanitize_evidence_ids(clean_analysis_markdown(value), allowed_ids)
+            topics = parsed.get("key_topics", [])
+            implications = parsed.get("implications", [])
+            return {
+                "key_topics": topics if isinstance(topics, list) else [],
+                "implications": implications if isinstance(implications, list) else [],
+            }
+        except Exception as exc:
+            print(f"[LLM] {section_key} 처리 오류: {type(exc).__name__}: {exc}")
+            return "" if section_key in ("summary", "trend") else {}
 
     allowed_ids = {str(row.get("ARTCL_IDNTF")) for row in rows}
-    summary = generate_section(
-        "summary", summary_instruction,
-        ("### 핵심 연구 흐름 및 주요 성과",
-         "### 연구 간 차별성 및 연계성",
-         "### 종합 결론 및 분석 한계"),
-    )
-    trend = generate_section(
-        "trend", trend_instruction,
-        ("### 연구동향 및 변화",
-         "### 신흥 연구 후보 및 기술 발전 방향"),
-    )
-    extras = generate_section("extras", extras_instruction) or {}
-
-    # 누락 시 없는 내용을 채우거나 정상 완료인 척하지 않는다.
-    if summary is None or trend is None:
-        print("[LLM] 필수 분석 생성 실패: 불완전한 분석 결과는 반환하지 않음")
-        return {
-            "overall_analysis": {"summary": "", "trend": ""},
-            "key_topics": [],
-            "implications": [],
-            "error": "필수 분석 섹션 생성 또는 출처 ID 검증 실패",
-        }
+    summary = generate_section("summary", summary_instruction)
+    trend = generate_section("trend", trend_instruction)
+    extras = generate_section("extras", extras_instruction)
 
     result = {
         "overall_analysis": {"summary": summary, "trend": trend},
