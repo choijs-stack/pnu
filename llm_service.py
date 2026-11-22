@@ -511,13 +511,28 @@ def get_llm_analysis(
 {document_text}
 """
 
-    # flow만 길이 제한에 도달하므로 출력 예산을 별도로 확보한다.
-    # 정상 종료하는 comparison/conclusion/trend/extras 설정은 유지한다.
+    # 긴 summary/flow 출력의 생성 토큰 예산을 별도로 확보한다.
     flow_llm = ChatOllama(
         model=model_name,
         base_url=base_url,
         temperature=0.1,
-        num_predict=11000,
+        num_predict=16000,
+    )
+
+    # 비교/결론은 기존 공통 설정 대신 8,000토큰으로 상향한다.
+    summary_llm = ChatOllama(
+        model=model_name,
+        base_url=base_url,
+        temperature=0.1,
+        num_predict=8000,
+    )
+
+    # trend도 출력이 자주 잘려 별도의 생성 토큰 예산을 부여한다.
+    trend_llm = ChatOllama(
+        model=model_name,
+        base_url=base_url,
+        temperature=0.1,
+        num_predict=12000,
     )
 
     # summary만 세 개의 독립 요청으로 분리한다.
@@ -696,16 +711,16 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
             "핵심 연구 흐름 및 주요 성과",
         ),
         ensure_section_heading(
-            tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt)),
+            tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt, model=summary_llm)),
             "연구 간 차별성 및 연계성",
         ),
         ensure_section_heading(
-            tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt)),
+            tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt, model=summary_llm)),
             "종합 결론 및 분석 한계",
         ),
     ]
     summary = "\n\n".join(part for part in summary_parts if part)
-    trend = tidy_markdown(run_text_section("trend", trend_prompt))
+    trend = tidy_markdown(run_text_section("trend", trend_prompt, model=trend_llm))
     extras_raw = run_text_section("topics/implications", extras_prompt)
     extras = parse_llm_json(extras_raw) if extras_raw else None
     if not isinstance(extras, dict):
