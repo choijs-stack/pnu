@@ -10,112 +10,90 @@ from analysis_service import get_analysis_article_ids
 # LLM 응답 JSON 변환
 # =========================================================
 def parse_llm_json(content):
-    """
-    LLM 응답에서 JSON 객체를 추출하여 Python dict로 변환하고
-    필수 JSON 구조가 존재하는지 확인한다.
-    """
-
-    if not content:
+    """JSON을 우선 엄격 파싱하고, 일부 형식 오류만 제한적으로 복구한다."""
+    if not isinstance(content, str) or not content.strip():
+        print("[LLM] 빈 응답")
         return None
 
     content = content.strip()
+    content = re.sub(r"^```(?:json)?\s*", "", content, flags=re.IGNORECASE)
+    content = re.sub(r"\s*```$", "", content)
 
-    # -----------------------------------------------------
-    # Markdown 코드블록 제거
-    #
-    # 예:
-    # ```json
-    # {...}
-    # ```
-    # -----------------------------------------------------
-    content = content.replace("```json", "")
-    content = content.replace("```JSON", "")
-    content = content.replace("```", "")
-    content = content.strip()
+    decoder = json.JSONDecoder()
+    candidates = [content]
+    # 설명 문구가 앞에 있는 경우 첫 JSON 객체부터 시도
+    first_brace = content.find("{")
+    if first_brace > 0:
+        candidates.append(content[first_brace:])
 
-    # -----------------------------------------------------
-    # JSON 객체 시작/끝 위치 추출
-    #
-    # LLM이 JSON 앞뒤에 설명을 붙여도
-    # 첫 번째 { 부터 마지막 } 까지만 파싱한다.
-    # -----------------------------------------------------
-    start = content.find("{")
-    end = content.rfind("}")
+    def parse_candidate(candidate):
+        obj, _ = decoder.raw_decode(candidate.lstrip())
+        return obj if isinstance(obj, dict) else None
 
-    if start == -1 or end == -1 or start >= end:
-        print(
-            "LLM 응답에서 JSON 객체를 찾지 못했습니다."
-        )
+    result = None
+    last_error = None
+    for candidate in candidates:
+        try:
+            result = parse_candidate(candidate)
+            if result is not None:
+                break
+        except json.JSONDecodeError as exc:
+            last_error = exc
 
-        print(
-            "===== LLM RAW RESPONSE ====="
-        )
+    # GPT-OSS가 JSON 문자열 안에 실제 개행을 넣은 경우에만 보정.
+    # JSON 구조를 임의로 완성하거나 내용/숫자를 변경하지 않는다.
+    if result is None:
+        candidate = candidates[-1]
+        fixed = []
+        in_string = False
+        escaped = False
+        for ch in candidate:
+            if in_string:
+                if escaped:
+                    fixed.append(ch)
+                    escaped = False
+                elif ch == "\\":
+                    fixed.append(ch)
+                    escaped = True
+                elif ch == '"':
+                    fixed.append(ch)
+                    in_string = False
+                elif ch == "\n":
+                    fixed.append("\\n")
+                elif ch == "\r":
+                    fixed.append("\\r")
+                elif ch == "\t":
+                    fixed.append("\\t")
+                else:
+                    fixed.append(ch)
+            else:
+                fixed.append(ch)
+                if ch == '"':
+                    in_string = True
+        try:
+            result = parse_candidate("".join(fixed))
+            if result is not None:
+                print("[LLM] JSON 문자열 내부 줄바꿈 보정 후 파싱 성공")
+        except json.JSONDecodeError as exc:
+            last_error = exc
 
-        print(content)
-
-        print(
-            "============================"
-        )
-
+    if result is None:
+        print(f"[LLM] JSON 파싱 실패: {last_error}")
+        print(f"[LLM] 응답 끝부분: {content[-700:]}")
         return None
 
-    json_text = content[start:end + 1]
-
-    # -----------------------------------------------------
-    # JSON 파싱
-    # -----------------------------------------------------
-    try:
-        result = json.loads(json_text)
-
-    except json.JSONDecodeError as e:
-
-        print(
-            f"LLM JSON 파싱 오류: "
-            f"line={e.lineno}, "
-            f"column={e.colno}, "
-            f"message={e.msg}"
-        )
-
-        print(
-            "===== JSON 파싱 대상 ====="
-        )
-
-        print(json_text)
-
-        print(
-            "=========================="
-        )
-
-        return None
-
-    # -----------------------------------------------------
-    # JSON 객체 여부 확인
-    # -----------------------------------------------------
-    if not isinstance(result, dict):
-        print(
-            "LLM 응답이 JSON 객체(dict)가 아닙니다."
-        )
-        return None
-
-    # -----------------------------------------------------
-    # 필수 최상위 key 확인
-    # -----------------------------------------------------
-    required_keys = [
-        "overall_analysis",
-        "key_topics",
-        "implications"
-    ]
-
-    for key in required_keys:
-
-        if key not in result:
-
-            print(
-                f"LLM 응답 필수 key 누락: {key}"
-            )
-
-            return None
-
+    # 일부 필드 누락 때문에 정상 생성된 다른 필드를 폐기하지 않는다.
+    overall = result.get("overall_analysis")
+    if not isinstance(overall, dict):
+        overall = {}
+    result["overall_analysis"] = {
+        "summary": overall.get("summary") if isinstance(overall.get("summary"), str) else "",
+        "trend": overall.get("trend") if isinstance(overall.get("trend"), str) else "",
+    }
+    for key in ("key_topics", "implications"):
+        if not isinstance(result.get(key), list):
+            print(f"[LLM] {key} 누락 또는 자료형 오류: 빈 배열 처리")
+            result[key] = []
     return result
 
 
