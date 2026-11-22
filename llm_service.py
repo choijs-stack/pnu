@@ -494,6 +494,9 @@ def get_llm_analysis(
 - 검색 주제와 무관한 논문은 주요 연구군에서 제외하세요.
 - 논문에 없는 수치, 성능, 실험 조건, 검증 수준, 링크를 만들어내지 마세요.
 - 다른 논문의 실험 결과를 해당 논문의 결과로 옮겨 쓰지 마세요.
+- 수치와 단위는 초록에 명시된 값과 범위, 비교 기준을 그대로 유지하세요. 예: 0.977을 0.98 이상으로 올림하거나 2.30~5.53%를 2% 이하로 바꾸지 마세요.
+- 시뮬레이션, 실험실 실험, 하드웨어 실험, 현장 실증을 구별하고 원문에 명시된 검증을 없었다고 단정하지 마세요.
+- 근거가 있는 개별 논문의 특이한 연구주제도 임의로 누락하지 말되, 검색 주제와의 관련성은 구별하세요.
 - 개별 논문 결과 / 논문 간 비교에 따른 해석 / 후속 연구 제안을 구분하세요.
 - 실제 연도별 비교가 없다면 '증가', '급부상', '최근 전환' 등의 추세를 단정하지 마세요.
 - 근거가 부족한 항목은 과장하지 말고 어떤 추가 검증이 필요한지 설명하세요.
@@ -522,6 +525,7 @@ def get_llm_analysis(
 이용자에게 제공할 상세 학술 분석의 첫 번째 영역만 작성하세요.
 반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
 제목은 반드시 독립된 줄에 쓰고, 제목 다음에 빈 줄을 넣으세요.
+#### 소제목에는 연구군 이름만 쓰고 본문 첫 문장을 같은 줄에 이어 쓰지 마세요.
 각 연구군의 내용을 끝까지 완성하고 문장 중간에 종료하지 마세요.
 
 ### 핵심 연구 흐름 및 주요 성과
@@ -547,6 +551,8 @@ def get_llm_analysis(
 연결했을 때 가능한 연구 질문, 검증되지 않은 부분을
 2개 문단 이상으로 충분히 논의하세요.
 관련성이 약한 연구끼리는 억지로 연결하지 마세요.
+#### 소제목에는 비교할 연구명만 쓰고 본문을 같은 줄에 붙이지 마세요.
+연구명 뒤에 논문 내부 식별번호나 빈 괄호를 붙이지 마세요.
 다른 summary 영역인 '핵심 연구 흐름 및 주요 성과'와
 '종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
 근거가 부족하면 추측으로 분량을 채우지 마세요.
@@ -564,6 +570,7 @@ def get_llm_analysis(
 논문별 요약을 반복하지 말고 전체 자료를 종합하세요.
 논문 초록만으로 실증 여부를 판단할 수 없으면 그 한계를 명시하세요.
 짧은 개요나 두세 문장짜리 결론으로 끝내지 마세요.
+각 소주제(공통 성과, 기술적 공백, 실제 적용상의 조건, 후속 연구 기획, 분석 한계)는 독립된 Markdown 소제목과 문단으로 구분하세요.
 다른 summary 영역은 이번 응답에 작성하지 마세요.
 근거가 부족하면 추측으로 분량을 채우지 마세요.
 """
@@ -579,6 +586,7 @@ def get_llm_analysis(
 각 문단에서 관련 기술의 연구 문제, 서로 다른 접근 방법, 실제 확인된 성과,
 다른 연구와 연결되는 지점, 아직 남은 문제를 구체적으로 설명하세요.
 시간순 발전을 보여주는 자료가 부족하면 기술적 관계와 연구 접근의 차이를 분석하세요.
+같은 발행연월의 논문들 사이에 선후 관계나 증가·감소 추세를 만들어내지 마세요.
 단순히 기술 이름을 나열하거나 '연구가 활발하다'고 단정하지 마세요.
 
 ### 신흥 연구 후보 및 기술 발전 방향
@@ -616,6 +624,9 @@ implications는 4개를 목표로 작성하세요.
 4~5개의 완결된 문장으로 상세히 작성하세요.
 근거가 부족하면 항목 수를 줄이되 빈 문장이나 추측으로 채우지 마세요.
 topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
+- topic과 title은 반드시 자연스러운 한국어 명사형 제목으로 작성하세요.
+- 영어 논문 제목을 복사하거나 영어 문장으로 제목을 만들지 마세요.
+- PV, MPPT, ASHP, V2X 등 기술 약어는 유지해도 되지만 제목의 중심 표현은 한국어여야 합니다.
 응답을 끝까지 완성하는 것이 중요하므로 마지막 JSON 닫는 괄호까지 출력하세요.
 """
 
@@ -659,6 +670,9 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
             )
         for source_id in sorted(source_ids, key=len, reverse=True):
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}(?![0-9A-Za-z])", "", value)
+        # 식별번호만 제거한 자리의 빈 괄호를 정리한다.
+        value = re.sub(r"\(\s*\)", "", value)
+        # 출력 형식만 정리하며 논문 내용이나 수치는 수정하지 않는다.
         # 알려진 고정 섹션 제목은 정확히 분리 (제목 뒤 본문이 붙어도 처리).
         for fixed_heading in (
             "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
@@ -685,10 +699,26 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
         return re.sub(r"\n{3,}", "\n\n", value).strip()
 
     # 다른 섹션이 실패해도 정상 생성된 섹션은 보존한다.
+    def ensure_section_heading(text, heading):
+        if not text:
+            return ""
+        if re.search(rf"(?m)^###\s+{re.escape(heading)}(?:\s|$)", text):
+            return text
+        return f"### {heading}\n\n{text}"
+
     summary_parts = [
-        tidy_markdown(run_text_section("summary/flow", summary_flow_prompt, model=flow_llm)),
-        tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt)),
-        tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt)),
+        ensure_section_heading(
+            tidy_markdown(run_text_section("summary/flow", summary_flow_prompt, model=flow_llm)),
+            "핵심 연구 흐름 및 주요 성과",
+        ),
+        ensure_section_heading(
+            tidy_markdown(run_text_section("summary/comparison", summary_comparison_prompt)),
+            "연구 간 차별성 및 연계성",
+        ),
+        ensure_section_heading(
+            tidy_markdown(run_text_section("summary/conclusion", summary_conclusion_prompt)),
+            "종합 결론 및 분석 한계",
+        ),
     ]
     summary = "\n\n".join(part for part in summary_parts if part)
     trend = tidy_markdown(run_text_section("trend", trend_prompt))
