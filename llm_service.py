@@ -494,7 +494,9 @@ def get_llm_analysis(
 - 검색 주제와 무관한 논문은 주요 연구군에서 제외하세요.
 - 논문에 없는 수치, 성능, 실험 조건, 검증 수준, 링크를 만들어내지 마세요.
 - 다른 논문의 실험 결과를 해당 논문의 결과로 옮겨 쓰지 마세요.
-- 수치와 단위는 초록에 명시된 값과 범위, 비교 기준을 그대로 유지하세요. 예: 0.977을 0.98 이상으로 올림하거나 2.30~5.53%를 2% 이하로 바꾸지 마세요.
+- 논문에 제시된 수치는 측정 대상, 값, 단위, 비교 기준을 함께 유지하세요. 예: 0.977을 0.98 이상으로 올림하지 마세요.
+- 여러 측정값을 하나의 대표값이나 최대·최소값으로 임의 변환하지 마세요. 예: 전류·전압 고조파의 서로 다른 측정값을 하나의 값으로 합치지 마세요.
+- 후속 연구 제안에 필요한 가정이나 수치를 기존 연구의 검증 결과처럼 서술하지 마세요.
 - 시뮬레이션, 실험실 실험, 하드웨어 실험, 현장 실증을 구별하고 원문에 명시된 검증을 없었다고 단정하지 마세요.
 - 근거가 있는 개별 논문의 특이한 연구주제도 임의로 누락하지 말되, 검색 주제와의 관련성은 구별하세요.
 - 개별 논문 결과 / 논문 간 비교에 따른 해석 / 후속 연구 제안을 구분하세요.
@@ -551,7 +553,9 @@ def get_llm_analysis(
 연결했을 때 가능한 연구 질문, 검증되지 않은 부분을
 2개 문단 이상으로 충분히 논의하세요.
 관련성이 약한 연구끼리는 억지로 연결하지 마세요.
-#### 소제목에는 비교할 연구명만 쓰고 본문을 같은 줄에 붙이지 마세요.
+각 연구 조합의 #### 소제목은 두 연구의 차이점이나 연계 방향을 나타내는 한국어 비교 주제 하나로 작성하세요.
+개별 논문의 원제목을 각각 소제목으로 출력하지 마세요.
+#### 소제목과 본문은 서로 다른 줄에 작성하세요.
 연구명 뒤에 논문 내부 식별번호나 빈 괄호를 붙이지 마세요.
 다른 summary 영역인 '핵심 연구 흐름 및 주요 성과'와
 '종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
@@ -653,48 +657,45 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
     def tidy_markdown(value):
         if not value:
             return ""
-        value = re.sub(r"\\(?=#{1,6}\s)", "", value)
         value = value.replace(r"\n", "\n").replace(r"\r", "")
         value = re.sub(r"^```(?:markdown|md|text)?\s*\n?", "", value.strip(), flags=re.I)
         value = re.sub(r"\n?```\s*$", "", value)
         value = re.sub(r"\[근거\s*:\s*\d+\s*\]", "", value)
-        # 숫자만 지우면 '1403032번 논문' -> '번 논문'이 되므로 표현 단위로 교체한다.
+        # 내부 논문 ID만 삭제한다. 본문의 일반 수치나 기술명은 건드리지 않는다.
         for source_id in sorted(source_ids, key=len, reverse=True):
-            value = re.sub(
-                rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*번\s*논문",
-                "해당 연구", value
-            )
-            value = re.sub(
-                rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*논문",
-                "해당 연구", value
-            )
-        for source_id in sorted(source_ids, key=len, reverse=True):
+            value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*번\s*논문", "해당 연구", value)
+            value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*논문", "해당 연구", value)
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}(?![0-9A-Za-z])", "", value)
-        # 식별번호만 제거한 자리의 빈 괄호를 정리한다.
         value = re.sub(r"\(\s*\)", "", value)
-        # 출력 형식만 정리하며 논문 내용이나 수치는 수정하지 않는다.
-        # 알려진 고정 섹션 제목은 정확히 분리 (제목 뒤 본문이 붙어도 처리).
-        for fixed_heading in (
+
+        fixed = (
             "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
             "종합 결론 및 분석 한계", "연구동향 및 변화",
             "신흥 연구 후보 및 기술 발전 방향",
-        ):
+        )
+        # 모델이 제목을 본문에 붙여 쓰거나 백슬래시로 #를 이스케이프해도 분리한다.
+        value = re.sub(r"\\(?=#{1,6}\s)", "", value)
+        for heading in fixed:
             value = re.sub(
-                rf"(?<!#)###\s+{re.escape(fixed_heading)}(?=\s|$)",
-                "\n\n### " + fixed_heading + "\n\n", value,
+                rf"(?:^|\s)#{{3}}\s+{re.escape(heading)}(?=\s|$)",
+                "\n\n### " + heading + "\n\n", value,
             )
-        value = re.sub(r"[ \t]*(?<!#)(#{3,4})[ \t]+", r"\n\n\1 ", value)
-        for heading in (
-            "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
-            "종합 결론 및 분석 한계", "연구동향 및 변화",
-            "신흥 연구 후보 및 기술 발전 방향",
-        ):
+        # 이미 정상인 제목은 유지하면서, 한 줄에 붙은 Markdown 제목을 분리한다.
+        value = re.sub(r"[ \t]+(?=#{2,4}\s+\S)", "\n\n", value)
+        value = re.sub(r"(?m)^[ \t]*(#{2,4})[ \t]+", r"\1 ", value)
+        # 고정 제목 뒤에 같은 제목을 일반 텍스트로 반복한 경우 정리한다.
+        for heading in fixed:
+            value = re.sub(rf"(?m)^(### {re.escape(heading)})\n+{re.escape(heading)}(?=\s|$)", r"\1", value)
+        # ##는 상위 ### 섹션 내부에서는 하위 #### 소제목이어야 한다.
+        value = re.sub(r"(?m)^## (공통 성과|기술적 공백|실제 적용상의 조건|후속 연구 기획|분석 한계)\b", r"#### \1", value)
+        # 모델이 ### 제목을 연속 반복하면 중복 한 개만 제거한다.
+        for heading in fixed:
             value = re.sub(
-                rf"(?m)^###\s+{re.escape(heading)}[ \t]+(?=\S)",
-                "### " + heading + "\n\n",
-                value,
+                rf"(?m)^(### {re.escape(heading)})\s*\n+(?:{re.escape(heading)}\s*\n+)+",
+                r"\1\n\n", value,
             )
-        value = re.sub(r"(?m)^(####[^\n]+?)[ \t]+(?=\(1\)\s)", r"\1\n\n", value)
+        # 번호가 있는 신흥 연구 후보에서 (1) 본문을 제목과 분리한다.
+        value = re.sub(r"(?m)^(#### [^\n]+?)[ \t]+(?=\(1\)\s)", r"\1\n\n", value)
         value = re.sub(r"[ \t]+\n", "\n", value)
         return re.sub(r"\n{3,}", "\n\n", value).strip()
 
