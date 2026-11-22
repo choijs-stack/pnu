@@ -525,7 +525,7 @@ def get_llm_analysis(
     summary_flow_prompt = common + """
 [작성 결과: summary / 핵심 연구 흐름 및 주요 성과]
 이용자에게 제공할 상세 학술 분석의 첫 번째 영역만 작성하세요.
-반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
 제목은 반드시 독립된 줄에 쓰고, 제목 다음에 빈 줄을 넣으세요.
 #### 소제목에는 연구군 이름만 쓰고 본문 첫 문장을 같은 줄에 이어 쓰지 마세요.
 각 연구군의 내용을 끝까지 완성하고 문장 중간에 종료하지 마세요.
@@ -545,7 +545,7 @@ def get_llm_analysis(
     summary_comparison_prompt = common + """
 [작성 결과: summary / 연구 간 차별성 및 연계성]
 이용자에게 제공할 상세 학술 분석의 두 번째 영역만 작성하세요.
-반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
 
 ### 연구 간 차별성 및 연계성
 서로 비교할 실질적인 이유가 있는 3~5개의 연구 조합을 #### 소제목으로 다루세요.
@@ -565,7 +565,7 @@ def get_llm_analysis(
     summary_conclusion_prompt = common + """
 [작성 결과: summary / 종합 결론 및 분석 한계]
 이용자에게 제공할 상세 학술 분석의 세 번째 영역만 작성하세요.
-반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
 
 ### 종합 결론 및 분석 한계
 전체 자료를 가로지르는 공통 성과, 기술적 공백, 실제 적용상의 조건,
@@ -582,7 +582,7 @@ def get_llm_analysis(
     trend_prompt = common + """
 [작성 결과: trend]
 이용자에게 직접 보여줄 상세 연구동향 분석입니다.
-반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.
+반드시 Markdown 본문만 출력하세요. JSON이나 코드블록은 출력하지 마세요.\n[Markdown 형식 규칙] 모든 ###/#### 제목은 한 줄에 제목만 작성하고 바로 뒤에 빈 줄을 넣으세요. 본문은 다음 줄에서 시작하세요. 제목을 중복 출력하지 말고, ### 아래의 하위 제목은 반드시 ####로 작성하세요. 목록 항목도 각각 새 줄에서 시작하세요.
 제목 앞뒤에 빈 줄을 넣으세요.
 
 ### 연구동향 및 변화
@@ -655,66 +655,71 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
     source_ids = {str(row.get("ARTCL_IDNTF")).strip() for row in rows if row.get("ARTCL_IDNTF") is not None}
 
     def tidy_markdown(value):
-        """LLM의 Markdown 표시 형식만 보정한다. 본문 내용과 수치는 수정하지 않는다."""
+        """Markdown 표시만 정규화한다. 수치·문장·분석 결과는 변경하지 않는다."""
         if not value:
             return ""
-        value = value.replace(r"\n", "\n").replace(r"\r", "")
-        value = re.sub(r"^```(?:markdown|md|text)?\s*\n?", "", value.strip(), flags=re.I)
+        value = value.strip().lstrip("\\\n ").replace(r"\n", "\n").replace(r"\r", "")
+        value = re.sub(r"^```(?:markdown|md|text)?\s*\n?", "", value, flags=re.I)
         value = re.sub(r"\n?```\s*$", "", value)
+        value = value.replace(r"\#", "#").replace(r"\*\*", "**")
         value = re.sub(r"\[근거\s*:\s*\d+\s*\]", "", value)
         for source_id in sorted(source_ids, key=len, reverse=True):
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*번\s*논문", "해당 연구", value)
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}\s*논문", "해당 연구", value)
             value = re.sub(rf"(?<![0-9A-Za-z]){re.escape(source_id)}(?![0-9A-Za-z])", "", value)
         value = re.sub(r"\(\s*\)", "", value)
-        # Markdown으로 이스케이프된 제목과 강조만 복구한다.
-        value = re.sub(r"\\(?=#{1,6}\s)", "", value)
-        value = value.replace(r"\*\*", "**")
 
-        fixed = (
+        main_titles = (
             "핵심 연구 흐름 및 주요 성과", "연구 간 차별성 및 연계성",
             "종합 결론 및 분석 한계", "연구동향 및 변화",
             "신흥 연구 후보 및 기술 발전 방향",
         )
-        # 고정 섹션 제목은 위치에 상관없이 별도 줄로 만든다.
-        for heading in fixed:
-            value = re.sub(
-                rf"(?:^|\s)###\s+{re.escape(heading)}(?=\s|$)",
-                "\n\n### " + heading + "\n\n", value,
-            )
-            # 제목 직후 같은 텍스트를 다시 생성한 경우만 제거한다.
-            value = re.sub(
-                rf"(### {re.escape(heading)})\s+{re.escape(heading)}(?=\s|$)",
-                r"\1", value,
-            )
+        conclusion_titles = ("공통 성과", "기술적 공백", "실제 적용상의 조건", "후속 연구 기획", "분석 한계")
+        # 한 줄에 이어 붙은 Markdown 헤더를 분리한다. 순서가 중요하다.
+        value = re.sub(r"(?<!#)(#{1,4})[ \t]+(?=\S)", r"\n\n\1 ", value)
+        for title in main_titles:
+            # LLM이 #/##/### 등 임의의 레벨을 출력해도 최상위는 ###로 통일.
+            value = re.sub(rf"(?m)^\s*#{{1,4}}\s+{re.escape(title)}(?=\s|$)",
+                           "\n\n### " + title + "\n\n", value)
+            # 헤더 바로 뒤에 동일 제목을 한 번 더 출력한 경우.
+            value = re.sub(rf"(### {re.escape(title)})\s+(?:#{{1,4}}\s+)?{re.escape(title)}(?=\s|$)",
+                           r"\1", value)
+        # 최상위 제목을 정리한 뒤 남은 ## 소제목은 ####로 통일.
+        value = re.sub(r"(?m)^## (?!#)", "#### ", value)
+        for title in conclusion_titles:
+            value = re.sub(rf"(?m)^\s*#{{1,4}}\s+{re.escape(title)}(?=\s|$)",
+                           "\n\n#### " + title + "\n\n", value)
 
-        # 본문 중간에 붙어 나온 ### / #### 제목을 각각 새 줄로 이동.
-        value = re.sub(r"[ \t]+(?=#{2,4}\s+\S)", "\n\n", value)
-        value = re.sub(r"(?m)^[ \t]*(#{2,4})[ \t]+", r"\1 ", value)
-        value = re.sub(
-            r"(?m)^## (공통 성과|기술적 공백|실제 적용상의 조건|후속 연구 기획|분석 한계)\b",
-            r"#### \1", value,
+        # GPT-OSS가 제목 다음의 개행을 누락하는 경우를 제한적으로 복구한다.
+        # 본문 시작 신호가 확인된 경우에만 자른다. 추측으로 제목을 번역하거나 삭제하지 않는다.
+        starts = (
+            r"열펌프는|히트펌프는|한국의|한 연구(?:는|에서는)|두 연구(?:는|의)|"
+            r"다수의 연구(?:가|는)|현재 문헌은|본 분석은|재생에너지(?:의|는|를| 발전)|"
+            r"풍력[·ㆍ]|태양광의|정책 논문은|머신러닝을|"
+            r"공기열 히트펌프|법적[·ㆍ]|기술적 측면에서는|"
+            r"이 조합은|이 두 연구는|기존 연구는|"
+            r"배터리 추진|미국의|DFIG 기반|공유 에너지|"
+            r"예측은|MPPT(?:는| 논문은)|전통적 과전류|"
+            r"정책은|V2X는|V2X 연동 스케줄링 논문은|머신러닝 기반 예측 논문은|한편|이들 연구(?:는|의)|"
+            r"여러 연구(?:가|는)|대부분의|수집 자료|초록 수준에서는|"
+            r"공기열 히트펌프에 관한|태양광 발전 분야에서는|"
+            r"풍력 발전과|하이브리드 전력|마지막으로"
         )
-        # 종합 결론의 고정 소제목은 뒤에 문장이 붙어도 정확히 분리.
-        for subheading in ("공통 성과", "기술적 공백", "실제 적용상의 조건", "후속 연구 기획", "분석 한계"):
-            value = re.sub(
-                rf"(?m)^(#### {re.escape(subheading)})[ \t]+(?=\S)",
-                r"\1\n\n", value,
-            )
-        # 제목 뒤 첫 본문 문장이 한 줄에 이어진 경우를 제한적으로 분리.
-        # 한글 문장 도입부만 대상으로 해 영어 기술명·숫자를 임의로 자르지 않는다.
-        intro = (r"한국의|한 연구는|한 연구에서는|두 연구는|두 논문은|"
-                 r"다수의 연구가|현재 문헌은|본 분석은|재생에너지|"
-                 r"풍력[·ㆍ]|태양광|정책 논문은|머신러닝|동적 보상|"
-                 r"핵-재생|공기열|법적[·ㆍ]|기술적 측면에서는|"
-                 r"이 조합은|이 두 연구는|기존 연구는")
+        # 제목과 본문이 같은 줄이면 제목을 한 줄로 떼어낸다.
+        # 최대 120글자 제한으로 긴 본문을 제목으로 잘못 분류하는 일을 방지한다.
         value = re.sub(
-            rf"(?m)^(#### [^\n]{{6,160}}?)[ \t]+(?=(?:{intro})(?:\s|[가-힣(]))",
+            rf"(?m)^(####? [^\n]{{3,120}}?)[ \t]+(?=(?:{starts})(?:[ \t]|[가-힣(]))",
             r"\1\n\n", value,
         )
-        # 번호로 시작하는 하위 항목도 별도 문단으로 구분.
-        value = re.sub(r"(?m)^(#### [^\n]+?)[ \t]+(?=(?:\(1\)|1\))\s)", r"\1\n\n", value)
-        value = re.sub(r"(?m)(?<!\n)[ \t]+(?=(?:[2-4]\)|\([2-4]\))\s)", "\n\n", value)
+        # 번호로 시작하는 후보 설명: (1)~(4), 1)~4)
+        value = re.sub(r"[ \t]+(?=(?:\([1-4]\)|[1-4]\))[ \t]+)", "\n\n", value)
+        # 하위 항목 번호 뒤에 제목과 본문이 붙으면, 가능한 경우 문단만 분리.
+        value = re.sub(r"(?m)^(####? [^\n]+?)[ \t]+(?=\([1-4]\)|[1-4]\))", r"\1\n\n", value)
+        # 결론 항목은 불릿 목록으로 출력되는 경우가 많다.
+        value = re.sub(r"[ \t]+(?=-[ \t]+\*\*)", "\n", value)
+        value = re.sub(r"(?m)^(#{3,4} [^\n]+)[ \t]+(?=-[ \t])", r"\1\n\n", value)
+        # 헤더 직후 빈 줄 확보. 줄 전체가 헤더인 경우만 적용.
+        value = re.sub(r"(?m)^(#{3,4} [^\n]+)\n(?!\n)", r"\1\n\n", value)
         value = re.sub(r"[ \t]+\n", "\n", value)
         return re.sub(r"\n{3,}", "\n\n", value).strip()
 
