@@ -1,4 +1,5 @@
 import json
+import os
 import re
 
 from langchain_ollama import ChatOllama
@@ -167,7 +168,8 @@ def _normalize_blank_lines(value):
 
     LLM이 문단과 (1)(2)(3) 항목을 한 줄 줄바꿈으로만 구분하면 Markdown 렌더러는
     한 문단으로 합쳐 버리고, 문단 바로 다음 줄의 '- 항목'은 목록으로 인식하지 않는다.
-    연속된 목록 항목과 표 행만 붙여 두고 나머지는 모두 빈 줄로 분리한다.
+    상위 목록 항목 사이에는 빈 줄을 넣어 항목 덩어리가 서로 떨어져 보이게 하고,
+    항목과 그 아래 들여쓴 하위 항목(검증/의미/과제), 그리고 표 행끼리만 붙여 둔다.
     """
     out = []
     prev_kind = None
@@ -189,8 +191,9 @@ def _normalize_blank_lines(value):
             line = line.lstrip()
             kind = _classify_line(line)
 
+        is_sub_item = kind == "list" and line[:1] in (" ", "\t")
         tight = (
-            (prev_kind == "list" and kind == "list")
+            (prev_kind == "list" and is_sub_item)
             or (prev_kind == "table" and kind == "table")
         )
         if out and out[-1] != "" and not tight:
@@ -276,6 +279,79 @@ def ensure_section_heading(text, heading):
     return text
 
 
+# 제목 앞 이모지. 프론트가 Markdown 기호(##, **)를 지우거나 CSS로 평문처럼
+# 보여줘도 구조가 눈에 띄도록 일반 문자인 이모지를 제목 앞에 붙인다.
+# 끄려면 _HEADING_EMOJI = False.
+_HEADING_EMOJI = True
+_SECTION_EMOJI = {
+    "핵심 연구 흐름 및 주요 성과": "📚",
+    "연구 간 차별성 및 연계성": "🔗",
+    "종합 결론 및 분석 한계": "📌",
+    "연구동향 및 변화": "📈",
+    "신흥 연구 후보 및 기술 발전 방향": "🌱",
+}
+_SECTION_EMOJI_DEFAULT = "📌"
+_SUBSECTION_EMOJI = {
+    "공통 성과": "✅",
+    "기술적 공백": "⚠️",
+    "실제 적용상의 조건": "🔧",
+    "후속 연구 기획": "🔬",
+    "분석 한계": "📎",
+}
+_SUBSECTION_EMOJI_DEFAULT = "🔹"
+_HEADING_WITH_EMOJI_RE = re.compile(r"^(#{1,6}) (?![\w가-힣\[(\"'“])")  # 이미 이모지·기호로 시작하면 건너뜀
+
+
+def decorate_headings(text):
+    """Markdown 제목 앞에 이모지를 붙인다 (영역 제목/소제목 각각, 중복 적용 안 됨)."""
+    if not text or not _HEADING_EMOJI:
+        return text or ""
+    out = []
+    for line in text.split("\n"):
+        m = re.match(r"^(#{1,6}) (.+)$", line)
+        if not m or _HEADING_WITH_EMOJI_RE.match(line):
+            out.append(line)
+            continue
+        hashes, title = m.group(1), m.group(2).strip()
+        if hashes == _SECTION_LEVEL:
+            emoji = _SECTION_EMOJI.get(title, _SECTION_EMOJI_DEFAULT)
+        else:
+            emoji = _SUBSECTION_EMOJI.get(title, _SUBSECTION_EMOJI_DEFAULT)
+        out.append(f"{hashes} {emoji} {title}")
+    return "\n".join(out)
+
+
+def looks_korean(text, min_ratio=0.5):
+    """출력이 한국어 본문인지 거칠게 판단한다 (한글 글자 수 / (한글+영문자) 비율).
+
+    추론형 모델이 영어 자료를 요약하다 영어 문장으로 새는 경우가 간헐적으로 있어,
+    run_text_section 에서 빈 응답과 같은 방식으로 한 번 재시도할지 결정하는 데 쓴다.
+    """
+    hangul = len(re.findall(r"[가-힣]", text or ""))
+    latin = len(re.findall(r"[A-Za-z]", text or ""))
+    if hangul + latin == 0:
+        return True
+    return hangul / (hangul + latin) >= min_ratio
+
+
+def log_text_block(title, text):
+    """LLM 결과 전문을 로그에 남긴다.
+
+    nohup.out 에서 실제 생성 결과가 어떻게 생겼는지 바로 볼 수 있도록
+    시작/끝 배너 사이에 원문을 그대로 출력한다. 로그가 너무 길면
+    환경변수 LLM_LOG_MAX_CHARS(기본 0 = 제한 없음)로 앞부분만 남길 수 있다.
+    """
+    text = text or ""
+    try:
+        limit = int(os.environ.get("LLM_LOG_MAX_CHARS", "0") or 0)
+    except ValueError:
+        limit = 0
+    shown = text if limit <= 0 or len(text) <= limit else text[:limit] + f"\n... (이하 {len(text) - limit}자 생략)"
+    print(f"[LLM] ----- {title} 시작 ({len(text)}자) -----")
+    print(shown if shown else "(빈 문자열)")
+    print(f"[LLM] ----- {title} 끝 -----")
+
+
 def describe_markdown(text, section=None, head=400):
     """Markdown 문자열이 실제로 어떤 구조로 넘어가는지 로그용 한 줄 요약을 만든다.
 
@@ -293,7 +369,8 @@ def describe_markdown(text, section=None, head=400):
         f"굵게={text.count('**') // 2}쌍"
     )
     if section:
-        idx = text.find(f"{_SECTION_LEVEL} {section}")
+        m = re.search(rf"(?m)^{re.escape(_SECTION_LEVEL)} (?:\S+ )?{re.escape(section)}[ \t]*$", text)
+        idx = m.start() if m else -1
         if idx >= 0:
             sample = text[idx:idx + head].replace("\n", "⏎")
             stats += f"\n    [{section} 원문 앞 {head}자] {sample}"
@@ -334,7 +411,12 @@ def strip_doc_ids(text, doc_ids):
             return "두 연구"
         return "해당 연구들"
 
-    return re.sub(group, _repl, text)
+    text = re.sub(group, _repl, text)
+    # '907791 연구는' -> '해당 연구 연구는' 처럼 뒤에 '연구'가 이어지면 한 번만 남긴다.
+    text = re.sub(r"(해당 연구들?|두 연구)\s+연구(?=[가-힣\s,.:;)]|$)", r"\1", text)
+    # 숫자 뒤에 붙던 조사(은/이/을/과)를 '연구' 뒤에 맞는 형태(는/가/를/와)로 고친다.
+    particle = {"은": "는", "이": "가", "을": "를", "과": "와"}
+    return re.sub(r"(해당 연구|두 연구)(은|이|을|과)(?=[\s,.:;)]|$)", lambda m: m.group(1) + particle[m.group(2)], text)
 
 
 # =========================================================
@@ -777,6 +859,15 @@ def get_llm_analysis(
         num_predict=12000,
     )
 
+    # TOP5/시사점 JSON은 6,500에서 추론 토큰(최대 5천대 관측)에 밀려 잘리면
+    # 파싱이 통째로 실패하므로 12,000으로 올린다.
+    extras_llm = ChatOllama(
+        model=model_name,
+        base_url=base_url,
+        temperature=0.1,
+        num_predict=12000,
+    )
+
     # summary만 세 개의 독립 요청으로 분리한다.
     # 각 요청에 동일한 수집 자료를 전달하되, 한 번에 한 분석 영역만 작성한다.
     FORMAT_RULES = """
@@ -808,6 +899,7 @@ def get_llm_analysis(
 서로 연결하여 2~3개의 충실한 문단으로 분석하세요.
 연구군에 여러 논문이 있으면 공통점과 각 논문의 고유한 기여를 구별하세요.
 논문별 초록을 단순히 줄여 붙인 목록이 되어서는 안 됩니다.
+논문은 ID가 아니라 '군현병합 연구', '기와 규격 연구'처럼 주제나 기술명으로 지칭하세요.
 다른 summary 영역인 '연구 간 차별성 및 연계성'과
 '종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
 근거가 부족하면 추측으로 분량을 채우지 마세요.
@@ -824,7 +916,7 @@ def get_llm_analysis(
 각 연구 조합의 [SUBSECTION] 소제목은 두 연구의 차이점이나 연계 방향을 나타내는 한국어 비교 주제 하나로 작성하세요.
 개별 논문의 원제목을 각각 소제목으로 출력하지 마세요.
 [SUBSECTION] 소제목과 본문은 서로 다른 줄에 작성하세요.
-연구명 뒤에 논문 내부 식별번호나 빈 괄호를 붙이지 마세요.
+연구명 뒤에 논문 내부 식별번호나 빈 괄호를 붙이지 말고, 논문은 주제나 기술명으로 지칭하세요.
 다른 summary 영역인 '핵심 연구 흐름 및 주요 성과'와
 '종합 결론 및 분석 한계'는 이번 응답에 작성하지 마세요.
 근거가 부족하면 추측으로 분량을 채우지 마세요.
@@ -835,55 +927,61 @@ def get_llm_analysis(
     summary_conclusion_prompt = common + FORMAT_RULES + """
 [작성 결과: summary / 종합 결론 및 분석 한계]
 이용자에게 제공할 상세 학술 분석의 세 번째 영역만 작성하세요.
-이 영역은 연구기획과 의사결정에 바로 활용할 수 있도록
-서술 문단 대신 소제목과 글머리 목록으로 구조화하여 작성합니다.
+연구기획과 의사결정에 바로 활용할 수 있도록 서술 문단 대신 소제목과 글머리 목록으로 구조화합니다.
 
 [이 영역의 구조 - 필수]
-소제목, 핵심어, 모든 설명 문장은 한국어로 작성합니다. 수집 자료가 영어라도 영어 문장으로 출력하지 마세요.
+소제목, 첫 줄 명사구, 모든 문장은 수집 자료가 영어로 작성되어 있어도 반드시 한국어로 쓰세요.
+영어는 논문명, 고유명사, 기술 약어(예: DT, MPC, BESS)에만 사용하고 영어 문장으로 항목을 작성하지 마세요.
 대제목은 [SECTION]종합 결론 및 분석 한계[END_TITLE] 하나만 작성하세요.
-아래 다섯 소주제를 이 순서대로 각각 독립된 [SUBSECTION] 소제목으로 작성하고, 소제목에는 번호를 붙이지 마세요.
-- 공통 성과: 전체 자료를 가로지르는 성과를 접근 방법(모델링, 최적화, 제어, 예측, 경제성·정책 분석 등) 단위로 묶어 정리
+아래 다섯 소주제를 이 순서대로 각각 독립된 [SUBSECTION] 소제목으로 작성하고, 소제목에 번호를 붙이지 마세요.
+- 공통 성과: 전체 자료를 가로지르는 성과를 접근 방법(모델링, 최적화, 제어, 예측, 경제성·정책 분석 등) 단위로 정리
 - 기술적 공백: 검증 수준(시뮬레이션, 실험실, 하드웨어, 현장 실증)과 데이터 범위에서 드러나는 미해결 과제
 - 실제 적용상의 조건: 현장 적용에 필요한 규제·정책, 데이터, 인프라·호환성 조건
-- 후속 연구 기획: 공백과 조건에 대응하는 구체적 연구 과제(목표, 방법, 필요 데이터, 검증 방식)
+- 후속 연구 기획: 공백과 조건에 대응하는 구체적 연구 과제
 - 분석 한계: 초록 기반 분석의 한계와 추가로 확인해야 할 사항
-각 소제목의 [CONTENT] 뒤에는 서술 문단을 쓰지 말고 '- '로 시작하는 글머리 목록만 작성하세요.
-각 소주제마다 4~6개의 항목을 작성하고, 항목은 '- **핵심어**: 설명' 형태로
-짧은 한국어 명사구인 핵심어를 굵게 쓴 뒤 3~4개의 완결된 문장으로 충실히 설명하세요.
-항목 설명은 다음 내용을 순서대로 담으세요.
-(1) 사실: 어떤 연구(ID가 아니라 '스마트 트랩 분석 연구'처럼 주제나 기술명으로 지칭)가 어떤 방법과 데이터로 무엇을 보였는지, 수치는 측정 대상·단위·비교 기준과 함께 서술
-(2) 조건: 그 결과가 어떤 검증 수준(시뮬레이션, 실험실, 하드웨어, 현장 실증)과 범위(대상 지역·규모·기간)에서 확인되었는지
-(3) 해석: 같은 자료 안의 다른 연구와 어떻게 연결되거나 대비되는지, 또는 연구기획에서 왜 중요한지
-(4) 과제: 그 항목에서 아직 확인되지 않은 것과 이를 확인하는 데 필요한 데이터나 실험
-분석 한계 항목은 (1) 어떤 정보가 자료에 없는지, (2) 그 때문에 어떤 판단이 불확실한지, (3) 무엇을 확인하면 해소되는지를 담으세요.
-'이는 ~을 시사한다', '~의 필요성을 보여준다', '~이 요구된다'처럼 새로운 정보가 없는 일반적인 문장으로 항목을 채우거나 끝내지 마세요.
-'이 연구는 문헌 검토를 통해 수행되었다'처럼 앞 문장의 방법을 되풀이하기만 하는 문장도 쓰지 말고, 조건 문장에는 데이터 규모·기간·대상을 함께 쓰세요.
+각 소제목의 [CONTENT] 뒤에는 서술 문단 없이 '- '로 시작하는 글머리 목록만 작성하세요.
+소주제마다 4~6개의 항목을 쓰고, 항목 하나는 첫 줄 하나와 두 칸 들여쓴 하위 항목 정확히 세 개로 구성합니다(그 아래 단계는 만들지 마세요).
+첫 줄: '- **' 뒤에 그 항목의 내용을 나타내는 한국어 명사구(연구 주제나 기술명을 포함한 3~8단어)를 굵게 쓰고, ':' 뒤에
+어떤 연구(ID가 아니라 '스마트 트랩 분석 연구'처럼 주제나 기술명으로 지칭)가 어떤 방법과 데이터로 무엇을 보였는지 1~2문장을 씁니다. 수치는 측정 대상·단위·비교 기준과 함께 쓰세요.
+하위 항목 세 줄: 두 칸 들여쓴 '- ' 뒤에 굵은 라벨과 ':'를 쓰고 완결된 문장 하나를 씁니다.
+  검증 = 어떤 검증 수준(시뮬레이션, 실험실, 하드웨어, 현장 실증)과 범위(대상 지역·규모·기간 중 하나 이상)에서 확인되었는지
+  의미 = 같은 자료 안의 다른 연구와 어떻게 연결되거나 대비되는지, 또는 연구기획에서 왜 중요한지
+  과제 = 아직 확인되지 않은 것과 이를 확인하는 데 필요한 데이터나 실험
+첫 줄의 명사구는 '모델링', '최적화' 같은 분류 이름이 아니라 항목 내용을 드러내는 표현이어야 합니다.
+항목은 연구 성과·공백·조건 하나 단위로 묶고, 같은 연구의 여러 수치는 한 항목의 첫 줄에 함께 쓰세요.
+하위 항목 라벨은 소주제에 따라 바꿉니다. 후속 연구 기획은 **목표** / **방법·데이터** / **검증·지표**, 분석 한계는 **없는 정보** / **영향** / **해소 방법**, 나머지는 **검증** / **의미** / **과제**.
+모든 문장은 주어와 서술어가 있는 완결된 서술형 문장으로 쓰고, '현장 데이터 분석.', '~필요.'처럼 명사구로 끊지 마세요.
+'이는 ~을 시사한다', '~이 요구된다', '이 연구는 문헌 검토를 통해 수행되었다'처럼 새 정보가 없거나 앞 문장을 되풀이하는 문장은 쓰지 마세요.
 모든 문장은 연구 대상, 방법, 조건, 수치, 비교 대상, 구체적 과제 중 하나 이상의 새 정보를 담아야 합니다.
-후속 연구 기획의 항목은 연구 목표, 방법, 필요한 데이터, 검증 방식, 평가 지표가 모두 드러나도록 작성하세요.
-설명 문장은 '~도출.', '~필요.'처럼 명사형으로 끊지 말고 완결된 서술형 문장으로 쓰세요.
-문장을 늘리기 위해 자료에 없는 수치·비율·표준명·기관명을 추가하지 말고,
-자료가 효과를 수치 없이 서술했다면 '구체적 수치는 제시되지 않았다'고 밝히세요.
-핵심어는 '모델링', '최적화'처럼 분류 이름을 그대로 쓰지 말고 해당 항목의 내용을 드러내는 명사구로 작성하세요.
-핵심어와 설명 문장은 수집 자료가 영어로 작성되어 있어도 반드시 한국어로 작성하세요.
-영어는 논문명, 고유명사, 기술 약어(예: DT, MPC, BESS)에만 사용하고 영어 문장으로 항목을 작성하지 마세요.
-항목 끝이나 연구명 뒤에 논문 내부 식별번호, 괄호 안 숫자 ID, [근거: 숫자]를 붙이지 말고 기술명이나 연구 대상으로 근거를 밝히세요.
-설명에는 근거가 되는 기술명, 수치(측정 대상·단위·비교 기준 포함), 검증 수준을 담아
-목록으로 압축하더라도 분석의 구체성이 떨어지지 않도록 하세요.
+자료에 없는 수치·비율·표준명·기관명을 추가하지 말고, 자료가 효과를 수치 없이 서술했다면 '구체적 수치는 제시되지 않았다'고 밝히세요.
+논문 내부 식별번호, 괄호 안 숫자 ID, [근거: 숫자]는 쓰지 말고 기술명이나 연구 대상으로 근거를 밝히세요.
 항목마다 한 가지 주제만 다루고, 소주제 간에 같은 내용을 반복하지 마세요.
-논문별 요약을 반복하지 말고 전체 자료를 종합하세요.
-논문 초록만으로 실증 여부를 판단할 수 없으면 그 한계를 명시하세요.
-다른 summary 영역은 이번 응답에 작성하지 마세요.
-근거가 부족하면 추측으로 항목 수를 채우지 마세요.
-출력 전에 모든 소제목, 핵심어, 설명 문장이 한국어인지 확인하고, 영어 문장이 있으면 한국어로 바꿔 출력하세요.
+논문별 요약을 반복하지 말고 전체 자료를 종합하며, 초록만으로 실증 여부를 판단할 수 없으면 그 한계를 명시하세요.
+다른 summary 영역은 이번 응답에 작성하지 마세요. 근거가 부족하면 추측으로 항목 수를 채우지 마세요.
+검색 주제와 관련된 논문이 없거나 1~2편뿐이면 4~6개 항목을 억지로 채우거나 '없음'만 반복하지 마세요.
+그 경우 공통 성과에는 '관련 연구 없음' 항목 하나만 쓰고 하위 항목에 수집된 논문들의 실제 주제가 무엇인지, 왜 검색 주제와 어긋났는지(예: 동음이의어), 수집 조건을 어떻게 바꿔야 하는지를 쓰세요.
+기술적 공백·실제 적용상의 조건·후속 연구 기획에는 각각 '판단 불가' 항목 하나만 쓰고, 분석 한계에만 자료 부족의 영향과 해소 방법을 2~3개 항목으로 쓰세요.
+출력 전에 모든 소제목, 핵심어, 문장이 한국어인지 확인하고, 영어 문장이 있으면 한국어로 바꿔 출력하세요.
 
-[이 영역의 형식 예시 - 형식만 따르고 내용은 복사하지 마세요]
+[이 영역의 형식 예시 - 형식만 따르세요. 예시는 가로수 연구라는 무관한 주제로 쓴 것이므로 주제·수치·문장을 그대로 쓰지 말고 실제 자료 내용으로 채우세요]
 [SECTION]종합 결론 및 분석 한계[END_TITLE]
 [SUBSECTION]공통 성과[END_TITLE][CONTENT]
-- **핵심어**: 어떤 연구가 어떤 방법과 데이터로 무엇을 보였는지 수치와 함께 쓴 사실 문장. 어떤 검증 수준과 범위에서 확인되었는지 쓴 조건 문장. 다른 연구와의 연결이나 연구기획상 중요성을 쓴 해석 문장. 아직 확인되지 않은 것과 필요한 검증을 쓴 과제 문장.
-- **핵심어**: 사실 문장. 조건 문장. 해석 문장. 과제 문장.
+- **토양 수분 기반 가로수 생장 예측**: 가로수 생장 예측 연구는 토양 수분과 일조 시간을 입력으로 한 회귀 모델로 연간 수고 증가량의 예측 오차를 18%에서 9%로 줄였다.
+  - **검증**: 이 결과는 한 도시 3개 구역의 2년간 측정 자료를 사용한 시뮬레이션에서 확인되었고, 다른 기후대는 다루지 않았다.
+  - **의미**: 같은 자료의 수종별 생장 비교 연구와 결합하면 수종과 환경 변수를 함께 고려한 예측이 가능해진다.
+  - **과제**: 기후대가 다른 도시의 다년간 측정 자료로 예측 오차가 유지되는지 확인해야 한다.
 
-[SUBSECTION]기술적 공백[END_TITLE][CONTENT]
-- **핵심어**: 어떤 연구에서 어떤 검증이 빠져 있는지 쓴 사실 문장. 그 공백이 어떤 범위와 조건에서 생기는지 쓴 조건 문장. 다른 연구 결과와 대비해 왜 문제가 되는지 쓴 해석 문장. 무엇을 어떻게 확인해야 하는지 쓴 과제 문장.
+[SUBSECTION]후속 연구 기획[END_TITLE][CONTENT]
+- **다기후대 가로수 생장 예측 실증**: 생장 예측 모델이 기후대가 다른 도시에서도 오차 10% 이내를 유지하는지 검증하는 연구이다.
+  - **목표**: 기후대별 예측 오차 차이를 정량화하고 모델 재학습이 필요한지 판단한다.
+  - **방법·데이터**: 기후대가 다른 3개 도시의 3년간 수고·토양 수분·일조 자료로 모델을 재학습하고 원 모델과 비교한다.
+  - **검증·지표**: 보류 검증 집합의 평균 절대 오차와 기후대별 오차 분산으로 평가한다.
+
+[SUBSECTION]분석 한계[END_TITLE][CONTENT]
+- **토양 수분 측정 조건 미기재**: 초록에는 토양 수분의 측정 깊이와 측정 주기가 적혀 있지 않다.
+  - **없는 정보**: 측정 깊이, 측정 주기, 결측 처리 방식이 제시되지 않았다.
+  - **영향**: 다른 지역 자료와 비교할 때 오차 차이가 모델 때문인지 측정 조건 때문인지 판단할 수 없다.
+  - **해소 방법**: 원문의 방법 절과 데이터 설명을 확인하면 해소된다.
 """
 
     trend_prompt = common + FORMAT_RULES + """
@@ -908,6 +1006,9 @@ def get_llm_analysis(
 예상 효과는 검증된 사실이 아닌 연구 가설로 표현하세요.
 
 중요: 간략한 요약 대신 연구기획에 활용할 수 있는 상세 분석을 작성하세요.
+검색 주제와 관련된 논문이 없거나 1~2편뿐이면 일반 지식으로 동향이나 연구 후보를 지어내지 마세요.
+그 경우 '연구동향 및 변화'에는 수집된 논문들의 실제 주제와 검색 주제가 어긋난 이유(예: 동음이의어), 수집 조건 개선 방향만 쓰고,
+'신흥 연구 후보 및 기술 발전 방향'에는 [SUBSECTION]판단 불가[END_TITLE] 하나만 두고 근거 자료가 확보된 뒤 다시 분석해야 함을 쓰세요.
 """
 
     extras_prompt = common + """
@@ -941,14 +1042,32 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
     # 모델이 출력에 섞을 수 있는 논문 내부 ID 목록 (strip_doc_ids 용)
     doc_ids = [row.get("ARTCL_IDNTF") for row in rows if row.get("ARTCL_IDNTF")]
 
-    def run_text_section(name, prompt, model=None):
+    def run_text_section(name, prompt, model=None, check_korean=True, retry_on_truncate=False):
         try:
-            response = (model or llm).invoke(prompt)
-            raw = response.content if isinstance(response.content, str) else str(response.content or "")
-            raw = raw.strip()
-            meta = getattr(response, "response_metadata", {}) or {}
-            done = meta.get("done_reason", meta.get("finish_reason", "unknown"))
-            print(f"[LLM] {name} 응답: {len(raw)}자, done_reason={done}")
+            raw, done = "", "unknown"
+            # 추론형 모델(gpt-oss 등)이 생성 예산을 추론에 모두 써서 본문이 비거나,
+            # 영어 자료를 따라 영어 문장으로 새는 경우가 간헐적으로 있어 그때만 한 번 더 호출한다.
+            # 정상 응답에는 추가 비용이 없다.
+            for attempt in (1, 2):
+                response = (model or llm).invoke(prompt)
+                raw = response.content if isinstance(response.content, str) else str(response.content or "")
+                raw = raw.strip()
+                meta = getattr(response, "response_metadata", {}) or {}
+                done = meta.get("done_reason", meta.get("finish_reason", "unknown"))
+                print(f"[LLM] {name} 응답: {len(raw)}자, done_reason={done}" + (" (재시도)" if attempt == 2 else ""))
+                if attempt == 2:
+                    break
+                if not raw:
+                    print(f"[LLM] {name} 경고: 본문이 비어 있어 한 번 재시도함 (done_reason={done})")
+                    continue
+                if check_korean and not looks_korean(raw):
+                    print(f"[LLM] {name} 경고: 본문이 한국어가 아니어서 한 번 재시도함")
+                    continue
+                if retry_on_truncate and done in ("length", "max_tokens"):
+                    # JSON 출력은 잘리면 파싱이 확실히 실패하므로 한 번 더 시도한다.
+                    print(f"[LLM] {name} 경고: 출력 한도 도달로 잘려 한 번 재시도함")
+                    continue
+                break
             if done in ("length", "max_tokens"):
                 print(f"[LLM] {name} 경고: 출력 한도 도달로 응답이 잘렸을 수 있음")
             if raw.startswith("```"):
@@ -957,7 +1076,9 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
             cleaned = strip_doc_ids(raw, doc_ids)
             if cleaned != raw:
                 print(f"[LLM] {name} 경고: 출력에 논문 내부 ID가 포함되어 제거함")
-            return cleaned.strip()
+            cleaned = cleaned.strip()
+            log_text_block(f"{name} 모델 응답 원문", cleaned)
+            return cleaned
         except Exception as exc:
             print(f"[LLM] {name} 생성 실패: {type(exc).__name__}: {exc}")
             return ""
@@ -976,9 +1097,12 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
             "종합 결론 및 분석 한계",
         ),
     ]
-    summary = "\n\n".join(part for part in summary_parts if part)
-    trend = tidy_markdown(run_text_section("trend", trend_prompt, model=trend_llm))
-    extras_raw = run_text_section("topics/implications", extras_prompt)
+    summary = decorate_headings("\n\n".join(part for part in summary_parts if part))
+    trend = decorate_headings(tidy_markdown(run_text_section("trend", trend_prompt, model=trend_llm)))
+    extras_raw = run_text_section(
+        "topics/implications", extras_prompt, model=extras_llm,
+        check_korean=False, retry_on_truncate=True,
+    )
     extras = parse_llm_json(extras_raw) if extras_raw else None
     if not isinstance(extras, dict):
         extras = {}
@@ -1015,7 +1139,9 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
         f"topics={len(result['key_topics'])}건, "
         f"implications={len(result['implications'])}건"
     )
-    # 프론트 표시 문제를 가를 수 있도록 생성 직후의 Markdown 구조를 남긴다.
+    # 프론트 표시 문제를 가를 수 있도록 생성 직후의 Markdown 구조와 최종 전문을 남긴다.
     print(f"[LLM][MD] summary 생성 직후: {describe_markdown(summary, section='종합 결론 및 분석 한계')}")
     print(f"[LLM][MD] trend 생성 직후: {describe_markdown(trend)}")
+    log_text_block("최종 summary Markdown (프론트 전달 형태)", summary)
+    log_text_block("최종 trend Markdown (프론트 전달 형태)", trend)
     return result
