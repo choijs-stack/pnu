@@ -907,7 +907,6 @@ def get_collected_articles(
                 a.SRC_NM,
                 a.JRNL_NM,
                 a.PBLCN_YM,
-                a.FWCI,
                 a.SUBJECT,
                 a.ABST
             FROM CLCT_ARTCL a
@@ -1032,9 +1031,6 @@ def get_collected_articles(
 
                 "publication_ym":
                     row["PBLCN_YM"],
-
-                "fwci":
-                    row["FWCI"],
 
                 "subject":
                     row["SUBJECT"],
