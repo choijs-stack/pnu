@@ -135,10 +135,15 @@ _HEADING_RE = re.compile(
 _LIST_ITEM_RE = re.compile(r"^[ \t]*(?:[-*+]|\d{1,3}[.)])[ \t]+\S")
 _HEADING_LINE_RE = re.compile(r"^#{1,6}[ \t]+\S")
 
+# 출력 Markdown의 제목 레벨. 프론트에서 더 눈에 띄게 보이도록 영역 제목은 ##,
+# 소제목은 ###를 쓴다. 더 키우려면 두 상수만 바꾸면 된다(예: "#", "##").
+_SECTION_LEVEL = "##"
+_SUBSECTION_LEVEL = "###"
+
 
 def _heading_repl(match):
     kind = match.group("kind").upper()
-    level = "####" if kind.startswith("SUB") else "###"
+    level = _SUBSECTION_LEVEL if kind.startswith("SUB") else _SECTION_LEVEL
     title = " ".join(match.group("title").split()).strip(" *_\"'“”:：")
     if not title:
         return "\n\n"
@@ -215,16 +220,16 @@ def tidy_markdown(value):
     value = re.sub(_TITLE_END, "\n", value, flags=re.I)
     value = re.sub(rf"{_SECTION_OPEN_ANY}[ \t]*", "\n", value, flags=re.I)
 
-    # 모델이 직접 쓴 Markdown 제목은 레벨을 ###/####로 통일한다.
-    value = re.sub(r"(?m)^[ \t]{0,3}#{1,2}[ \t]+", "### ", value)
-    value = re.sub(r"(?m)^[ \t]{0,3}#{5,}[ \t]*", "#### ", value)
-    value = re.sub(r"(?m)^[ \t]{0,3}(#{3,4})(?=[^#\s])", r"\1 ", value)
-    # '### **제목**' -> '### 제목'
-    value = re.sub(r"(?m)^(#{3,4}) (?:\*\*|__)(.+?)(?:\*\*|__)[ \t]*$", r"\1 \2", value)
+    # 모델이 직접 쓴 Markdown 제목은 레벨을 영역 제목/소제목 두 단계로 통일한다.
+    # (#, ## -> 영역 제목, ### 이상 -> 소제목)
+    value = re.sub(r"(?m)^[ \t]{0,3}#{1,2}[ \t]+", f"{_SECTION_LEVEL} ", value)
+    value = re.sub(r"(?m)^[ \t]{0,3}#{3,}[ \t]*", f"{_SUBSECTION_LEVEL} ", value)
+    # '## **제목**' -> '## 제목'
+    value = re.sub(r"(?m)^(#{1,6}) (?:\*\*|__)(.+?)(?:\*\*|__)[ \t]*$", r"\1 \2", value)
     # 한 줄 전체가 굵게 처리된 짧은 구절(문장부호로 끝나지 않음)은 소제목으로 본다.
     value = re.sub(
         r"(?m)^[ \t]*(?:\*\*|__)([^\n*_]{1,80}?)(?<![.!?。])(?:\*\*|__)[ \t]*:?[ \t]*$",
-        r"#### \1", value,
+        rf"{_SUBSECTION_LEVEL} \1", value,
     )
     # 구분선(---, ===)은 앞 문단을 setext 제목으로 바꿔 버리므로 제거한다.
     value = re.sub(r"(?m)^[ \t]*(?:-{3,}|={3,}|\*{3,}|_{3,})[ \t]*$", "", value)
@@ -239,7 +244,7 @@ def ensure_section_heading(text, heading):
     """summary 영역별 결과의 최상위 제목을 지정한 영역 제목 하나로 통일한다.
 
     모델이 [SECTION] 제목을 조금 다르게 쓰거나 소제목에 [SECTION]을 쓴 경우
-    ### 제목이 중복되지 않도록, 첫 ###는 영역 제목으로 바꾸고 나머지 ###는 ####로 내린다.
+    영역 제목이 중복되지 않도록, 첫 영역 제목은 지정한 제목으로 바꾸고 나머지는 소제목으로 내린다.
     다른 섹션이 실패해도 정상 생성된 섹션은 보존한다.
     """
     if not text:
@@ -249,7 +254,7 @@ def ensure_section_heading(text, heading):
     body_started = False
     kept = []
     for line in lines:
-        m = re.match(r"^### (.+)$", line)
+        m = re.match(rf"^{_SECTION_LEVEL} (.+)$", line)
         if not m:
             if line.strip():
                 body_started = True
@@ -257,18 +262,44 @@ def ensure_section_heading(text, heading):
             continue
         title = m.group(1).strip()
         if not first_done and not body_started:
-            kept.append(f"### {heading}")
+            kept.append(f"{_SECTION_LEVEL} {heading}")
             first_done = True
         elif title == heading:
             # 영역 제목이 본문 중간에 다시 나오면 중복이므로 제거한다.
             continue
         else:
-            kept.append(f"#### {title}")
+            kept.append(f"{_SUBSECTION_LEVEL} {title}")
     text = "\n".join(kept)
     text = re.sub(r"\n{3,}", "\n\n", text).strip()
     if not first_done:
-        text = f"### {heading}\n\n{text}"
+        text = f"{_SECTION_LEVEL} {heading}\n\n{text}"
     return text
+
+
+def describe_markdown(text, section=None, head=400):
+    """Markdown 문자열이 실제로 어떤 구조로 넘어가는지 로그용 한 줄 요약을 만든다.
+
+    프론트에서 제목·목록·굵게 표시가 보이지 않을 때, 백엔드가 기호를 내보냈는지
+    (## / ### / '- ' / **) 로그만으로 확인할 수 있게 한다. section 을 주면
+    해당 영역 제목부터 head 글자를 원문 그대로(줄바꿈은 ⏎로) 덧붙인다.
+    """
+    text = text or ""
+    lines = text.split("\n")
+    stats = (
+        f"{len(text)}자, "
+        f"제목 {_SECTION_LEVEL}={sum(1 for l in lines if l.startswith(_SECTION_LEVEL + ' '))}개 "
+        f"{_SUBSECTION_LEVEL}={sum(1 for l in lines if l.startswith(_SUBSECTION_LEVEL + ' '))}개, "
+        f"목록 항목={sum(1 for l in lines if _LIST_ITEM_RE.match(l))}개, "
+        f"굵게={text.count('**') // 2}쌍"
+    )
+    if section:
+        idx = text.find(f"{_SECTION_LEVEL} {section}")
+        if idx >= 0:
+            sample = text[idx:idx + head].replace("\n", "⏎")
+            stats += f"\n    [{section} 원문 앞 {head}자] {sample}"
+        else:
+            stats += f"\n    [{section}] 영역 제목을 찾지 못함"
+    return stats
 
 
 def strip_doc_ids(text, doc_ids):
@@ -984,4 +1015,7 @@ topic과 title에 숫자, 글머리표, ** 표시를 넣지 마세요.
         f"topics={len(result['key_topics'])}건, "
         f"implications={len(result['implications'])}건"
     )
+    # 프론트 표시 문제를 가를 수 있도록 생성 직후의 Markdown 구조를 남긴다.
+    print(f"[LLM][MD] summary 생성 직후: {describe_markdown(summary, section='종합 결론 및 분석 한계')}")
+    print(f"[LLM][MD] trend 생성 직후: {describe_markdown(trend)}")
     return result
